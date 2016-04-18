@@ -1,0 +1,202 @@
+module controleAcces{
+
+typedef string Heure;
+typedef string Jour;
+
+typedef string Matricule;
+typedef long Empreinte;
+
+typedef struct cle{
+  long long cle;
+} cleStruct;
+
+typedef struct personne{
+  Matricule matricule;
+  string nom;
+  string prenom;
+  string photo;
+  string mdp;
+} personneStruct;
+
+
+
+/******************** ANNUAIRE ********************/
+interface annuaire{
+
+  /********** Types *****/
+	
+  typedef sequence<personneStruct> listePersonne;
+
+  /********** Exceptions *****/
+
+  exception loginIncorrectException{
+	string message;
+  };
+  exception mdpIdentiqueException{
+	string message;
+  };
+  exception personneInexistanteException{
+	string message;
+  };
+
+  /********** Méthodes *****/
+
+  /*
+   * Vérifie des données d'identification.
+   * Retourne une clé permettant d’accéder aux services nécessitant une authentification.
+   */
+  cleStruct authentification(in Matricule matricule, in string mdp)
+	  raises (loginIncorrectException);
+
+  /*
+   * Modification de mot de passe pour les employés permanents uniquement.
+   * La clé provient d'un appel à authentification().
+   */
+  boolean modificationMdp(in cleStruct cle, in Matricule matricule, in string nouveauMdp)
+	  raises (mdpIdentiqueException);
+
+  /*
+   * Recherche d'un employé par matricule et/ou nom et/ou prenom.
+   * Peut retourner plusieurs personnes.
+   */
+  listePersonne rechercherPersonne(in Matricule matricule, in string nom, in string prenom)
+	  raises (personneInexistanteException);
+
+  /*
+   * Permet de chercher un employé à partir de son matricule.
+   *
+   */
+  personneStruct validerIdentite(in Matricule matricule)
+	  raises(personneInexistanteException);
+
+  /*
+   * Ajouter un nouvel employé permanent : fournir nom, prenom, photo
+   *   -> dans une structure Personne incomplète.
+   * Calcul automatique et renvoi du matricule (incrémental) et du mot de passe
+   *   -> dans une structure Personne complète.
+   */
+  personneStruct ajouterPermanent(in personneStruct p);
+
+  /*
+   * Ajouter un nouvel employé temporaire : fournir nom, prenom, photo
+   *   -> dans une structure Personne incomplète.
+   * Calcul automatique et renvoi du matricule (incrémental)
+   *   -> dans une structure Personne presque complète (pas de mot de passe)
+   */
+  personneStruct ajouterTemporaire(in personneStruct p);
+
+};
+
+/******************** AUTORISATEUR ********************/
+
+interface autorisateur{
+
+  /********** Types *****/
+
+  typedef struct autorisationP{
+	  Matricule matricule;
+	  Heure heureD;
+	  Heure heureF;
+  } autorisationPStruct;
+
+  typedef struct autorisationT{
+	  Matricule matricule;
+	  Heure heureD;
+	  Heure heureF;
+	  Jour jourD;
+	  Jour jourF;
+  } autorisationTStruct;
+
+  /********** Exceptions *****/
+
+  exception conflitAutorisationException{
+	  string message;
+  };
+
+  exception autorisationRefuseeException{
+	  string message;
+	  Heure heure;
+  };
+
+  /********** Méthodes *****/
+
+  /*
+   * Ajouter une autorisation pour un employé permanent.
+   */
+  boolean ajouterAutorisationP(in cleStruct cle, in autorisationPStruct autorisation)
+	  raises (conflitAutorisationException);
+
+  /*
+   * Ajouter une autorisation pour une employé temporaire.
+   */
+  boolean ajouterAutorisationT(in cleStruct cle, in autorisationTStruct autorisation)
+	  raises (conflitAutorisationException);
+
+  /*
+   * Vérifie s'il existe une autorisation d'accès à une zone pour un employé.
+   */
+  boolean validerAutorisation(in Matricule matricule)
+	  raises (autorisationRefuseeException);
+
+};
+
+/******************** COFFREFORT ********************/
+
+interface coffreFort{
+
+  /********** Exceptions *****/
+
+  exception empreinteInconnueException{
+	  string message;
+  };
+
+  /********** Méthodes *****/
+
+  /*
+   * Permet de récupérer le matricule d'un employé à partir de son empreinte.
+   */
+  Matricule validerEmpreinte(in cleStruct cle, in Empreinte empreinte)
+	  raises (empreinteInconnueException);
+
+  /*
+   * Permet d'ajouter ou de modifier l'empreinte d'un employé permanent.
+   */
+  boolean modificationEmpreinte(in cleStruct cle, in Empreinte empreinte, in Matricule matricule);
+
+  /*
+   * Permet d'ajouter l'empreinte d'un employé temporaire.
+   */
+  boolean ajouterEmpreinteTemp(in cleStruct cle, in Empreinte empreinte, in Matricule matricule);
+
+  /*
+   * Permet de supprimer l'empreinte d'un employé temporaire.
+   */
+  boolean supprimerEmpreinteTemp(in cleStruct cle, in Matricule matricule);
+
+};
+
+/******************** JOURNAL ********************/
+
+interface journal{
+
+  /********** Types *****/
+
+  typedef struct date{
+	  long timestamp;
+  } dateStruct;
+
+  /********** Méthodes *****/
+
+  /*
+   * Log d'une acceptation/refus d'accès d'une personne après une identification réussie.
+   */
+  oneway void loguer(in Matricule matricule, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+
+  /*
+   * Log d'un échec d'identification.
+   */
+  oneway void loguerInconnu(in Empreinte empreinte, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+
+};
+
+};
