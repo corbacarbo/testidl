@@ -71,11 +71,13 @@ public class AnnuaireImpl implements annuaireOperations {
   }
 
   /**
-   *
-   * @param matricule
-   * @param mdp
-   * @return
-   * @throws loginIncorrect
+   * Vérification des données d'identification des employés permanents et de 
+   * l'accueil (accueil : A FAIRE).
+   * 
+   * @param matricule d'un employé permanent ou login partagé de l'accueil
+   * @param mdp d'un employé permanent ou du login partagé de l'accueil
+   * @return une cle pour autoriser l'appel de méthodes protégées
+   * @throws loginIncorrectException 
    */
   @Override
   public cle authentification(String matricule, String mdp) throws loginIncorrectException {
@@ -83,8 +85,11 @@ public class AnnuaireImpl implements annuaireOperations {
 	PersonnePermanent p;
 
 	try {
+    // Recherche si le matricule correspond à un employé permanent
 	  p = getPersonnePermanent(matricule);
+    
 	  mdpEgaux(mdp, p.getMdp());
+    
 	} catch (personneInexistanteException ex) {
 	  System.out.println("--Echec d'authentification: personne inexistante - " + matricule
 			  + "::" + mdp);
