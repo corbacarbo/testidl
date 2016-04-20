@@ -1,4 +1,4 @@
-package annuaire;
+package testidl.annuaire;
 
 import controleAcces.annuairePOATie;
 import java.util.logging.Level;

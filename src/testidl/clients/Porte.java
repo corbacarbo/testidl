@@ -1,4 +1,4 @@
-package client;
+package testidl.clients;
 
 import controleAcces.annuairePackage.loginIncorrectException;
 import java.util.logging.Level;

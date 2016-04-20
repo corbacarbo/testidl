@@ -1,4 +1,4 @@
-package annuaire;
+package testidl.annuaire;
 
 import controleAcces.annuaireOperations;
 import controleAcces.annuairePackage.loginIncorrectException;

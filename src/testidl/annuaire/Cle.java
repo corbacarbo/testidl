@@ -1,4 +1,4 @@
-package annuaire;
+package testidl.annuaire;
 
 import controleAcces.cle;
 import java.util.Random;
