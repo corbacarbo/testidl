@@ -1,16 +1,16 @@
 module controleAcces{
 
 typedef string Heure;
+
 typedef string Jour;
 
 typedef string Matricule;
+
 typedef long Empreinte;
 
-typedef struct cle{
-  long long cle;
-} cleStruct;
+typedef long long Cle;
 
-typedef struct personne{
+typedef struct personneIdl{
   Matricule matricule;
   string nom;
   string prenom;
@@ -19,6 +19,25 @@ typedef struct personne{
 } personneStruct;
 
 
+/******************** AUTHENTIFICATEUR ********************/
+interface authentificateur{
+
+  /********** Types *****/
+
+  /********** Exceptions *****/
+
+  exception sessionInvalidException{
+    string message;
+  };
+
+  /********** Méthodes *****/
+
+  Cle startSession();
+
+  void valideSession(in Cle cleIdl)
+    raises (sessionInvalidException);
+
+};
 
 /******************** ANNUAIRE ********************/
 interface annuaire{
@@ -30,13 +49,15 @@ interface annuaire{
   /********** Exceptions *****/
 
   exception loginIncorrectException{
-	string message;
+    string message;
   };
+
   exception mdpIdentiqueException{
-	string message;
+    string message;
   };
+
   exception personneInexistanteException{
-	string message;
+    string message;
   };
 
   /********** Méthodes *****/
@@ -45,28 +66,28 @@ interface annuaire{
    * Vérifie des données d'identification.
    * Retourne une clé permettant d’accéder aux services nécessitant une authentification.
    */
-  cleStruct authentification(in Matricule matricule, in string mdp)
+  Cle authentification(in Matricule matriculeIdl, in string mdp)
 	  raises (loginIncorrectException);
 
   /*
    * Modification de mot de passe pour les employés permanents uniquement.
    * La clé provient d'un appel à authentification().
    */
-  boolean modificationMdp(in cleStruct cle, in Matricule matricule, in string nouveauMdp)
+  boolean modificationMdp(in Cle cleIdl, in Matricule matriculeIdl, in string nouveauMdp)
 	  raises (mdpIdentiqueException);
 
   /*
    * Recherche d'un employé par matricule et/ou nom et/ou prenom.
    * Peut retourner plusieurs personnes.
    */
-  listePersonne rechercherPersonne(in Matricule matricule, in string nom, in string prenom)
+  listePersonne rechercherPersonne(in Matricule matriculeIdl, in string nom, in string prenom)
 	  raises (personneInexistanteException);
 
   /*
    * Permet de chercher un employé à partir de son matricule.
    *
    */
-  personneStruct validerIdentite(in Matricule matricule)
+  personneStruct validerIdentite(in Matricule matriculeIdl)
 	  raises(personneInexistanteException);
 
   /*
@@ -123,19 +144,19 @@ interface autorisateur{
   /*
    * Ajouter une autorisation pour un employé permanent.
    */
-  boolean ajouterAutorisationP(in cleStruct cle, in autorisationPStruct autorisation)
+  void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisation)
 	  raises (conflitAutorisationException);
 
   /*
    * Ajouter une autorisation pour une employé temporaire.
    */
-  boolean ajouterAutorisationT(in cleStruct cle, in autorisationTStruct autorisation)
+  void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisation)
 	  raises (conflitAutorisationException);
 
   /*
    * Vérifie s'il existe une autorisation d'accès à une zone pour un employé.
    */
-  boolean validerAutorisation(in Matricule matricule)
+  void autoriser(in Matricule matriculeIdl)
 	  raises (autorisationRefuseeException);
 
 };
@@ -155,23 +176,23 @@ interface coffreFort{
   /*
    * Permet de récupérer le matricule d'un employé à partir de son empreinte.
    */
-  Matricule validerEmpreinte(in cleStruct cle, in Empreinte empreinte)
+  Matricule validerEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl)
 	  raises (empreinteInconnueException);
 
   /*
    * Permet d'ajouter ou de modifier l'empreinte d'un employé permanent.
    */
-  boolean modificationEmpreinte(in cleStruct cle, in Empreinte empreinte, in Matricule matricule);
+  boolean modificationEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl);
 
   /*
    * Permet d'ajouter l'empreinte d'un employé temporaire.
    */
-  boolean ajouterEmpreinteTemp(in cleStruct cle, in Empreinte empreinte, in Matricule matricule);
+  boolean ajouterEmpreinteTemp(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl);
 
   /*
    * Permet de supprimer l'empreinte d'un employé temporaire.
    */
-  boolean supprimerEmpreinteTemp(in cleStruct cle, in Matricule matricule);
+  boolean supprimerEmpreinteTemp(in Cle cleIdl, in Matricule matriculeIdl);
 
 };
 
@@ -180,22 +201,38 @@ interface coffreFort{
 interface journal{
 
   /********** Types *****/
-
+	
   typedef struct date{
 	  long timestamp;
   } dateStruct;
+
+  typedef struct demandeIdl{
+    Matricule matricule;
+    dateStruct dateHeure;
+    long idZone;
+    long idPorte;
+    string statut;
+    long type;
+  } demandeStruct;
+
+  typedef sequence<demandeStruct> listeDemande;
 
   /********** Méthodes *****/
 
   /*
    * Log d'une acceptation/refus d'accès d'une personne après une identification réussie.
    */
-  oneway void loguer(in Matricule matricule, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+  oneway void loguer(in Matricule matriculeIdl, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
 
   /*
    * Log d'un échec d'identification.
    */
-  oneway void loguerInconnu(in Empreinte empreinte, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+  oneway void loguerInconnu(in Empreinte empreinteIdl, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+
+  /*
+   * Consultation des demandes à partir d'un matricule.
+   */
+  listeDemande consulter(in Matricule matriculeIdl);
 
 };
 

@@ -1,12 +1,15 @@
 package testidl.annuaire;
 
+import testidl.Cle;
+import testidl.Personne;
+import testidl.PersonnePermanent;
 import controleAcces.annuaireOperations;
 import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.mdpIdentiqueException;
 import controleAcces.annuairePackage.personneInexistanteException;
-import controleAcces.cle;
-import controleAcces.personne;
+import controleAcces.personneIdl;
 import java.util.HashMap;
+import testidl.Matricule;
 
 public class AnnuaireImpl implements annuaireOperations {
 
@@ -65,17 +68,18 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Vérification des données d'identification des employés permanents et de
    * l'accueil (accueil : A FAIRE).
-   *
-   * @param matricule d'un employé permanent ou login partagé de l'accueil
-   * @param mdp d'un employé permanent ou du login partagé de l'accueil
-   * @return une cle pour autoriser l'appel de méthodes protégées
-   * @throws loginIncorrectException
+   * 
+   * @param matriculeIdl
+   * @param mdp
+   * @return
+   * @throws loginIncorrectException 
    */
   @Override
-  public cle authentification(String matricule, String mdp) throws loginIncorrectException {
+  public long authentification(String matriculeIdl, String mdp) throws loginIncorrectException {
     Cle cle;
     PersonnePermanent p;
-
+    Matricule matricule = new Matricule(matriculeIdl);
+    
     try {
       // Recherche si le matricule correspond à un employé permanent
       p = getPersonnePermanent(matricule);
@@ -94,32 +98,33 @@ public class AnnuaireImpl implements annuaireOperations {
     cle = new Cle();
     System.out.println("++Authentification réussie - " + matricule
             + "::" + mdp + " - " + cle);
-    return cle.toCle();
+    return cle.toCleIdl();
   }
 
   @Override
-  public boolean modificationMdp(cle cle, String matricule, String nouveauMdp) throws mdpIdentiqueException {
+  public boolean modificationMdp(long cle, String matricule, String nouveauMdp) throws mdpIdentiqueException {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
-  public personne[] rechercherPersonne(String matricule, String nom, String prenom) throws personneInexistanteException {
+  public personneIdl[] rechercherPersonne(String matricule, String nom, String prenom) throws personneInexistanteException {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
-  public personne validerIdentite(String matricule) throws personneInexistanteException {
+  public personneIdl validerIdentite(String matricule) throws personneInexistanteException {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
-  public personne ajouterPermanent(personne p) {
+  public personneIdl ajouterPermanent(personneIdl p) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
-  public personne ajouterTemporaire(personne p) {
+  public personneIdl ajouterTemporaire(personneIdl p) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
+ 
 }

@@ -1,33 +1,32 @@
-package testidl.annuaire;
+package testidl;
 
-import controleAcces.cle;
 import java.util.Random;
 
 public class Cle {
 
   private long cle;
 
-  private static final Random generateur = new Random(System.currentTimeMillis());
+  private static final Random GENERATEUR = new Random(System.currentTimeMillis());
 
   public Cle() {
 	initCle();
   }
 
   private void initCle() {
-	cle = generateur.nextLong();
+	cle = GENERATEUR.nextLong();
   }
 
   public long getCle() {
 	return cle;
   }
 
-  public cle toCle() {
-	return new cle(cle);
+  public long toIdl() {
+	return cle;
   }
 
   @Override
   public String toString() {
-	return "Cle:" + cle + ':';
+	return "Cle{ " + cle + " }";
   }
 
   public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package testidl.annuaire;
+package testidl;
 
 public class PersonneTemporaire extends Personne{
 
