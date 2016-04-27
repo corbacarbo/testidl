@@ -13,14 +13,12 @@ public class CorbaUtil {
 
   protected org.omg.CORBA.ORB orb;
   protected org.omg.CosNaming.NamingContext namingService;
-  protected org.omg.PortableServer.POA rootPOA;
 
   public CorbaUtil() {
 	try {
 	  orb = org.omg.CORBA.ORB.init(new String[0], null);
 	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
 			  orb.resolve_initial_references("NameService"));
-	  rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 
 	} catch (InvalidName ex) {
 	  Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);

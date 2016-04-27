@@ -3,6 +3,7 @@ package testidl.annuaire;
 import controleAcces.annuairePOATie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.InvalidName;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
@@ -28,12 +29,15 @@ public class EntiteAnnuaire extends Entite {
 
 	  byte[] annuaireId = rootPOA.activate_object(annuaireTie);
 
-	  rootPOA.the_POAManager().activate();
+    
+    
+	   NameComponent[] nom = new NameComponent[1];
+     nom[0] = new NameComponent("annuaire", "");
 
-	  namingService.rebind(nameToRegister(), rootPOA.servant_to_reference(annuaireTie));
-	  System.out.println("Service enregistré: " + nameToRegister()[0]);
+	  namingService.rebind(nom, rootPOA.servant_to_reference(annuaireTie));
+	  System.out.println("Service enregistré: " + nom[0]);
 
-	} catch (ServantAlreadyActive | WrongPolicy | AdapterInactive ex) {
+	} catch (ServantAlreadyActive | WrongPolicy ex) {
 	  Logger.getLogger(EntiteAnnuaire.class.getName()).log(Level.SEVERE, null, ex);
 	} catch (NotFound ex) {
 	  Logger.getLogger(EntiteAnnuaire.class.getName()).log(Level.SEVERE, null, ex);

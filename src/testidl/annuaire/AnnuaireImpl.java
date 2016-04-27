@@ -14,7 +14,7 @@ import testidl.Matricule;
 public class AnnuaireImpl implements annuaireOperations {
 
   /* Le paramètre String est le matricule de Personne */
-  private HashMap<String, Personne> annuaire;
+  private HashMap<Matricule, Personne> annuaire;
   private HashMap<String, String> loginInfo;
 
   public AnnuaireImpl() {
@@ -22,28 +22,37 @@ public class AnnuaireImpl implements annuaireOperations {
     remplirAnnuaire();
   }
 
-  private void remplirAnnuaire(){
+  private void remplirAnnuaire() {
     annuaire = DataExample.extractPersonnesFromFile("src/testidl/annuaire/listePersonne.txt");
     afficher();
     loginInfo = new HashMap<>();
     loginInfo.put("accueil", "accueil");
   }
-  
+
   /**
    * Cherche un employé permanent dans l'annuaire.
    *
    * @param matricule
    * @return
    */
-  private PersonnePermanent getPersonnePermanent(String matricule)
+  private PersonnePermanent getPersonnePermanent(Matricule matricule)
           throws personneInexistanteException {
     Personne p = annuaire.get(matricule);
-    if (p != null && p.isPermanent()) {
+    if (p != null) {
       return (PersonnePermanent) p;
     } else {
       throw new personneInexistanteException("Matricule " + matricule
               + " introuvable pour un employé permanent");
     }
+  }
+
+  private String getMdpLoginInfo(String login)
+          throws personneInexistanteException {
+    String res = loginInfo.get(login);
+    if (res == null) {
+      throw new personneInexistanteException("");
+    }
+    return res;
   }
 
   /**
@@ -68,23 +77,28 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Vérification des données d'identification des employés permanents et de
    * l'accueil (accueil : A FAIRE).
-   * 
+   *
    * @param matriculeIdl
    * @param mdp
    * @return
-   * @throws loginIncorrectException 
+   * @throws loginIncorrectException
    */
   @Override
   public long authentification(String matriculeIdl, String mdp) throws loginIncorrectException {
     Cle cle;
     PersonnePermanent p;
     Matricule matricule = new Matricule(matriculeIdl);
-    
-    try {
-      // Recherche si le matricule correspond à un employé permanent
-      p = getPersonnePermanent(matricule);
+    String motDePasse;
 
-      mdpEgaux(mdp, p.getMdp());
+    try {
+      if (matricule.isPermanent()) {
+        p = getPersonnePermanent(matricule);
+        motDePasse = p.getMdp();
+      } else {
+        motDePasse = loginInfo.get(matriculeIdl);
+      }
+
+      mdpEgaux(mdp, motDePasse);
 
     } catch (personneInexistanteException ex) {
       System.out.println("--Echec d'authentification: personne inexistante - " + matricule
@@ -98,7 +112,7 @@ public class AnnuaireImpl implements annuaireOperations {
     cle = new Cle();
     System.out.println("++Authentification réussie - " + matricule
             + "::" + mdp + " - " + cle);
-    return cle.toCleIdl();
+    return cle.toIdl();
   }
 
   @Override
@@ -126,5 +140,4 @@ public class AnnuaireImpl implements annuaireOperations {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
- 
 }

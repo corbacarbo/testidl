@@ -1,9 +1,15 @@
 package testidl;
 
-public class PersonneTemporaire extends Personne{
+import controleAcces.personneIdl;
 
-    public PersonneTemporaire(String matricule, String nom, String prenom) {
-        super(matricule, nom, prenom);
-    }
-    
+public class PersonneTemporaire extends Personne {
+
+  public PersonneTemporaire(Matricule matricule, String nom, String prenom) {
+    super(matricule, nom, prenom);
+  }
+
+  public personneIdl toIdl() {
+    return new personneIdl(matricule.toString(), nom, prenom, "", "");
+  }
+
 }

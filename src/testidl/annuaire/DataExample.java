@@ -11,12 +11,13 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import testidl.Matricule;
 
 public class DataExample {
 
-  public static HashMap<String, Personne> extractPersonnesFromFile(String filename) {
+  public static HashMap<Matricule, Personne> extractPersonnesFromFile(String filename) {
 
-    HashMap<String, Personne> res = new HashMap<>();
+    HashMap<Matricule, Personne> res = new HashMap<>();
 
     try {
       InputStream file = new FileInputStream(filename);
@@ -42,15 +43,15 @@ public class DataExample {
     Personne p;
     
     String[] mots = line.split(";");
-    String matricule = mots[0];
+    Matricule matricule = new Matricule(mots[0]);
     String prenom = mots[1];
     String nom = mots[2];
     
-    if(matricule.startsWith("p")){
+    if(matricule.isPermanent()){
       String mdp = mots[3];
       p = new PersonnePermanent(mdp, matricule, nom, prenom);
     }
-    else if(matricule.startsWith("t")){
+    else if(matricule.isTemporaire()){
       p = new PersonneTemporaire(matricule, nom, prenom);
     }
     else{
