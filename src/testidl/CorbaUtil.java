@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.POA;
@@ -15,14 +16,15 @@ public class CorbaUtil {
   protected org.omg.CosNaming.NamingContext namingService;
 
   public CorbaUtil() {
-	try {
-	  orb = org.omg.CORBA.ORB.init(new String[0], null);
-	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-			  orb.resolve_initial_references("NameService"));
 
-	} catch (InvalidName ex) {
-	  Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
-	}
+	  orb = org.omg.CORBA.ORB.init(new String[0], null);
+
+//	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
+//			  orb.resolve_initial_references("NameService"));
+
+	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
+			  orb.string_to_object("corbaloc:iiop:1.2@SP3win:2001/NameService"));
+
   }
 
   protected org.omg.CORBA.Object resolve(String stringToFind)

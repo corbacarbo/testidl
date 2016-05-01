@@ -24,7 +24,7 @@ public class Porte extends Client {
   }
 
   public void authentifier() {
-	String matricule = "accueill";
+	String matricule = "accueil";
 	String mdp = "accueil";
 
 	try {
