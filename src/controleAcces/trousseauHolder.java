@@ -1,58 +1,58 @@
 package controleAcces;
 
 /**
- * Holder class for : authentificateur
+ * Holder class for : trousseau
  * 
  * @author OpenORB Compiler
  */
-final public class authentificateurHolder
+final public class trousseauHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal authentificateur value
+     * Internal trousseau value
      */
-    public controleAcces.authentificateur value;
+    public controleAcces.trousseau value;
 
     /**
      * Default constructor
      */
-    public authentificateurHolder()
+    public trousseauHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public authentificateurHolder(controleAcces.authentificateur initial)
+    public trousseauHolder(controleAcces.trousseau initial)
     {
         value = initial;
     }
 
     /**
-     * Read authentificateur from a marshalled stream
+     * Read trousseau from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = authentificateurHelper.read(istream);
+        value = trousseauHelper.read(istream);
     }
 
     /**
-     * Write authentificateur into a marshalled stream
+     * Write trousseau into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        authentificateurHelper.write(ostream,value);
+        trousseauHelper.write(ostream,value);
     }
 
     /**
-     * Return the authentificateur TypeCode
+     * Return the trousseau TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return authentificateurHelper.type();
+        return trousseauHelper.type();
     }
 
 }

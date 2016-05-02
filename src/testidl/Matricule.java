@@ -78,7 +78,6 @@ public class Matricule implements Comparable<Matricule>{
   public int hashCode() {
     int hash = 5;
     hash = 71 * hash + Objects.hashCode(this.matricule);
-    System.out.println(hash);
     return hash;
   }
   

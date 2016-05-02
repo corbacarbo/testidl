@@ -1,26 +1,26 @@
 package controleAcces;
 
 /**
- * Interface definition : authentificateur
+ * Interface definition : trousseau
  * 
  * @author OpenORB Compiler
  */
-public abstract class authentificateurPOA extends org.omg.PortableServer.Servant
-        implements authentificateurOperations, org.omg.CORBA.portable.InvokeHandler
+public abstract class trousseauPOA extends org.omg.PortableServer.Servant
+        implements trousseauOperations, org.omg.CORBA.portable.InvokeHandler
 {
-    public authentificateur _this()
+    public trousseau _this()
     {
-        return authentificateurHelper.narrow(_this_object());
+        return trousseauHelper.narrow(_this_object());
     }
 
-    public authentificateur _this(org.omg.CORBA.ORB orb)
+    public trousseau _this(org.omg.CORBA.ORB orb)
     {
-        return authentificateurHelper.narrow(_this_object(orb));
+        return trousseauHelper.narrow(_this_object(orb));
     }
 
     private static String [] _ids_list =
     {
-        "IDL:controleAcces/authentificateur:1.0"
+        "IDL:controleAcces/trousseau:1.0"
     };
 
     public String[] _all_interfaces(org.omg.PortableServer.POA poa, byte [] objectId)
@@ -69,10 +69,15 @@ public abstract class authentificateurPOA extends org.omg.PortableServer.Servant
             _output = handler.createReply();
 
         }
-        catch (controleAcces.authentificateurPackage.sessionInvalidException _exception)
+        catch (controleAcces.trousseauPackage.sessionInvalidException _exception)
         {
             _output = handler.createExceptionReply();
-            controleAcces.authentificateurPackage.sessionInvalidExceptionHelper.write(_output,_exception);
+            controleAcces.trousseauPackage.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.trousseauPackage.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.trousseauPackage.sessionExpireeExceptionHelper.write(_output,_exception);
         }
         return _output;
     }

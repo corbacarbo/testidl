@@ -11,31 +11,24 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
-import testidl.Entite;
+import testidl.CorbaEntite;
 
-public class EntiteAnnuaire extends Entite {
+public class EntiteAnnuaire extends CorbaEntite {
 
   public EntiteAnnuaire() {
 	super();
-	createServant();
   }
 
   @Override
   public void createServant() {
 	try {
-	  AnnuaireImpl annuaire = new AnnuaireImpl();
+	  AnnuaireImpl annuaire = new AnnuaireImpl(this);
 
 	  annuairePOATie annuaireTie = new annuairePOATie(annuaire);
 
 	  byte[] annuaireId = rootPOA.activate_object(annuaireTie);
 
-    
-    
-	   NameComponent[] nom = new NameComponent[1];
-     nom[0] = new NameComponent("annuaire", "");
-
-	  namingService.rebind(nom, rootPOA.servant_to_reference(annuaireTie));
-	  System.out.println("Service enregistré: " + nom[0]);
+	  rebind("annuaire", rootPOA.servant_to_reference(annuaireTie));
 
 	} catch (ServantAlreadyActive | WrongPolicy ex) {
 	  Logger.getLogger(EntiteAnnuaire.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,8 +45,8 @@ public class EntiteAnnuaire extends Entite {
   }
 
   public static void main(String[] args) {
-	EntiteAnnuaire ea = new EntiteAnnuaire();
-	ea.startEntite();
+	EntiteAnnuaire e = new EntiteAnnuaire();
+	e.startEntite();
   }
 
 }

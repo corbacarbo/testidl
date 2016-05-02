@@ -19,8 +19,8 @@ typedef struct personneIdl{
 } personneStruct;
 
 
-/******************** AUTHENTIFICATEUR ********************/
-interface authentificateur{
+/******************** TROUSSEAU ********************/
+interface trousseau{
 
   /********** Types *****/
 
@@ -30,12 +30,16 @@ interface authentificateur{
     string message;
   };
 
+  exception sessionExpireeException{
+	string message;
+  };
+
   /********** Méthodes *****/
 
   Cle startSession();
 
   void valideSession(in Cle cleIdl)
-    raises (sessionInvalidException);
+    raises (sessionInvalidException, sessionExpireeException);
 
 };
 

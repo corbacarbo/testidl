@@ -1,11 +1,11 @@
-package controleAcces.authentificateurPackage;
+package controleAcces.trousseauPackage;
 
 /**
- * Exception definition : sessionInvalidException
+ * Exception definition : sessionExpireeException
  * 
  * @author OpenORB Compiler
  */
-public final class sessionInvalidException extends org.omg.CORBA.UserException
+public final class sessionExpireeException extends org.omg.CORBA.UserException
 {
     /**
      * Exception member message
@@ -15,18 +15,18 @@ public final class sessionInvalidException extends org.omg.CORBA.UserException
     /**
      * Default constructor
      */
-    public sessionInvalidException()
+    public sessionExpireeException()
     {
-        super(sessionInvalidExceptionHelper.id());
+        super(sessionExpireeExceptionHelper.id());
     }
 
     /**
      * Constructor with fields initialization
      * @param message message exception member
      */
-    public sessionInvalidException(String message)
+    public sessionExpireeException(String message)
     {
-        super(sessionInvalidExceptionHelper.id());
+        super(sessionExpireeExceptionHelper.id());
         this.message = message;
     }
 
@@ -34,9 +34,9 @@ public final class sessionInvalidException extends org.omg.CORBA.UserException
      * Full constructor with fields initialization
      * @param message message exception member
      */
-    public sessionInvalidException(String orb_reason, String message)
+    public sessionExpireeException(String orb_reason, String message)
     {
-        super(sessionInvalidExceptionHelper.id() +" " +  orb_reason);
+        super(sessionExpireeExceptionHelper.id() +" " +  orb_reason);
         this.message = message;
     }
 

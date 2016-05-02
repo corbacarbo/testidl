@@ -1,16 +1,16 @@
 package controleAcces;
 
 /**
- * Interface definition : authentificateur
+ * Interface definition : trousseau
  * 
  * @author OpenORB Compiler
  */
-public class _authentificateurStub extends org.omg.CORBA.portable.ObjectImpl
-        implements authentificateur
+public class _trousseauStub extends org.omg.CORBA.portable.ObjectImpl
+        implements trousseau
 {
     static final String[] _ids_list =
     {
-        "IDL:controleAcces/authentificateur:1.0"
+        "IDL:controleAcces/trousseau:1.0"
     };
 
     public String[] _ids()
@@ -18,7 +18,7 @@ public class _authentificateurStub extends org.omg.CORBA.portable.ObjectImpl
      return _ids_list;
     }
 
-    private final static Class _opsClass = controleAcces.authentificateurOperations.class;
+    private final static Class _opsClass = controleAcces.trousseauOperations.class;
 
     /**
      * Operation startSession
@@ -56,7 +56,7 @@ public class _authentificateurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("startSession",_opsClass);
                 if (_so == null)
                    continue;
-                controleAcces.authentificateurOperations _self = (controleAcces.authentificateurOperations) _so.servant;
+                controleAcces.trousseauOperations _self = (controleAcces.trousseauOperations) _so.servant;
                 try
                 {
                     return _self.startSession();
@@ -73,7 +73,7 @@ public class _authentificateurStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation valideSession
      */
     public void valideSession(long cleIdl)
-        throws controleAcces.authentificateurPackage.sessionInvalidException
+        throws controleAcces.trousseauPackage.sessionInvalidException, controleAcces.trousseauPackage.sessionExpireeException
     {
         while(true)
         {
@@ -94,9 +94,14 @@ public class _authentificateurStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
-                    if (_exception_id.equals(controleAcces.authentificateurPackage.sessionInvalidExceptionHelper.id()))
+                    if (_exception_id.equals(controleAcces.trousseauPackage.sessionInvalidExceptionHelper.id()))
                     {
-                        throw controleAcces.authentificateurPackage.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                        throw controleAcces.trousseauPackage.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.trousseauPackage.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.trousseauPackage.sessionExpireeExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
@@ -111,7 +116,7 @@ public class _authentificateurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("valideSession",_opsClass);
                 if (_so == null)
                    continue;
-                controleAcces.authentificateurOperations _self = (controleAcces.authentificateurOperations) _so.servant;
+                controleAcces.trousseauOperations _self = (controleAcces.trousseauOperations) _so.servant;
                 try
                 {
                     _self.valideSession( cleIdl);

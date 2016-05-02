@@ -8,17 +8,22 @@ import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.mdpIdentiqueException;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.personneIdl;
+import controleAcces.trousseau;
 import java.util.HashMap;
+import testidl.CorbaEntite;
 import testidl.Matricule;
 
 public class AnnuaireImpl implements annuaireOperations {
 
+  private CorbaEntite serveur;
+  
   /* Le paramètre String est le matricule de Personne */
   private HashMap<Matricule, Personne> annuaire;
   private HashMap<String, String> loginInfo;
 
-  public AnnuaireImpl() {
+  public AnnuaireImpl(CorbaEntite s) {
     super();
+	serveur = s;
     remplirAnnuaire();
   }
 
@@ -109,7 +114,9 @@ public class AnnuaireImpl implements annuaireOperations {
               + "::" + mdp);
       throw new loginIncorrectException("Matricule introuvable ou ne correspondant pas à un employé permanent.");
     }
-    cle = new Cle();
+	
+	trousseau t = serveur.resolveTrousseau();
+    cle = new Cle(t.startSession());
     System.out.println("++Authentification réussie - " + matricule
             + "::" + mdp + " - " + cle);
     return cle.toIdl();

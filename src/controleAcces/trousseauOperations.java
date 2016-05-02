@@ -1,11 +1,11 @@
 package controleAcces;
 
 /**
- * Interface definition : authentificateur
+ * Interface definition : trousseau
  * 
  * @author OpenORB Compiler
  */
-public interface authentificateurOperations
+public interface trousseauOperations
 {
     /**
      * Operation startSession
@@ -16,6 +16,6 @@ public interface authentificateurOperations
      * Operation valideSession
      */
     public void valideSession(long cleIdl)
-        throws controleAcces.authentificateurPackage.sessionInvalidException;
+        throws controleAcces.trousseauPackage.sessionInvalidException, controleAcces.trousseauPackage.sessionExpireeException;
 
 }

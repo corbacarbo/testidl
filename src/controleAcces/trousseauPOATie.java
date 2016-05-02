@@ -1,17 +1,17 @@
 package controleAcces;
 
 /**
- * Interface definition : authentificateur
+ * Interface definition : trousseau
  * 
  * @author OpenORB Compiler
  */
-public class authentificateurPOATie extends authentificateurPOA
+public class trousseauPOATie extends trousseauPOA
 {
 
     //
     // Private reference to implementation object
     //
-    private authentificateurOperations _tie;
+    private trousseauOperations _tie;
 
     //
     // Private reference to POA
@@ -21,7 +21,7 @@ public class authentificateurPOATie extends authentificateurPOA
     /**
      * Constructor
      */
-    public authentificateurPOATie(authentificateurOperations tieObject)
+    public trousseauPOATie(trousseauOperations tieObject)
     {
         _tie = tieObject;
     }
@@ -29,7 +29,7 @@ public class authentificateurPOATie extends authentificateurPOA
     /**
      * Constructor
      */
-    public authentificateurPOATie(authentificateurOperations tieObject, org.omg.PortableServer.POA poa)
+    public trousseauPOATie(trousseauOperations tieObject, org.omg.PortableServer.POA poa)
     {
         _tie = tieObject;
         _poa = poa;
@@ -38,7 +38,7 @@ public class authentificateurPOATie extends authentificateurPOA
     /**
      * Get the delegate
      */
-    public authentificateurOperations _delegate()
+    public trousseauOperations _delegate()
     {
         return _tie;
     }
@@ -46,7 +46,7 @@ public class authentificateurPOATie extends authentificateurPOA
     /**
      * Set the delegate
      */
-    public void _delegate(authentificateurOperations delegate_)
+    public void _delegate(trousseauOperations delegate_)
     {
         _tie = delegate_;
     }
@@ -74,7 +74,7 @@ public class authentificateurPOATie extends authentificateurPOA
      * Operation valideSession
      */
     public void valideSession(long cleIdl)
-        throws controleAcces.authentificateurPackage.sessionInvalidException
+        throws controleAcces.trousseauPackage.sessionInvalidException, controleAcces.trousseauPackage.sessionExpireeException
     {
         _tie.valideSession( cleIdl);
     }
