@@ -3,11 +3,9 @@ package testidl.annuaire;
 import controleAcces.annuairePOATie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.InvalidName;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
-import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
@@ -47,6 +45,7 @@ public class EntiteAnnuaire extends CorbaEntite {
   public static void main(String[] args) {
 	EntiteAnnuaire e = new EntiteAnnuaire();
 	e.startEntite();
+	e.startOrb();
   }
 
 }

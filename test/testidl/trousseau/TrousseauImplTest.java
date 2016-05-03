@@ -5,6 +5,9 @@
  */
 package testidl.trousseau;
 
+import controleAcces.trousseauPackage.sessionExpireeException;
+import controleAcces.trousseauPackage.sessionInvalidException;
+import static java.lang.Thread.sleep;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,6 +20,8 @@ import static org.junit.Assert.*;
  * @author matt
  */
 public class TrousseauImplTest {
+  
+  private EntiteTrousseau entite;
   
   public TrousseauImplTest() {
   }
@@ -31,6 +36,7 @@ public class TrousseauImplTest {
   
   @Before
   public void setUp() {
+	entite = new EntiteTrousseau();
   }
   
   @After
@@ -43,12 +49,6 @@ public class TrousseauImplTest {
   @Test
   public void testTempsSessionMilliSecondes() {
 	System.out.println("tempsSessionMilliSecondes");
-	TrousseauImpl instance = null;
-	long expResult = 0L;
-	long result = instance.tempsSessionMilliSecondes();
-	assertEquals(expResult, result);
-	// TODO review the generated test code and remove the default call to fail.
-	fail("The test case is a prototype.");
   }
 
   /**
@@ -57,12 +57,8 @@ public class TrousseauImplTest {
   @Test
   public void testStartSession() {
 	System.out.println("startSession");
-	TrousseauImpl instance = null;
-	long expResult = 0L;
+	TrousseauImpl instance = new TrousseauImpl(entite);
 	long result = instance.startSession();
-	assertEquals(expResult, result);
-	// TODO review the generated test code and remove the default call to fail.
-	fail("The test case is a prototype.");
   }
 
   /**
@@ -71,11 +67,34 @@ public class TrousseauImplTest {
   @Test
   public void testValideSession() throws Exception {
 	System.out.println("valideSession");
-	long cleIdl = 0L;
-	TrousseauImpl instance = null;
-	instance.valideSession(cleIdl);
-	// TODO review the generated test code and remove the default call to fail.
-	fail("The test case is a prototype.");
+	long cle;
+	TrousseauImpl instance = new TrousseauImpl(entite);
+	
+	//Temps de session à 5 secondes.
+	instance.setTempsSession(5);
+	//Démarrage d'une session pour tester son suivi.
+	cle = instance.startSession();
+	
+	//Test OK
+	instance.valideSession(cle);
+	
+	//Test session expirée
+	try{
+	  sleep(10000); //Attente de l'expiration de la session
+	  instance.valideSession(cle);
+	  fail("La session devrait être expirée");
+	}
+	catch(sessionExpireeException ex){
+	}
+	
+	//Test clé invalide
+	try{
+	  sleep(10); //Attente de l'expiration de la session
+	  instance.valideSession(cle + 1);
+	  fail("La clé devrait être invalide.");
+	}
+	catch(sessionInvalidException ex){
+	}
   }
   
 }

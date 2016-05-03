@@ -4,6 +4,8 @@ public class CorbaClient extends CorbaUtil {
 
   public CorbaClient() {
     super();
+	initOrb();
+	fetchNamingservice();
   }
 
 }

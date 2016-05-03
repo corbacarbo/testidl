@@ -17,9 +17,13 @@ public class CorbaUtil {
   protected org.omg.CosNaming.NamingContext namingService;
 
   public CorbaUtil() {
+  }
 
+  public void initOrb(){
 	orb = org.omg.CORBA.ORB.init(new String[0], null);
-
+  }
+  
+  public void fetchNamingservice(){
 	try {
 	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
 			  orb.resolve_initial_references("NameService"));
@@ -30,7 +34,7 @@ public class CorbaUtil {
 //	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
 //			orb.string_to_object("corbaloc:iiop:1.2@SP3win:2001/NameService"));
   }
-
+  
   public org.omg.CORBA.Object resolve(String stringToFind)
 		  throws NotFound, CannotProceed,
 		  org.omg.CosNaming.NamingContextPackage.InvalidName {

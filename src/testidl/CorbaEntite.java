@@ -15,19 +15,6 @@ public abstract class CorbaEntite extends CorbaUtil {
 
   public CorbaEntite() {
     super();
-
-    try {
-      rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-      
-      rootPOA.the_POAManager().activate();
-	  
-	  createServant();
-      
-    } catch (InvalidName ex) {
-      Logger.getLogger(CorbaEntite.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (AdapterInactive ex) {
-      Logger.getLogger(CorbaEntite.class.getName()).log(Level.SEVERE, null, ex);
-    }
   }
 
   public abstract void createServant();
@@ -48,8 +35,24 @@ public abstract class CorbaEntite extends CorbaUtil {
 	System.out.println("Servant enregistré : " + nom);
   }
   
+  public void chercheActivePOA(){
+	try {
+      rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+      rootPOA.the_POAManager().activate();
+    } catch (InvalidName | AdapterInactive ex) {
+      Logger.getLogger(CorbaEntite.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
   public void startEntite() {
-    orb.run();
+    initOrb();
+	fetchNamingservice();
+	chercheActivePOA();
+	createServant();
   }
 
+  public void startOrb(){
+	orb.run();
+  }
+  
 }

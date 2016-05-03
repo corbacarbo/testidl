@@ -38,6 +38,7 @@ public class EntiteTrousseau extends CorbaEntite {
   public static void main(String[] args) {
 	EntiteTrousseau e = new EntiteTrousseau();
 	e.startEntite();
+	e.startOrb();
   }
 
 }
