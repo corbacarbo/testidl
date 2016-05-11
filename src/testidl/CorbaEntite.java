@@ -9,50 +9,70 @@ import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.POAHelper;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 
+/**
+ * Regroupement des méthodes de gestion corba spécifiques aux entités.
+ * @author 
+ */
 public abstract class CorbaEntite extends CorbaUtil {
 
   protected org.omg.PortableServer.POA rootPOA;
 
+  /**
+   * Constructeur par défaut.
+   */
   public CorbaEntite() {
     super();
   }
 
+  /**
+   * Chaque processus serveur prend en charge une ou plusieurs implémentations
+   * d'objets corba. Ils doivent redéfinir cette méthode pour :
+   *   1. instancier tous les objets corba souhaités ;
+   *   2. les activer ;
+   *   3. les enregistrer dans le service de nommage.
+   */
   public abstract void createServant();
 
-  protected NameComponent[] nameToRegister() {
-    NameComponent[] res = new NameComponent[1];
-    res[0] = new NameComponent(this.getClass().getName(), "");
-    return res;
+  /**
+   * Enregistre un objet corba auprès du service de nom.
+   * @param nom le nom sous lequel l'objet sera enregistré
+   * @param o l'objet corba
+   * @throws NotFound
+   * @throws CannotProceed
+   * @throws org.omg.CosNaming.NamingContextPackage.InvalidName 
+   */
+  protected void rebind(String nom, org.omg.CORBA.Object o)
+          throws NotFound, CannotProceed,
+          org.omg.CosNaming.NamingContextPackage.InvalidName {
+
+    NameComponent[] nomTab = new NameComponent[1];
+    nomTab[0] = new NameComponent(nom, "");
+    namingService.rebind(nomTab, o);
+    System.out.println("Servant enregistré : " + nom);
   }
 
-  protected void rebind(String nom, org.omg.CORBA.Object o) 
-		  throws NotFound, CannotProceed, 
-		  org.omg.CosNaming.NamingContextPackage.InvalidName{
-	
-	NameComponent[] nomTab = new NameComponent[1];
-	nomTab[0] = new NameComponent(nom, "");
-	namingService.rebind(nomTab, o);
-	System.out.println("Servant enregistré : " + nom);
-  }
-  
-  public void chercheActivePOA(){
-	try {
+  /**
+   * Résout le POA racine et l'active.
+   */
+  public void chercheActivePOA() {
+    try {
       rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
       rootPOA.the_POAManager().activate();
     } catch (InvalidName | AdapterInactive ex) {
       Logger.getLogger(CorbaEntite.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
+
   
   public void startEntite() {
     initOrb();
-	fetchNamingservice();
-	chercheActivePOA();
-	createServant();
+    fetchNamingservice();
+    chercheActivePOA();
+    createServant();
   }
 
-  public void startOrb(){
-	orb.run();
+  public void startOrb() {
+    orb.run();
   }
-  
+
 }

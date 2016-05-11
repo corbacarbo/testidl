@@ -3,7 +3,6 @@ package testidl.annuaire;
 import testidl.Personne;
 import testidl.PersonneTemporaire;
 import testidl.PersonnePermanent;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -46,13 +45,14 @@ public class DataExample {
     Matricule matricule = new Matricule(mots[0]);
     String prenom = mots[1];
     String nom = mots[2];
+    String photo = mots[4];
     
     if(matricule.isPermanent()){
       String mdp = mots[3];
-      p = new PersonnePermanent(mdp, matricule, nom, prenom);
+      p = new PersonnePermanent(mdp, matricule, nom, prenom, photo);
     }
     else if(matricule.isTemporaire()){
-      p = new PersonneTemporaire(matricule, nom, prenom);
+      p = new PersonneTemporaire(matricule, nom, prenom, photo);
     }
     else{
       throw new Exception("Erreur de lecture du fichier des personnes.");

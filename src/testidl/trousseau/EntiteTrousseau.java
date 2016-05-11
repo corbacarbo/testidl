@@ -3,7 +3,6 @@ package testidl.trousseau;
 import controleAcces.trousseauPOATie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.InvalidName;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
@@ -11,7 +10,6 @@ import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 import testidl.CorbaEntite;
-import testidl.annuaire.EntiteAnnuaire;
 
 public class EntiteTrousseau extends CorbaEntite {
 

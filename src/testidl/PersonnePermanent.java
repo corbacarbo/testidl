@@ -6,22 +6,43 @@ public class PersonnePermanent extends Personne {
 
   protected String mdp;
 
-  public PersonnePermanent(String mdp, Matricule matricule, String nom, String prenom) {
-    super(matricule, nom, prenom);
+  public PersonnePermanent(String mdp, Matricule matricule, String nom, String prenom, String photo) {
+    super(matricule, nom, prenom, photo);
     this.mdp = mdp;
   }
 
+  public PersonnePermanent(personneIdl p) {
+    super(p);
+    if(p.mdp != null && !p.mdp.isEmpty()){
+      this.mdp = mdp;
+    }
+    else{
+      this.mdp = null;
+    }
+  }
+  
   public String getMdp() {
     return mdp;
   }
 
   public personneIdl toIdl() {
-    return new personneIdl(matricule.toString(), nom, prenom, "", mdp);
+    return new personneIdl(matricule.toString(), nom, prenom, photo, mdp);
   }
-
+  
+  @Override
+  public void genereMatricule() {
+    this.matricule = new Matricule(Matricule.TYPE.PERMANENT);
+  }
+  
+  public void genereMdp(){
+    this.mdp = prenom;
+  }
+  
   @Override
   public String toString() {
     return "Personne{" + matricule + ", mdp=" + mdp + ", nom=" + nom + ", prenom=" + prenom + '}';
   }
+
+  
 
 }

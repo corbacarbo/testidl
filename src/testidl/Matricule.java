@@ -22,17 +22,19 @@ public class Matricule implements Comparable<Matricule>{
    * Pour le calcul automatique des matricules. Un compteur pour chaque type
    * d'employé, l'un ou l'autre est incrémenté à chaque création de matricule.
    */
-  private static int nextNumberP = 10;
-  private static int nextNumberT = 10;
+  private static int nextNumberP = 11;
+  private static int nextNumberT = 11;
 
   /**
    * Constructeur de matricule en fonction du type d'employé.
    */
   public Matricule(TYPE type) {
     if (type == TYPE.PERMANENT) {
-      matricule = "p" + ++nextNumberP;
+      matricule = "p" + nextNumberP;
+      nextNumberP += 11;
     } else if (type == TYPE.TEMPORAIRE) {
-      matricule = "t" + ++nextNumberT;
+      matricule = "t" + nextNumberT;
+      nextNumberT += 11;
     }
   }
 
