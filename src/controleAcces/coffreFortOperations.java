@@ -10,18 +10,18 @@ public interface coffreFortOperations
     /**
      * Operation validerEmpreinte
      */
-    public String validerEmpreinte(long cleIdl, int empreinteIdl)
+    public String validerEmpreinte(long cleIdl, long empreinteIdl)
         throws controleAcces.coffreFortPackage.empreinteInconnueException;
 
     /**
      * Operation modificationEmpreinte
      */
-    public boolean modificationEmpreinte(long cleIdl, int empreinteIdl, String matriculeIdl);
+    public boolean modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl);
 
     /**
      * Operation ajouterEmpreinteTemp
      */
-    public boolean ajouterEmpreinteTemp(long cleIdl, int empreinteIdl, String matriculeIdl);
+    public boolean ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl);
 
     /**
      * Operation supprimerEmpreinteTemp

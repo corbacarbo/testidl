@@ -2,6 +2,8 @@ package testidl;
 
 import controleAcces.annuaire;
 import controleAcces.annuaireHelper;
+import controleAcces.coffreFort;
+import controleAcces.coffreFortHelper;
 import controleAcces.trousseau;
 import controleAcces.trousseauHelper;
 import java.util.logging.Level;
@@ -97,5 +99,20 @@ public class CorbaUtil {
     return null;
   }
   
+  /**
+   * Retourne l'objet corba enregistré sous le nom "coffreFort".
+   * @return l'objet corba trousseau
+   */
+  public coffreFort resolveCoffreFort() {
+    try {
+      org.omg.CORBA.Object o = resolve("coffreFort");
+      return coffreFortHelper.narrow(o);
+    } catch (NotFound ex) {
+      System.out.println("Entité 'coffreFort' non joignable.");
+    } catch (CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
+      Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+  }
   
 }

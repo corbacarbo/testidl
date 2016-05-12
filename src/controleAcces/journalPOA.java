@@ -67,7 +67,7 @@ public abstract class journalPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        int arg0_in = controleAcces.EmpreinteHelper.read(_is);
+        long arg0_in = controleAcces.EmpreinteHelper.read(_is);
         controleAcces.journalPackage.date arg1_in = controleAcces.journalPackage.dateStructHelper.read(_is);
         int arg2_in = _is.read_long();
         int arg3_in = _is.read_long();

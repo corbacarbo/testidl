@@ -23,7 +23,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation validerEmpreinte
      */
-    public String validerEmpreinte(long cleIdl, int empreinteIdl)
+    public String validerEmpreinte(long cleIdl, long empreinteIdl)
         throws controleAcces.coffreFortPackage.empreinteInconnueException
     {
         while(true)
@@ -80,7 +80,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation modificationEmpreinte
      */
-    public boolean modificationEmpreinte(long cleIdl, int empreinteIdl, String matriculeIdl)
+    public boolean modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
     {
         while(true)
         {
@@ -132,7 +132,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajouterEmpreinteTemp
      */
-    public boolean ajouterEmpreinteTemp(long cleIdl, int empreinteIdl, String matriculeIdl)
+    public boolean ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
     {
         while(true)
         {

@@ -5,6 +5,8 @@ import controleAcces.personneIdl;
 public class PersonnePermanent extends Personne {
 
   protected String mdp;
+  
+  protected boolean mdpChange;
 
   public PersonnePermanent(String mdp, Matricule matricule, String nom, String prenom, String photo) {
     super(matricule, nom, prenom, photo);
@@ -25,9 +27,21 @@ public class PersonnePermanent extends Personne {
     return mdp;
   }
 
+  @Override
   public personneIdl toIdl() {
-    return new personneIdl(matricule.toString(), nom, prenom, photo, mdp);
+    return new personneIdl(matricule.toString(), nom, prenom, photo, mdp, mdpChange);
   }
+
+  public boolean isMdpChange() {
+	return mdpChange;
+  }
+
+  public void setMdp(String mdp) {
+	this.mdp = mdp;
+	mdpChange = false;
+  }
+  
+  
   
   @Override
   public void genereMatricule() {

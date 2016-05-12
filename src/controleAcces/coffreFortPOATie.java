@@ -65,7 +65,7 @@ public class coffreFortPOATie extends coffreFortPOA
     /**
      * Operation validerEmpreinte
      */
-    public String validerEmpreinte(long cleIdl, int empreinteIdl)
+    public String validerEmpreinte(long cleIdl, long empreinteIdl)
         throws controleAcces.coffreFortPackage.empreinteInconnueException
     {
         return _tie.validerEmpreinte( cleIdl,  empreinteIdl);
@@ -74,7 +74,7 @@ public class coffreFortPOATie extends coffreFortPOA
     /**
      * Operation modificationEmpreinte
      */
-    public boolean modificationEmpreinte(long cleIdl, int empreinteIdl, String matriculeIdl)
+    public boolean modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
     {
         return _tie.modificationEmpreinte( cleIdl,  empreinteIdl,  matriculeIdl);
     }
@@ -82,7 +82,7 @@ public class coffreFortPOATie extends coffreFortPOA
     /**
      * Operation ajouterEmpreinteTemp
      */
-    public boolean ajouterEmpreinteTemp(long cleIdl, int empreinteIdl, String matriculeIdl)
+    public boolean ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
     {
         return _tie.ajouterEmpreinteTemp( cleIdl,  empreinteIdl,  matriculeIdl);
     }

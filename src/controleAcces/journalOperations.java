@@ -15,7 +15,7 @@ public interface journalOperations
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(int empreinteIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type);
+    public void loguerInconnu(long empreinteIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type);
 
     /**
      * Operation consulter

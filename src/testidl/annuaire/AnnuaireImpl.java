@@ -181,13 +181,20 @@ public class AnnuaireImpl implements annuaireOperations {
   }
 
   @Override
-  public personneIdl[] rechercherPersonne(String matricule, String nom, String prenom) throws personneInexistanteException {
+  public personneIdl[] rechercherPersonne(String matriculeIdl, String nom, String prenom) throws personneInexistanteException {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
-  public personneIdl validerIdentite(String matricule) throws personneInexistanteException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public personneIdl validerIdentite(String matriculeIdl) throws personneInexistanteException {
+    Matricule matricule = new Matricule(matriculeIdl);
+	if(annuaire.containsKey(matricule)){
+	  Personne personne = annuaire.get(matricule);
+	  return personne.toIdl();
+	}
+	else{
+	  throw new personneInexistanteException("Matricule non trouvé.");
+	}
   }
 
   /**

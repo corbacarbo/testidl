@@ -2,7 +2,7 @@ package testidl;
 
 import controleAcces.personneIdl;
 
-public abstract class Personne {
+public class Personne {
 
   protected Matricule matricule;
   protected String nom;
@@ -33,7 +33,9 @@ public abstract class Personne {
     return prenom;
   }
 
-  public abstract void genereMatricule();
+  public void genereMatricule(){
+	this.matricule = new Matricule(prenom);
+  }
 
   public boolean isPermanent() {
     return matricule.isPermanent();
@@ -43,6 +45,10 @@ public abstract class Personne {
     return matricule.isTemporaire();
   }
 
+  public personneIdl toIdl(){
+	return new personneIdl(matricule.toString(), nom, prenom, photo, "", false);
+  }
+  
   @Override
   public String toString() {
     return "Personne{" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", photo=" + photo + '}';

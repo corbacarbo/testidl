@@ -52,7 +52,7 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        int arg1_in = controleAcces.EmpreinteHelper.read(_is);
+        long arg1_in = controleAcces.EmpreinteHelper.read(_is);
 
         try
         {
@@ -75,7 +75,7 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        int arg1_in = controleAcces.EmpreinteHelper.read(_is);
+        long arg1_in = controleAcces.EmpreinteHelper.read(_is);
         String arg2_in = controleAcces.MatriculeHelper.read(_is);
 
         boolean _arg_result = modificationEmpreinte(arg0_in, arg1_in, arg2_in);
@@ -91,7 +91,7 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        int arg1_in = controleAcces.EmpreinteHelper.read(_is);
+        long arg1_in = controleAcces.EmpreinteHelper.read(_is);
         String arg2_in = controleAcces.MatriculeHelper.read(_is);
 
         boolean _arg_result = ajouterEmpreinteTemp(arg0_in, arg1_in, arg2_in);

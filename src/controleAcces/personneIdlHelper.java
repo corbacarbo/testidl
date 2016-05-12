@@ -73,7 +73,7 @@ public class personneIdlHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[5];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[6];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "matricule";
@@ -90,6 +90,9 @@ public class personneIdlHelper
                 _members[4] = new org.omg.CORBA.StructMember();
                 _members[4].name = "mdp";
                 _members[4].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[5] = new org.omg.CORBA.StructMember();
+                _members[5].name = "mdpChange";
+                _members[5].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_boolean);
                 _tc = orb.create_struct_tc(id(),"personneIdl",_members);
                 _working = false;
             }
@@ -122,6 +125,7 @@ public class personneIdlHelper
         new_one.prenom = istream.read_string();
         new_one.photo = istream.read_string();
         new_one.mdp = istream.read_string();
+        new_one.mdpChange = istream.read_boolean();
 
         return new_one;
     }
@@ -138,6 +142,7 @@ public class personneIdlHelper
         ostream.write_string(value.prenom);
         ostream.write_string(value.photo);
         ostream.write_string(value.mdp);
+        ostream.write_boolean(value.mdpChange);
     }
 
 }

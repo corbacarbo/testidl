@@ -78,7 +78,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(int empreinteIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguerInconnu(long empreinteIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
     {
         while(true)
         {

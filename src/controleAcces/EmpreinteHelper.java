@@ -12,7 +12,7 @@ public class EmpreinteHelper
      * @param a an any
      * @param t Empreinte value
      */
-    public static void insert(org.omg.CORBA.Any a, int t)
+    public static void insert(org.omg.CORBA.Any a, long t)
     {
         a.type(type());
         write(a.create_output_stream(),t);
@@ -23,7 +23,7 @@ public class EmpreinteHelper
      * @param a an any
      * @return the extracted Empreinte value
      */
-    public static int extract(org.omg.CORBA.Any a)
+    public static long extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -43,7 +43,7 @@ public class EmpreinteHelper
     {
         if (_tc == null) {
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-            _tc = orb.create_alias_tc(id(),"Empreinte",orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long));
+            _tc = orb.create_alias_tc(id(),"Empreinte",orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong));
         }
         return _tc;
     }
@@ -64,10 +64,10 @@ public class EmpreinteHelper
      * @param istream the input stream
      * @return the readed Empreinte value
      */
-    public static int read(org.omg.CORBA.portable.InputStream istream)
+    public static long read(org.omg.CORBA.portable.InputStream istream)
     {
-        int new_one;
-        new_one = istream.read_long();
+        long new_one;
+        new_one = istream.read_longlong();
 
         return new_one;
     }
@@ -77,9 +77,9 @@ public class EmpreinteHelper
      * @param ostream the output stream
      * @param value Empreinte value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, int value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, long value)
     {
-        ostream.write_long(value);
+        ostream.write_longlong(value);
     }
 
 }

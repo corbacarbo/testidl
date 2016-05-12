@@ -1,36 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package testidl.borne;
 
 import controleAcces.annuairePackage.loginIncorrectException;
-import java.awt.HeadlessException;
+import controleAcces.annuairePackage.personneInexistanteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import testidl.CorbaClient;
 
-public class LoginFrame extends javax.swing.JFrame {
+/**
+ *
+ * @author matt
+ */
+public class LoginPanel extends javax.swing.JPanel {
 
   private Borne borne;
-  
+
   /**
-   * Creates new form LoginFrame
+   * Creates new form LoginPanel
    */
-  public LoginFrame() {
-    initComponents();
-    
-    initState();
-    errorLabel.setText("");
+  public LoginPanel() {
+	initComponents();
+
+	initState();
+	errorLabel.setText("");
   }
 
-  public void setBorne(Borne b){
-    borne = b;
+  public void initState() {
+	titreLabel.setText("LOGIN");
+	matriculeField.setText("");
+	matriculeField.setFocusable(true);
+	matriculeField.requestFocus();
+	mdpField.setText("");
   }
-  
-  private void initState(){
-    matriculeField.setText("");
-    matriculeField.setFocusable(true);
-    matriculeField.requestFocus();
-    mdpField.setText("");
+
+  public void setBorne(Borne borne) {
+	this.borne = borne;
   }
-  
+
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,19 +56,21 @@ public class LoginFrame extends javax.swing.JFrame {
     connectButton = new javax.swing.JButton();
     cancelButton = new javax.swing.JButton();
     errorLabel = new javax.swing.JLabel();
-
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    titreLabel = new javax.swing.JLabel();
 
     matriculeLabel.setText("Matricule :");
 
     mdpLabel.setText("Mot de passe :");
 
     matriculeField.setText("jTextField1");
+    matriculeField.setNextFocusableComponent(mdpField);
 
     mdpField.setText("jTextField2");
+    mdpField.setNextFocusableComponent(connectButton);
 
     connectButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
     connectButton.setText("Connect");
+    connectButton.setNextFocusableComponent(cancelButton);
     connectButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         connectButtonActionPerformed(evt);
@@ -67,6 +78,7 @@ public class LoginFrame extends javax.swing.JFrame {
     });
 
     cancelButton.setText("Cancel");
+    cancelButton.setNextFocusableComponent(matriculeField);
     cancelButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         cancelButtonActionPerformed(evt);
@@ -76,37 +88,45 @@ public class LoginFrame extends javax.swing.JFrame {
     errorLabel.setForeground(new java.awt.Color(255, 0, 0));
     errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     errorLabel.setText("jLabel1");
+    errorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
+    titreLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+    titreLabel.setText("LOGIN");
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    this.setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
+        .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(matriculeLabel)
               .addGroup(layout.createSequentialGroup()
-                .addComponent(mdpLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(matriculeField)
-                  .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(89, 89, 89)
+                .addComponent(cancelButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(connectButton))
+              .addComponent(matriculeLabel))
+            .addGap(0, 101, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
-            .addGap(76, 76, 76)
-            .addComponent(cancelButton)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(connectButton))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(26, 26, 26)
-            .addComponent(errorLabel)))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(mdpLabel)
+              .addComponent(titreLabel))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(errorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(matriculeField)
+              .addComponent(mdpField))))
+        .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(21, 21, 21)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(titreLabel))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(matriculeLabel)
           .addComponent(matriculeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,68 +135,31 @@ public class LoginFrame extends javax.swing.JFrame {
           .addComponent(mdpLabel)
           .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(18, 18, 18)
-        .addComponent(errorLabel)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(connectButton)
           .addComponent(cancelButton))
-        .addContainerGap())
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
-
-    pack();
   }// </editor-fold>//GEN-END:initComponents
 
   private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-    String mat = matriculeField.getText();
-    String mdp = mdpField.getText();
-    
-    try {
-      borne.authentifier(mat, mdp);
-      this.dispose();
-    } catch (loginIncorrectException ex) {
-      errorLabel.setText(ex.message);
-      initState();
-    }
+	String mat = matriculeField.getText();
+	String mdp = mdpField.getText();
+
+	try {
+	  borne.authentifier(mat, mdp);
+	} catch (loginIncorrectException ex) {
+	  errorLabel.setText(ex.message);
+	  initState();
+	} catch (personneInexistanteException ex) {
+	  Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
+	}
   }//GEN-LAST:event_connectButtonActionPerformed
 
   private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-    this.dispose();
+    borne.quitter();
   }//GEN-LAST:event_cancelButtonActionPerformed
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-      }
-    } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
-
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        new LoginFrame().setVisible(true);
-      }
-    });
-  }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton cancelButton;
@@ -186,5 +169,6 @@ public class LoginFrame extends javax.swing.JFrame {
   private javax.swing.JLabel matriculeLabel;
   private javax.swing.JTextField mdpField;
   private javax.swing.JLabel mdpLabel;
+  private javax.swing.JLabel titreLabel;
   // End of variables declaration//GEN-END:variables
 }
