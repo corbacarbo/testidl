@@ -2,73 +2,76 @@ package testidl;
 
 import java.util.Random;
 
-public class Cle implements Comparable<Cle>{
+public class Cle implements Comparable<Cle> {
 
   private long cle;
 
   private static final Random GENERATEUR = new Random(System.currentTimeMillis());
 
   public Cle() {
-	initCle();
+    initCle();
   }
 
   public Cle(long cle) {
-	this.cle = cle;
+    this.cle = cle;
   }
-  
+
   private void initCle() {
-	cle = GENERATEUR.nextLong();
+    do {
+      cle = GENERATEUR.nextLong();
+    } while (cle <= 0);
   }
 
   public long getCle() {
-	return cle;
+    return cle;
   }
 
   public long toIdl() {
-	return cle;
+    return cle;
   }
-  
+
   @Override
   public int compareTo(Cle t) {
-	if(this.cle < t.cle)
-	  return -1;
-	else if(this.cle > t.cle)
-	  return 1;
-	else
-	  return 0;
+    if (this.cle < t.cle) {
+      return -1;
+    } else if (this.cle > t.cle) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 
   @Override
   public int hashCode() {
-	int hash = 5;
-	hash = 31 * hash + (int) (this.cle ^ (this.cle >>> 32));
-	return hash;
+    int hash = 5;
+    hash = 31 * hash + (int) (this.cle ^ (this.cle >>> 32));
+    return hash;
   }
 
   @Override
   public boolean equals(Object obj) {
-	if (obj == null) {
-	  return false;
-	}
-	if (getClass() != obj.getClass()) {
-	  return false;
-	}
-	final Cle other = (Cle) obj;
-	if (this.cle != other.cle) {
-	  return false;
-	}
-	return true;
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final Cle other = (Cle) obj;
+    if (this.cle != other.cle) {
+      return false;
+    }
+    return true;
   }
-  
+
   @Override
   public String toString() {
-	return "Cle{ " + cle + " }";
+    return "Cle{ " + cle + " }";
   }
 
   public static void main(String[] args) {
-	Cle c = new Cle();
+    Cle c = new Cle();
 
-	System.out.println(c);
+    System.out.println(c);
 
   }
 

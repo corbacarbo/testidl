@@ -9,7 +9,11 @@ import controleAcces.annuairePackage.mdpIdentiqueException;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.personneIdl;
 import controleAcces.trousseau;
+import controleAcces.trousseauPackage.sessionExpireeException;
+import controleAcces.trousseauPackage.sessionInvalidException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import testidl.CorbaEntite;
 import testidl.Matricule;
 import testidl.PersonneTemporaire;
@@ -104,14 +108,14 @@ public class AnnuaireImpl implements annuaireOperations {
     }
   }
 
-  private void genereMatricule(Personne p){
+  private void genereMatricule(Personne p) {
     p.genereMatricule();
   }
-  
-  private void genereMdp(PersonnePermanent p){
+
+  private void genereMdp(PersonnePermanent p) {
     p.genereMdp();
   }
-  
+
   /**
    * Affiche les Personnes présentes dans l'annuaire.
    */
@@ -137,7 +141,9 @@ public class AnnuaireImpl implements annuaireOperations {
     Matricule matricule = new Matricule(matriculeIdl);
     String motDePasse;
 
-    /*** Début de l'authentification ***/
+    /**
+     * * Début de l'authentification **
+     */
     try {
       // Personne permanente
       if (matricule.isPermanent()) {
@@ -154,30 +160,61 @@ public class AnnuaireImpl implements annuaireOperations {
     } catch (personneInexistanteException ex) {
       System.out.println("--Echec d'authentification: personne inexistante - "
               + matricule + "::" + mdp);
-      throw new loginIncorrectException("Matricule introuvable ou ne correspondant pas à un employé permanent.");
+      throw new loginIncorrectException("Login incorrect.");
     } catch (MdpErroneException ex) {
       System.out.println("--Echec d'authentification: mdp erroné - " + matricule
               + "::" + mdp);
-      throw new loginIncorrectException("Matricule introuvable ou ne correspondant pas à un employé permanent.");
+      throw new loginIncorrectException("Login incorrect.");
     }
-    /*** Fin : la personne est authentifiée ***/
+    /**
+     * * Fin : la personne est authentifiée **
+     */
 
-    /*** Création d'une nouvelle session pour la personne authentifiée ***/
-    
+    /**
+     * * Création d'une nouvelle session pour la personne authentifiée **
+     */
     // Cherche gestionnaire de clé de session
     trousseau t = serveur.resolveTrousseau();
     // Récupération d'une nouvelle clé
     cle = new Cle(t.startSession());
-    
+
     System.out.println("++Authentification réussie - " + matricule
             + "::" + mdp + " - " + cle);
-    
+
     return cle.toIdl();
   }
 
+  /**
+   * Modifie le mot de passe d'un employé permanent.
+   *
+   * @param cle
+   * @param matriculeIdl
+   * @param nouveauMdp
+   * @return
+   * @throws mdpIdentiqueException si le nouveau mdp est identique au précédent.
+   * @throws controleAcces.sessionInvalidException
+   * @throws controleAcces.sessionExpireeException
+   * @throws personneInexistanteException si le matricule n'est pas valide.
+   */
   @Override
-  public boolean modificationMdp(long cle, String matricule, String nouveauMdp) throws mdpIdentiqueException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public void modificationMdp(long cle, String matriculeIdl, String nouveauMdp)
+          throws mdpIdentiqueException,
+          controleAcces.sessionInvalidException,
+          controleAcces.sessionExpireeException,
+          personneInexistanteException {
+
+    trousseau trousseau = serveur.resolveTrousseau();
+    trousseau.valideSession(cle);
+
+    PersonnePermanent p;
+    Matricule matricule = new Matricule(matriculeIdl);
+
+    p = getPersonnePermanent(matricule);
+    if (!p.isMdp(nouveauMdp)) {
+      p.setMdp(nouveauMdp);
+    } else {
+      throw new mdpIdentiqueException("Mot de passe identique, essayez à nouveau.");
+    }
   }
 
   @Override
@@ -188,53 +225,53 @@ public class AnnuaireImpl implements annuaireOperations {
   @Override
   public personneIdl validerIdentite(String matriculeIdl) throws personneInexistanteException {
     Matricule matricule = new Matricule(matriculeIdl);
-	if(annuaire.containsKey(matricule)){
-	  Personne personne = annuaire.get(matricule);
-	  return personne.toIdl();
-	}
-	else{
-	  throw new personneInexistanteException("Matricule non trouvé.");
-	}
+    if (annuaire.containsKey(matricule)) {
+      Personne personne = annuaire.get(matricule);
+      return personne.toIdl();
+    } else {
+      throw new personneInexistanteException("Matricule non trouvé.");
+    }
   }
 
   /**
-   * Ajouter un nouvel employé permanent dans l'annuaire.
-   * L'appelant doit fournir les nom, prénom, et photo dans un objet 
-   * personneIdl (donc incomplète).
-   * Calcul automatique et renvoi du matricule (incrémental) et du mot de passe 
-   * dans un objet personneIdl complète.
+   * Ajouter un nouvel employé permanent dans l'annuaire. L'appelant doit
+   * fournir les nom, prénom, et photo dans un objet personneIdl (donc
+   * incomplète). Calcul automatique et renvoi du matricule (incrémental) et du
+   * mot de passe dans un objet personneIdl complète.
+   *
    * @param p personne à ajouter dans l'annuaire.
-   * @return la personne ajoutée avec un nouveau matricule et un nouveau mot de passe.
+   * @return la personne ajoutée avec un nouveau matricule et un nouveau mot de
+   * passe.
    */
   @Override
-  public personneIdl ajouterPermanent(personneIdl p) {    
+  public personneIdl ajouterPermanent(personneIdl p) {
     PersonnePermanent personne = new PersonnePermanent(p);
-    
+
     genereMdp(personne);
     genereMatricule(personne);
-    
+
     annuaire.put(personne.getMatricule(), personne);
-    
+
     return personne.toIdl();
   }
 
   /**
-   * Ajouter un nouvel employé temporaire dans l'annuaire.
-   * L'appelant doit fournir les nom, prénom, et photo dans un objet 
-   * personneIdl (donc incomplète).
-   * Calcul automatique et renvoi du matricule (incrémental) dans un objet 
-   * personneIdl complète.
+   * Ajouter un nouvel employé temporaire dans l'annuaire. L'appelant doit
+   * fournir les nom, prénom, et photo dans un objet personneIdl (donc
+   * incomplète). Calcul automatique et renvoi du matricule (incrémental) dans
+   * un objet personneIdl complète.
+   *
    * @param p
-   * @return 
+   * @return
    */
   @Override
   public personneIdl ajouterTemporaire(personneIdl p) {
     PersonneTemporaire personne = new PersonneTemporaire(p);
-    
+
     genereMatricule(personne);
-    
+
     annuaire.put(personne.getMatricule(), personne);
-    
+
     return personne.toIdl();
   }
 

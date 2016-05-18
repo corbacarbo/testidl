@@ -84,16 +84,30 @@ public abstract class annuairePOA extends org.omg.PortableServer.Servant
 
         try
         {
-            boolean _arg_result = modificationMdp(arg0_in, arg1_in, arg2_in);
+            modificationMdp(arg0_in, arg1_in, arg2_in);
 
             _output = handler.createReply();
-            _output.write_boolean(_arg_result);
 
         }
         catch (controleAcces.annuairePackage.mdpIdentiqueException _exception)
         {
             _output = handler.createExceptionReply();
             controleAcces.annuairePackage.mdpIdentiqueExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.annuairePackage.personneInexistanteException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.annuairePackage.personneInexistanteExceptionHelper.write(_output,_exception);
         }
         return _output;
     }

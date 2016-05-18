@@ -67,6 +67,16 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             _output = handler.createExceptionReply();
             controleAcces.coffreFortPackage.empreinteInconnueExceptionHelper.write(_output,_exception);
         }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -78,11 +88,23 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
         long arg1_in = controleAcces.EmpreinteHelper.read(_is);
         String arg2_in = controleAcces.MatriculeHelper.read(_is);
 
-        boolean _arg_result = modificationEmpreinte(arg0_in, arg1_in, arg2_in);
+        try
+        {
+            modificationEmpreinte(arg0_in, arg1_in, arg2_in);
 
-        _output = handler.createReply();
-        _output.write_boolean(_arg_result);
+            _output = handler.createReply();
 
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -94,11 +116,23 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
         long arg1_in = controleAcces.EmpreinteHelper.read(_is);
         String arg2_in = controleAcces.MatriculeHelper.read(_is);
 
-        boolean _arg_result = ajouterEmpreinteTemp(arg0_in, arg1_in, arg2_in);
+        try
+        {
+            ajouterEmpreinteTemp(arg0_in, arg1_in, arg2_in);
 
-        _output = handler.createReply();
-        _output.write_boolean(_arg_result);
+            _output = handler.createReply();
 
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -109,11 +143,23 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
         long arg0_in = controleAcces.CleHelper.read(_is);
         String arg1_in = controleAcces.MatriculeHelper.read(_is);
 
-        boolean _arg_result = supprimerEmpreinteTemp(arg0_in, arg1_in);
+        try
+        {
+            supprimerEmpreinteTemp(arg0_in, arg1_in);
 
-        _output = handler.createReply();
-        _output.write_boolean(_arg_result);
+            _output = handler.createReply();
 
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 

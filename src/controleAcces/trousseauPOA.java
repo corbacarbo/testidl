@@ -69,15 +69,15 @@ public abstract class trousseauPOA extends org.omg.PortableServer.Servant
             _output = handler.createReply();
 
         }
-        catch (controleAcces.trousseauPackage.sessionInvalidException _exception)
+        catch (controleAcces.sessionInvalidException _exception)
         {
             _output = handler.createExceptionReply();
-            controleAcces.trousseauPackage.sessionInvalidExceptionHelper.write(_output,_exception);
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
         }
-        catch (controleAcces.trousseauPackage.sessionExpireeException _exception)
+        catch (controleAcces.sessionExpireeException _exception)
         {
             _output = handler.createExceptionReply();
-            controleAcces.trousseauPackage.sessionExpireeExceptionHelper.write(_output,_exception);
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
         }
         return _output;
     }

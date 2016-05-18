@@ -66,7 +66,7 @@ public class coffreFortPOATie extends coffreFortPOA
      * Operation validerEmpreinte
      */
     public String validerEmpreinte(long cleIdl, long empreinteIdl)
-        throws controleAcces.coffreFortPackage.empreinteInconnueException
+        throws controleAcces.coffreFortPackage.empreinteInconnueException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         return _tie.validerEmpreinte( cleIdl,  empreinteIdl);
     }
@@ -74,25 +74,28 @@ public class coffreFortPOATie extends coffreFortPOA
     /**
      * Operation modificationEmpreinte
      */
-    public boolean modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
+    public void modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        return _tie.modificationEmpreinte( cleIdl,  empreinteIdl,  matriculeIdl);
+        _tie.modificationEmpreinte( cleIdl,  empreinteIdl,  matriculeIdl);
     }
 
     /**
      * Operation ajouterEmpreinteTemp
      */
-    public boolean ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
+    public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        return _tie.ajouterEmpreinteTemp( cleIdl,  empreinteIdl,  matriculeIdl);
+        _tie.ajouterEmpreinteTemp( cleIdl,  empreinteIdl,  matriculeIdl);
     }
 
     /**
      * Operation supprimerEmpreinteTemp
      */
-    public boolean supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
+    public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        return _tie.supprimerEmpreinteTemp( cleIdl,  matriculeIdl);
+        _tie.supprimerEmpreinteTemp( cleIdl,  matriculeIdl);
     }
 
 }

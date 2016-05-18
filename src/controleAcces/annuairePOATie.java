@@ -74,10 +74,10 @@ public class annuairePOATie extends annuairePOA
     /**
      * Operation modificationMdp
      */
-    public boolean modificationMdp(long cleIdl, String matriculeIdl, String nouveauMdp)
-        throws controleAcces.annuairePackage.mdpIdentiqueException
+    public void modificationMdp(long cleIdl, String matriculeIdl, String nouveauMdp)
+        throws controleAcces.annuairePackage.mdpIdentiqueException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException, controleAcces.annuairePackage.personneInexistanteException
     {
-        return _tie.modificationMdp( cleIdl,  matriculeIdl,  nouveauMdp);
+        _tie.modificationMdp( cleIdl,  matriculeIdl,  nouveauMdp);
     }
 
     /**

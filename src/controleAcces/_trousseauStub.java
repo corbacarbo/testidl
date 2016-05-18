@@ -73,7 +73,7 @@ public class _trousseauStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation valideSession
      */
     public void valideSession(long cleIdl)
-        throws controleAcces.trousseauPackage.sessionInvalidException, controleAcces.trousseauPackage.sessionExpireeException
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -94,14 +94,14 @@ public class _trousseauStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
-                    if (_exception_id.equals(controleAcces.trousseauPackage.sessionInvalidExceptionHelper.id()))
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
                     {
-                        throw controleAcces.trousseauPackage.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
                     }
 
-                    if (_exception_id.equals(controleAcces.trousseauPackage.sessionExpireeExceptionHelper.id()))
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
                     {
-                        throw controleAcces.trousseauPackage.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);

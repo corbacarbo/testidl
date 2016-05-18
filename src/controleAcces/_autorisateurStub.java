@@ -24,7 +24,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation ajouterAutorisationP
      */
     public void ajouterAutorisationP(long cleIdl, controleAcces.autorisateurPackage.autorisationP autorisation)
-        throws controleAcces.autorisateurPackage.conflitAutorisationException
+        throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -49,6 +49,16 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                     if (_exception_id.equals(controleAcces.autorisateurPackage.conflitAutorisationExceptionHelper.id()))
                     {
                         throw controleAcces.autorisateurPackage.conflitAutorisationExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
@@ -81,7 +91,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation ajouterAutorisationT
      */
     public void ajouterAutorisationT(long cleIdl, controleAcces.autorisateurPackage.autorisationT autorisation)
-        throws controleAcces.autorisateurPackage.conflitAutorisationException
+        throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -106,6 +116,16 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                     if (_exception_id.equals(controleAcces.autorisateurPackage.conflitAutorisationExceptionHelper.id()))
                     {
                         throw controleAcces.autorisateurPackage.conflitAutorisationExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);

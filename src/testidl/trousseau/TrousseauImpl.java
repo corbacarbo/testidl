@@ -1,8 +1,8 @@
 package testidl.trousseau;
 
+import controleAcces.sessionExpireeException;
+import controleAcces.sessionInvalidException;
 import controleAcces.trousseauOperations;
-import controleAcces.trousseauPackage.sessionExpireeException;
-import controleAcces.trousseauPackage.sessionInvalidException;
 import java.util.Date;
 import java.util.HashMap;
 import testidl.Cle;

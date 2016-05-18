@@ -16,6 +16,6 @@ public interface trousseauOperations
      * Operation valideSession
      */
     public void valideSession(long cleIdl)
-        throws controleAcces.trousseauPackage.sessionInvalidException, controleAcces.trousseauPackage.sessionExpireeException;
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
 }

@@ -15,28 +15,27 @@ import java.util.logging.Logger;
  */
 public class MdpPanel extends javax.swing.JPanel {
 
-  private Borne borne;
-
   /**
    * Creates new form MdpPanel
    */
   public MdpPanel() {
-	initComponents();
-
-	initState();
-	errorLabel.setText("");
+    initComponents();
+    initState();
   }
 
   public void initState() {
-	titreLabel.setText("MDP");
-	mdp1Field.setText("");
-	mdp1Field.setFocusable(true);
-	mdp1Field.requestFocus();
-	mdp2Field.setText("");
+    mdp1Field.setText("");
+    mdp1Field.setFocusable(true);
+    mdp1Field.requestFocus();
+    mdp2Field.setText("");
   }
-
-  public void setBorne(Borne borne) {
-	this.borne = borne;
+  
+  public String getMdp1(){
+    return mdp1Field.getText();
+  }
+  
+  public String getMdp2(){
+    return mdp2Field.getText();
   }
 
   /**
@@ -48,99 +47,18 @@ public class MdpPanel extends javax.swing.JPanel {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    jTextField1 = new javax.swing.JTextField();
-    jPanel1 = new javax.swing.JPanel();
-    mdp1Label = new javax.swing.JLabel();
-    mdp2Label = new javax.swing.JLabel();
     mdp1Field = new javax.swing.JTextField();
     mdp2Field = new javax.swing.JTextField();
-    changeButton = new javax.swing.JButton();
-    cancelButton = new javax.swing.JButton();
-    errorLabel = new javax.swing.JLabel();
-    titreLabel = new javax.swing.JLabel();
-
-    jTextField1.setText("jTextField1");
-
-    mdp1Label.setText("Tapez votre mot de passe :");
-
-    mdp2Label.setText("Retapez votre mot de passe :");
+    mdp1Label = new javax.swing.JLabel();
+    mdp2Label = new javax.swing.JLabel();
 
     mdp1Field.setText("jTextField1");
 
     mdp2Field.setText("jTextField2");
 
-    changeButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    changeButton.setText("Change");
-    changeButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        changeButtonActionPerformed(evt);
-      }
-    });
+    mdp1Label.setText("Tapez votre mot de passe :");
 
-    cancelButton.setText("Cancel");
-    cancelButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        cancelButtonActionPerformed(evt);
-      }
-    });
-
-    errorLabel.setForeground(new java.awt.Color(255, 0, 0));
-    errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    errorLabel.setText("jLabel1");
-    errorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-    titreLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    titreLabel.setText("MDP");
-
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(cancelButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changeButton))
-              .addComponent(mdp1Label))
-            .addGap(0, 0, Short.MAX_VALUE))
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(mdp2Label)
-              .addComponent(titreLabel))
-            .addGap(18, 18, 18)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(errorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(mdp2Field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                  .addComponent(mdp1Field, javax.swing.GroupLayout.Alignment.TRAILING)))))))
-    );
-    jPanel1Layout.setVerticalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(titreLabel))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(mdp1Label)
-          .addComponent(mdp1Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(mdp2Label)
-          .addComponent(mdp2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, 18)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(changeButton)
-          .addComponent(cancelButton))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+    mdp2Label.setText("Retapez votre mot de passe :");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
@@ -148,56 +66,38 @@ public class MdpPanel extends javax.swing.JPanel {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-        .addContainerGap())
-      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-          .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addContainerGap()))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(mdp1Label)
+            .addGap(18, 18, 18))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(mdp2Label)
+            .addGap(7, 7, 7)))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+          .addComponent(mdp2Field, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+          .addComponent(mdp1Field))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(layout.createSequentialGroup()
-        .addGap(27, 27, 27)
-        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(126, Short.MAX_VALUE))
-      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-          .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(mdp1Label)
+          .addComponent(mdp1Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(mdp2Label)
+          .addComponent(mdp2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(37, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
 
-  private void changeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeButtonActionPerformed
-	String mdp1 = mdp1Field.getText();
-	String mdp2 = mdp2Field.getText();
-
-	try {
-	  borne.changeMdp(mdp1);
-	} catch (mdpIdentiqueException ex) {
-	  errorLabel.setText(ex.message);
-	  initState();
-	}
-
-  }//GEN-LAST:event_changeButtonActionPerformed
-
-  private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-	borne.reinit();
-  }//GEN-LAST:event_cancelButtonActionPerformed
-
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton cancelButton;
-  private javax.swing.JButton changeButton;
-  private javax.swing.JLabel errorLabel;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JTextField jTextField1;
   private javax.swing.JTextField mdp1Field;
   private javax.swing.JLabel mdp1Label;
   private javax.swing.JTextField mdp2Field;
   private javax.swing.JLabel mdp2Label;
-  private javax.swing.JLabel titreLabel;
   // End of variables declaration//GEN-END:variables
 }

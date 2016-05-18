@@ -11,21 +11,24 @@ public interface coffreFortOperations
      * Operation validerEmpreinte
      */
     public String validerEmpreinte(long cleIdl, long empreinteIdl)
-        throws controleAcces.coffreFortPackage.empreinteInconnueException;
+        throws controleAcces.coffreFortPackage.empreinteInconnueException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
     /**
      * Operation modificationEmpreinte
      */
-    public boolean modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl);
+    public void modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
     /**
      * Operation ajouterEmpreinteTemp
      */
-    public boolean ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl);
+    public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
     /**
      * Operation supprimerEmpreinteTemp
      */
-    public boolean supprimerEmpreinteTemp(long cleIdl, String matriculeIdl);
+    public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
 }

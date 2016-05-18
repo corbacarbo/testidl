@@ -46,10 +46,12 @@ public class DataExample {
     String prenom = mots[1];
     String nom = mots[2];
     String photo = mots[4];
+    boolean mdpChange = Boolean.parseBoolean(mots[5]);
+    System.out.println(Boolean.parseBoolean(mots[5]));
     
     if(matricule.isPermanent()){
       String mdp = mots[3];
-      p = new PersonnePermanent(mdp, matricule, nom, prenom, photo);
+      p = new PersonnePermanent(mdp, mdpChange, matricule, nom, prenom, photo);
     }
     else if(matricule.isTemporaire()){
       p = new PersonneTemporaire(matricule, nom, prenom, photo);

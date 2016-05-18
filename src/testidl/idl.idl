@@ -19,13 +19,7 @@ typedef struct personneIdl{
   boolean mdpChange;
 } personneStruct;
 
-
-/******************** TROUSSEAU ********************/
-interface trousseau{
-
-  /********** Types *****/
-
-  /********** Exceptions *****/
+/********** Exceptions *****/
 
   exception sessionInvalidException{
     string message;
@@ -34,6 +28,12 @@ interface trousseau{
   exception sessionExpireeException{
 	string message;
   };
+
+
+/******************** TROUSSEAU ********************/
+interface trousseau{
+
+  /********** Types *****/
 
   /********** Méthodes *****/
 
@@ -78,8 +78,8 @@ interface annuaire{
    * Modification de mot de passe pour les employés permanents uniquement.
    * La clé provient d'un appel à authentification().
    */
-  boolean modificationMdp(in Cle cleIdl, in Matricule matriculeIdl, in string nouveauMdp)
-	  raises (mdpIdentiqueException);
+  void modificationMdp(in Cle cleIdl, in Matricule matriculeIdl, in string nouveauMdp)
+	  raises (mdpIdentiqueException, sessionInvalidException, sessionExpireeException, personneInexistanteException);
 
   /*
    * Recherche d'un employé par matricule et/ou nom et/ou prenom.
@@ -150,13 +150,13 @@ interface autorisateur{
    * Ajouter une autorisation pour un employé permanent.
    */
   void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisation)
-	  raises (conflitAutorisationException);
+	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Ajouter une autorisation pour une employé temporaire.
    */
   void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisation)
-	  raises (conflitAutorisationException);
+	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Vérifie s'il existe une autorisation d'accès à une zone pour un employé.
@@ -182,22 +182,25 @@ interface coffreFort{
    * Permet de récupérer le matricule d'un employé à partir de son empreinte.
    */
   Matricule validerEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl)
-	  raises (empreinteInconnueException);
+	  raises (empreinteInconnueException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Permet d'ajouter ou de modifier l'empreinte d'un employé permanent.
    */
-  boolean modificationEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl);
+  void modificationEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl)
+    raises (sessionInvalidException, sessionExpireeException);
 
   /*
    * Permet d'ajouter l'empreinte d'un employé temporaire.
    */
-  boolean ajouterEmpreinteTemp(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl);
+  void ajouterEmpreinteTemp(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl)
+    raises (sessionInvalidException, sessionExpireeException);
 
   /*
    * Permet de supprimer l'empreinte d'un employé temporaire.
    */
-  boolean supprimerEmpreinteTemp(in Cle cleIdl, in Matricule matriculeIdl);
+  void supprimerEmpreinteTemp(in Cle cleIdl, in Matricule matriculeIdl)
+    raises (sessionInvalidException, sessionExpireeException);
 
 };
 

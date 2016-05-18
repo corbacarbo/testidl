@@ -19,23 +19,22 @@ public class EmpreintePanel extends javax.swing.JPanel {
    * Creates new form EmpreintePanel
    */
   public EmpreintePanel() {
-	initComponents();
-	
-	initState();
-	errorLabel.setText("");
+    initComponents();
+
+    initState();
   }
 
   public void initState() {
-	titreLabel.setText("EMPREINTE");
-	empreinteField.setText("");
-	empreinteField.setFocusable(true);
-	empreinteField.requestFocus();
+    empreinteField.setText("");
+    empreinteField.setSize(70, 78);
+    empreinteField.setFocusable(true);
+    empreinteField.requestFocus();
   }
 
-  public void setBorne(Borne borne) {
-	this.borne = borne;
+  public String getEmpreinte(){
+    return empreinteField.getText();
   }
-
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,124 +44,40 @@ public class EmpreintePanel extends javax.swing.JPanel {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    jPanel1 = new javax.swing.JPanel();
     empreinteLabel = new javax.swing.JLabel();
     empreinteField = new javax.swing.JTextField();
-    connectButton = new javax.swing.JButton();
-    cancelButton = new javax.swing.JButton();
-    errorLabel = new javax.swing.JLabel();
-    titreLabel = new javax.swing.JLabel();
 
     empreinteLabel.setText("Posez votre doigt :");
 
+    empreinteField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
     empreinteField.setText("jTextField1");
-
-    connectButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    connectButton.setText("Save");
-    connectButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        connectButtonActionPerformed(evt);
-      }
-    });
-
-    cancelButton.setText("Cancel");
-    cancelButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        cancelButtonActionPerformed(evt);
-      }
-    });
-
-    errorLabel.setForeground(new java.awt.Color(255, 0, 0));
-    errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    errorLabel.setText("jLabel1");
-    errorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-    titreLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    titreLabel.setText("EMPREINTE");
-
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addComponent(titreLabel)
-            .addGap(133, 133, 133)
-            .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(cancelButton))
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(empreinteLabel)
-                .addGap(22, 22, 22)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(empreinteField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(connectButton))
-            .addGap(0, 103, Short.MAX_VALUE))))
-    );
-    jPanel1Layout.setVerticalGroup(
-      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel1Layout.createSequentialGroup()
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(titreLabel))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(empreinteField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(empreinteLabel))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(connectButton)
-          .addComponent(cancelButton))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+    empreinteField.setMinimumSize(new java.awt.Dimension(20, 20));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 372, Short.MAX_VALUE)
-      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-          .addContainerGap()
-          .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+      .addGroup(layout.createSequentialGroup()
+        .addContainerGap(62, Short.MAX_VALUE)
+        .addComponent(empreinteLabel)
+        .addGap(18, 18, 18)
+        .addComponent(empreinteField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(109, 109, 109))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 173, Short.MAX_VALUE)
-      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-          .addContainerGap()
-          .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(empreinteField, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+          .addComponent(empreinteLabel))
+        .addContainerGap())
     );
   }// </editor-fold>//GEN-END:initComponents
 
-  private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-	String s = empreinteField.getText();
-	Empreinte empreinte = new Empreinte(s);
-	
-	borne.empreinte(empreinte);
-  }//GEN-LAST:event_connectButtonActionPerformed
-
-  private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-	borne.reinit();
-  }//GEN-LAST:event_cancelButtonActionPerformed
-
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton cancelButton;
-  private javax.swing.JButton connectButton;
   private javax.swing.JTextField empreinteField;
   private javax.swing.JLabel empreinteLabel;
-  private javax.swing.JLabel errorLabel;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JLabel titreLabel;
   // End of variables declaration//GEN-END:variables
 }

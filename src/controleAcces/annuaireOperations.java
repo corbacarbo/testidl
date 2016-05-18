@@ -16,8 +16,8 @@ public interface annuaireOperations
     /**
      * La clé provient d'un appel à authentification().
      */
-    public boolean modificationMdp(long cleIdl, String matriculeIdl, String nouveauMdp)
-        throws controleAcces.annuairePackage.mdpIdentiqueException;
+    public void modificationMdp(long cleIdl, String matriculeIdl, String nouveauMdp)
+        throws controleAcces.annuairePackage.mdpIdentiqueException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException, controleAcces.annuairePackage.personneInexistanteException;
 
     /**
      * Peut retourner plusieurs personnes.

@@ -64,6 +64,16 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
             _output = handler.createExceptionReply();
             controleAcces.autorisateurPackage.conflitAutorisationExceptionHelper.write(_output,_exception);
         }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -85,6 +95,16 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
         {
             _output = handler.createExceptionReply();
             controleAcces.autorisateurPackage.conflitAutorisationExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
         }
         return _output;
     }

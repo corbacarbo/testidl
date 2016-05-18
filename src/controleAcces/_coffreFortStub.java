@@ -24,7 +24,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation validerEmpreinte
      */
     public String validerEmpreinte(long cleIdl, long empreinteIdl)
-        throws controleAcces.coffreFortPackage.empreinteInconnueException
+        throws controleAcces.coffreFortPackage.empreinteInconnueException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -50,6 +50,16 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                     if (_exception_id.equals(controleAcces.coffreFortPackage.empreinteInconnueExceptionHelper.id()))
                     {
                         throw controleAcces.coffreFortPackage.empreinteInconnueExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
@@ -80,7 +90,8 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation modificationEmpreinte
      */
-    public boolean modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
+    public void modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -94,8 +105,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                     controleAcces.EmpreinteHelper.write(_output,empreinteIdl);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
                     _input = this._invoke(_output);
-                    boolean _arg_ret = _input.read_boolean();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -104,6 +114,16 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -119,7 +139,8 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.coffreFortOperations _self = (controleAcces.coffreFortOperations) _so.servant;
                 try
                 {
-                    return _self.modificationEmpreinte( cleIdl,  empreinteIdl,  matriculeIdl);
+                    _self.modificationEmpreinte( cleIdl,  empreinteIdl,  matriculeIdl);
+                    return;
                 }
                 finally
                 {
@@ -132,7 +153,8 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajouterEmpreinteTemp
      */
-    public boolean ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
+    public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -146,8 +168,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                     controleAcces.EmpreinteHelper.write(_output,empreinteIdl);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
                     _input = this._invoke(_output);
-                    boolean _arg_ret = _input.read_boolean();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -156,6 +177,16 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -171,7 +202,8 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.coffreFortOperations _self = (controleAcces.coffreFortOperations) _so.servant;
                 try
                 {
-                    return _self.ajouterEmpreinteTemp( cleIdl,  empreinteIdl,  matriculeIdl);
+                    _self.ajouterEmpreinteTemp( cleIdl,  empreinteIdl,  matriculeIdl);
+                    return;
                 }
                 finally
                 {
@@ -184,7 +216,8 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation supprimerEmpreinteTemp
      */
-    public boolean supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
+    public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -197,8 +230,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                     controleAcces.CleHelper.write(_output,cleIdl);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
                     _input = this._invoke(_output);
-                    boolean _arg_ret = _input.read_boolean();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -207,6 +239,16 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -222,7 +264,8 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.coffreFortOperations _self = (controleAcces.coffreFortOperations) _so.servant;
                 try
                 {
-                    return _self.supprimerEmpreinteTemp( cleIdl,  matriculeIdl);
+                    _self.supprimerEmpreinteTemp( cleIdl,  matriculeIdl);
+                    return;
                 }
                 finally
                 {

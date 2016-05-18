@@ -16,30 +16,29 @@ import java.util.logging.Logger;
  */
 public class LoginPanel extends javax.swing.JPanel {
 
-  private Borne borne;
-
   /**
    * Creates new form LoginPanel
    */
   public LoginPanel() {
-	initComponents();
-
-	initState();
-	errorLabel.setText("");
+    initComponents();
+    initState();
   }
 
   public void initState() {
-	titreLabel.setText("LOGIN");
-	matriculeField.setText("");
-	matriculeField.setFocusable(true);
-	matriculeField.requestFocus();
-	mdpField.setText("");
+    matriculeField.setText("");
+    matriculeField.setFocusable(true);
+    matriculeField.requestFocus();
+    mdpField.setText("");
   }
 
-  public void setBorne(Borne borne) {
-	this.borne = borne;
+  public String getMatricule(){
+    return matriculeField.getText();
   }
-
+  
+  public String getMdp(){
+    return mdpField.getText();
+  }
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,10 +52,8 @@ public class LoginPanel extends javax.swing.JPanel {
     mdpLabel = new javax.swing.JLabel();
     matriculeField = new javax.swing.JTextField();
     mdpField = new javax.swing.JTextField();
-    connectButton = new javax.swing.JButton();
-    cancelButton = new javax.swing.JButton();
-    errorLabel = new javax.swing.JLabel();
-    titreLabel = new javax.swing.JLabel();
+
+    setPreferredSize(new java.awt.Dimension(350, 100));
 
     matriculeLabel.setText("Matricule :");
 
@@ -66,32 +63,6 @@ public class LoginPanel extends javax.swing.JPanel {
     matriculeField.setNextFocusableComponent(mdpField);
 
     mdpField.setText("jTextField2");
-    mdpField.setNextFocusableComponent(connectButton);
-
-    connectButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    connectButton.setText("Connect");
-    connectButton.setNextFocusableComponent(cancelButton);
-    connectButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        connectButtonActionPerformed(evt);
-      }
-    });
-
-    cancelButton.setText("Cancel");
-    cancelButton.setNextFocusableComponent(matriculeField);
-    cancelButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        cancelButtonActionPerformed(evt);
-      }
-    });
-
-    errorLabel.setForeground(new java.awt.Color(255, 0, 0));
-    errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    errorLabel.setText("jLabel1");
-    errorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-    titreLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-    titreLabel.setText("LOGIN");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
@@ -100,75 +71,35 @@ public class LoginPanel extends javax.swing.JPanel {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(matriculeLabel)
           .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(cancelButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(connectButton))
-              .addComponent(matriculeLabel))
-            .addGap(0, 101, Short.MAX_VALUE))
-          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(mdpLabel)
-              .addComponent(titreLabel))
+            .addComponent(mdpLabel)
             .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(errorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(matriculeField)
-              .addComponent(mdpField))))
-        .addContainerGap())
+              .addComponent(matriculeField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(titreLabel))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(matriculeLabel)
           .addComponent(matriculeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(mdpLabel)
-          .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(connectButton)
-          .addComponent(cancelButton))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(mdpLabel))
+        .addContainerGap(37, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
 
-  private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-	String mat = matriculeField.getText();
-	String mdp = mdpField.getText();
-
-	try {
-	  borne.authentifier(mat, mdp);
-	} catch (loginIncorrectException ex) {
-	  errorLabel.setText(ex.message);
-	  initState();
-	} catch (personneInexistanteException ex) {
-	  Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
-	}
-  }//GEN-LAST:event_connectButtonActionPerformed
-
-  private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-    borne.quitter();
-  }//GEN-LAST:event_cancelButtonActionPerformed
-
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton cancelButton;
-  private javax.swing.JButton connectButton;
-  private javax.swing.JLabel errorLabel;
   private javax.swing.JTextField matriculeField;
   private javax.swing.JLabel matriculeLabel;
   private javax.swing.JTextField mdpField;
   private javax.swing.JLabel mdpLabel;
-  private javax.swing.JLabel titreLabel;
   // End of variables declaration//GEN-END:variables
 }

@@ -80,8 +80,8 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation modificationMdp
      */
-    public boolean modificationMdp(long cleIdl, String matriculeIdl, String nouveauMdp)
-        throws controleAcces.annuairePackage.mdpIdentiqueException
+    public void modificationMdp(long cleIdl, String matriculeIdl, String nouveauMdp)
+        throws controleAcces.annuairePackage.mdpIdentiqueException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException, controleAcces.annuairePackage.personneInexistanteException
     {
         while(true)
         {
@@ -95,8 +95,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
                     _output.write_string(nouveauMdp);
                     _input = this._invoke(_output);
-                    boolean _arg_ret = _input.read_boolean();
-                    return _arg_ret;
+                    return;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
                 {
@@ -108,6 +107,21 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                     if (_exception_id.equals(controleAcces.annuairePackage.mdpIdentiqueExceptionHelper.id()))
                     {
                         throw controleAcces.annuairePackage.mdpIdentiqueExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.annuairePackage.personneInexistanteExceptionHelper.id()))
+                    {
+                        throw controleAcces.annuairePackage.personneInexistanteExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
@@ -125,7 +139,8 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.annuaireOperations _self = (controleAcces.annuaireOperations) _so.servant;
                 try
                 {
-                    return _self.modificationMdp( cleIdl,  matriculeIdl,  nouveauMdp);
+                    _self.modificationMdp( cleIdl,  matriculeIdl,  nouveauMdp);
+                    return;
                 }
                 finally
                 {
