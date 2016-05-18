@@ -1,4 +1,4 @@
-package controleAcces.trousseauPackage;
+package controleAcces;
 
 /**
  * Holder class for : sessionExpireeException
@@ -11,7 +11,7 @@ final public class sessionExpireeExceptionHolder
     /**
      * Internal sessionExpireeException value
      */
-    public controleAcces.trousseauPackage.sessionExpireeException value;
+    public controleAcces.sessionExpireeException value;
 
     /**
      * Default constructor
@@ -23,7 +23,7 @@ final public class sessionExpireeExceptionHolder
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public sessionExpireeExceptionHolder(controleAcces.trousseauPackage.sessionExpireeException initial)
+    public sessionExpireeExceptionHolder(controleAcces.sessionExpireeException initial)
     {
         value = initial;
     }

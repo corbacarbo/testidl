@@ -53,8 +53,8 @@ public class TrousseauImpl implements trousseauOperations {
 
   /**
    * Démarrage d'une nouvelle session.
-   * Génération d'une nouvelle clé de session et réglage de l'expiration de
-   * cette clé (à partir de l'attribut tempsSession).
+   * Génère et souvegarde une nouvelle clé de session et réglage de l'expiration
+   * de cette clé (à partir de l'attribut tempsSession).
    * @return une nouvelle clé de session.
    */
   @Override
@@ -72,9 +72,9 @@ public class TrousseauImpl implements trousseauOperations {
    * Puis vérifie la date d'expiration de la clé : si la date d'expiration est 
    * inférieure (ie est passée) à maintenant, la session n'est pas valide et une
    * sessionExpireeException est générée.
-   * @param cleIdl La clé à tester.
-   * @throws sessionInvalidException Si la clé de session n'existe pas.
-   * @throws sessionExpireeException Si la clé existe mais n'est plus valide.
+   * @param cleIdl la clé à tester.
+   * @throws sessionInvalidException la clé de session n'existe pas.
+   * @throws sessionExpireeException la clé existe mais n'est plus valide.
    */
   @Override
   public void valideSession(long cleIdl) throws sessionInvalidException, sessionExpireeException {

@@ -1,4 +1,4 @@
-package controleAcces.trousseauPackage;
+package controleAcces;
 
 /**
  * Holder class for : sessionInvalidException
@@ -11,7 +11,7 @@ final public class sessionInvalidExceptionHolder
     /**
      * Internal sessionInvalidException value
      */
-    public controleAcces.trousseauPackage.sessionInvalidException value;
+    public controleAcces.sessionInvalidException value;
 
     /**
      * Default constructor
@@ -23,7 +23,7 @@ final public class sessionInvalidExceptionHolder
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public sessionInvalidExceptionHolder(controleAcces.trousseauPackage.sessionInvalidException initial)
+    public sessionInvalidExceptionHolder(controleAcces.sessionInvalidException initial)
     {
         value = initial;
     }

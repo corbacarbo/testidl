@@ -32,6 +32,11 @@ public class Empreinte implements Comparable<Empreinte>{
     return hash;
   }
 
+  /**
+   *
+   * @param obj
+   * @return
+   */
   @Override
   public boolean equals(Object obj) {
     Empreinte e = (Empreinte) obj;

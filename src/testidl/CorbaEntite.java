@@ -15,6 +15,9 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
  */
 public abstract class CorbaEntite extends CorbaUtil {
 
+  /**
+   * Référence vers le POA racine (qui permet d'activer des objets).
+   */
   protected org.omg.PortableServer.POA rootPOA;
 
   /**
@@ -34,7 +37,7 @@ public abstract class CorbaEntite extends CorbaUtil {
   public abstract void createServant();
 
   /**
-   * Enregistre un objet corba auprès du service de nom.
+   * Enregistre un objet corba auprès du service de noms.
    * @param nom le nom sous lequel l'objet sera enregistré
    * @param o l'objet corba
    * @throws NotFound
@@ -63,7 +66,15 @@ public abstract class CorbaEntite extends CorbaUtil {
     }
   }
 
-  
+  /**
+   * Réalise les 6 étapes (sur 7) du processus serveur :
+   *  - initialisation de l'orb ;
+   *  - récupération du service de noms ;
+   *  - récupération du POA racine ;
+   *  - activation du POA racine ;
+   *  - création du servant ;
+   *  - activation du servant.
+   */
   public void startEntite() {
     initOrb();
     fetchNamingservice();
@@ -71,6 +82,10 @@ public abstract class CorbaEntite extends CorbaUtil {
     createServant();
   }
 
+  /**
+   * Réalise la 7ème étape du processus serveur :
+   *  - lancement de l'orb.
+   */
   public void startOrb() {
     orb.run();
   }

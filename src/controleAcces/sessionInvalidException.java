@@ -1,4 +1,4 @@
-package controleAcces.trousseauPackage;
+package controleAcces;
 
 /**
  * Exception definition : sessionInvalidException

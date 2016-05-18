@@ -1,11 +1,11 @@
-package controleAcces.trousseauPackage;
+package controleAcces;
 
 /** 
- * Helper class for : sessionInvalidException
+ * Helper class for : sessionExpireeException
  *  
  * @author OpenORB Compiler
  */ 
-public class sessionInvalidExceptionHelper
+public class sessionExpireeExceptionHelper
 {
     private static final boolean HAS_OPENORB;
     static {
@@ -19,21 +19,21 @@ public class sessionInvalidExceptionHelper
         HAS_OPENORB = hasOpenORB;
     }
     /**
-     * Insert sessionInvalidException into an any
+     * Insert sessionExpireeException into an any
      * @param a an any
-     * @param t sessionInvalidException value
+     * @param t sessionExpireeException value
      */
-    public static void insert(org.omg.CORBA.Any a, controleAcces.trousseauPackage.sessionInvalidException t)
+    public static void insert(org.omg.CORBA.Any a, controleAcces.sessionExpireeException t)
     {
-        a.insert_Streamable(new controleAcces.trousseauPackage.sessionInvalidExceptionHolder(t));
+        a.insert_Streamable(new controleAcces.sessionExpireeExceptionHolder(t));
     }
 
     /**
-     * Extract sessionInvalidException from an any
+     * Extract sessionExpireeException from an any
      * @param a an any
-     * @return the extracted sessionInvalidException value
+     * @return the extracted sessionExpireeException value
      */
-    public static controleAcces.trousseauPackage.sessionInvalidException extract(org.omg.CORBA.Any a)
+    public static controleAcces.sessionExpireeException extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -42,11 +42,11 @@ public class sessionInvalidExceptionHelper
             org.openorb.CORBA.Any any = (org.openorb.CORBA.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if(s instanceof controleAcces.trousseauPackage.sessionInvalidExceptionHolder)
-                    return ((controleAcces.trousseauPackage.sessionInvalidExceptionHolder)s).value;
+                if(s instanceof controleAcces.sessionExpireeExceptionHolder)
+                    return ((controleAcces.sessionExpireeExceptionHolder)s).value;
             } catch (org.omg.CORBA.BAD_INV_ORDER ex) {
             }
-            controleAcces.trousseauPackage.sessionInvalidExceptionHolder h = new controleAcces.trousseauPackage.sessionInvalidExceptionHolder(read(a.create_input_stream()));
+            controleAcces.sessionExpireeExceptionHolder h = new controleAcces.sessionExpireeExceptionHolder(read(a.create_input_stream()));
             a.insert_Streamable(h);
             return h.value;
         }
@@ -60,7 +60,7 @@ public class sessionInvalidExceptionHelper
     private static boolean _working = false;
 
     /**
-     * Return the sessionInvalidException TypeCode
+     * Return the sessionExpireeException TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
@@ -78,7 +78,7 @@ public class sessionInvalidExceptionHelper
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "message";
                 _members[0].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
-                _tc = orb.create_exception_tc(id(),"sessionInvalidException",_members);
+                _tc = orb.create_exception_tc(id(),"sessionExpireeException",_members);
                 _working = false;
             }
         }
@@ -86,7 +86,7 @@ public class sessionInvalidExceptionHelper
     }
 
     /**
-     * Return the sessionInvalidException IDL ID
+     * Return the sessionExpireeException IDL ID
      * @return an ID
      */
     public static String id()
@@ -94,16 +94,16 @@ public class sessionInvalidExceptionHelper
         return _id;
     }
 
-    private final static String _id = "IDL:controleAcces/trousseau/sessionInvalidException:1.0";
+    private final static String _id = "IDL:controleAcces/sessionExpireeException:1.0";
 
     /**
-     * Read sessionInvalidException from a marshalled stream
+     * Read sessionExpireeException from a marshalled stream
      * @param istream the input stream
-     * @return the readed sessionInvalidException value
+     * @return the readed sessionExpireeException value
      */
-    public static controleAcces.trousseauPackage.sessionInvalidException read(org.omg.CORBA.portable.InputStream istream)
+    public static controleAcces.sessionExpireeException read(org.omg.CORBA.portable.InputStream istream)
     {
-        controleAcces.trousseauPackage.sessionInvalidException new_one = new controleAcces.trousseauPackage.sessionInvalidException();
+        controleAcces.sessionExpireeException new_one = new controleAcces.sessionExpireeException();
 
         if (!istream.read_string().equals(id()))
          throw new org.omg.CORBA.MARSHAL();
@@ -113,11 +113,11 @@ public class sessionInvalidExceptionHelper
     }
 
     /**
-     * Write sessionInvalidException into a marshalled stream
+     * Write sessionExpireeException into a marshalled stream
      * @param ostream the output stream
-     * @param value sessionInvalidException value
+     * @param value sessionExpireeException value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.trousseauPackage.sessionInvalidException value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.sessionExpireeException value)
     {
         ostream.write_string(id());
         ostream.write_string(value.message);

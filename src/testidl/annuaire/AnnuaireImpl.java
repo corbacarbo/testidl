@@ -9,11 +9,9 @@ import controleAcces.annuairePackage.mdpIdentiqueException;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.personneIdl;
 import controleAcces.trousseau;
-import controleAcces.trousseauPackage.sessionExpireeException;
-import controleAcces.trousseauPackage.sessionInvalidException;
+import controleAcces.sessionExpireeException;
+import controleAcces.sessionInvalidException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import testidl.CorbaEntite;
 import testidl.Matricule;
 import testidl.PersonneTemporaire;
@@ -63,8 +61,8 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Cherche un employé permanent dans l'annuaire.
    *
-   * @param matricule de la personne recherchée
-   * @return la personne recherchée
+   * @param matricule le matricule de la personne recherchée
+   * @return la personne trouvée, null sinon
    * @throws personneInexistanteException
    */
   private PersonnePermanent getPersonnePermanent(Matricule matricule)
@@ -79,7 +77,8 @@ public class AnnuaireImpl implements annuaireOperations {
   }
 
   /**
-   * Cherche le mot de passe associé à un login complémentaire.
+   * Cherche le mot de passe associé à un login complémentaire (ie autre qu'un
+   * employé permanent).
    *
    * @param login
    * @return le mot de passe, si le login existe,
@@ -100,7 +99,7 @@ public class AnnuaireImpl implements annuaireOperations {
    *
    * @param mdp1 un mot de passe,
    * @param mdp2 un mot de passe,
-   * @throws MdpErroneException si non identiques.
+   * @throws MdpErroneException si les chaînes ne sont pas identiques.
    */
   private void mdpEgaux(String mdp1, String mdp2) throws MdpErroneException {
     if (!mdp1.equals(mdp2)) {
@@ -108,6 +107,10 @@ public class AnnuaireImpl implements annuaireOperations {
     }
   }
 
+  /**
+   * Génère un nouveau matricule pour une personne donnée.
+   * @param p la personne recevant un nouveau matricule.
+   */
   private void genereMatricule(Personne p) {
     p.genereMatricule();
   }
@@ -187,20 +190,20 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Modifie le mot de passe d'un employé permanent.
    *
-   * @param cle
-   * @param matriculeIdl
-   * @param nouveauMdp
+   * @param cle la clé de session autorisant le traitement
+   * @param matriculeIdl le matricule de l'employé
+   * @param nouveauMdp le nouveau mot de passe souhaité
    * @return
-   * @throws mdpIdentiqueException si le nouveau mdp est identique au précédent.
-   * @throws controleAcces.sessionInvalidException
-   * @throws controleAcces.sessionExpireeException
-   * @throws personneInexistanteException si le matricule n'est pas valide.
+   * @throws mdpIdentiqueException le nouveau mdp est identique au précédent.
+   * @throws controleAcces.sessionInvalidException la clé de session n'existe pas
+   * @throws controleAcces.sessionExpireeException la clé de session est expirée
+   * @throws personneInexistanteException le matricule n'est pas valide.
    */
   @Override
   public void modificationMdp(long cle, String matriculeIdl, String nouveauMdp)
           throws mdpIdentiqueException,
-          controleAcces.sessionInvalidException,
-          controleAcces.sessionExpireeException,
+		  sessionInvalidException,
+          sessionExpireeException,
           personneInexistanteException {
 
     trousseau trousseau = serveur.resolveTrousseau();
@@ -222,6 +225,12 @@ public class AnnuaireImpl implements annuaireOperations {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
+  /**
+   * Cherche et retourne une personne à partir de son matricule.
+   * @param matriculeIdl le matricule de la personne recherchée
+   * @return
+   * @throws personneInexistanteException le matricule fourni n'existe pas
+   */
   @Override
   public personneIdl validerIdentite(String matriculeIdl) throws personneInexistanteException {
     Matricule matricule = new Matricule(matriculeIdl);
@@ -236,8 +245,8 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Ajouter un nouvel employé permanent dans l'annuaire. L'appelant doit
    * fournir les nom, prénom, et photo dans un objet personneIdl (donc
-   * incomplète). Calcul automatique et renvoi du matricule (incrémental) et du
-   * mot de passe dans un objet personneIdl complète.
+   * incomplet). Calcul automatique et renvoi du nouveau matricule et du
+   * nouveau mot de passe dans un objet personneIdl complet.
    *
    * @param p personne à ajouter dans l'annuaire.
    * @return la personne ajoutée avec un nouveau matricule et un nouveau mot de
@@ -258,8 +267,8 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Ajouter un nouvel employé temporaire dans l'annuaire. L'appelant doit
    * fournir les nom, prénom, et photo dans un objet personneIdl (donc
-   * incomplète). Calcul automatique et renvoi du matricule (incrémental) dans
-   * un objet personneIdl complète.
+   * incomplet). Calcul automatique et renvoi du nouveau matricule dans
+   * un objet personneIdl complet.
    *
    * @param p
    * @return
