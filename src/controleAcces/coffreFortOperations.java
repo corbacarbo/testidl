@@ -8,6 +8,12 @@ package controleAcces;
 public interface coffreFortOperations
 {
     /**
+     * Operation aEmpreinte
+     */
+    public void aEmpreinte(long cleIdl, String matriculeIdl)
+        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
+
+    /**
      * Operation validerEmpreinte
      */
     public String validerEmpreinte(long cleIdl, long empreinteIdl)
@@ -17,7 +23,7 @@ public interface coffreFortOperations
      * Operation modificationEmpreinte
      */
     public void modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
-        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
+        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
     /**
      * Operation ajouterEmpreinteTemp
@@ -29,6 +35,6 @@ public interface coffreFortOperations
      * Operation supprimerEmpreinteTemp
      */
     public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
-        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
+        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
 }

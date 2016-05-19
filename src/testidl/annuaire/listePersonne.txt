@@ -1,3 +1,0 @@
-pjohn;John;Smith;mdp;photoJohn;false
-pjames;James;James;mdp;photoJames;true
-tjean;Jean;Dupuis;mdp;photoJean;true

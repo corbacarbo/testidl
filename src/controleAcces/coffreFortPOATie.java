@@ -63,6 +63,15 @@ public class coffreFortPOATie extends coffreFortPOA
     }
 
     /**
+     * Operation aEmpreinte
+     */
+    public void aEmpreinte(long cleIdl, String matriculeIdl)
+        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
+    {
+        _tie.aEmpreinte( cleIdl,  matriculeIdl);
+    }
+
+    /**
      * Operation validerEmpreinte
      */
     public String validerEmpreinte(long cleIdl, long empreinteIdl)
@@ -75,7 +84,7 @@ public class coffreFortPOATie extends coffreFortPOA
      * Operation modificationEmpreinte
      */
     public void modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl)
-        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
+        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         _tie.modificationEmpreinte( cleIdl,  empreinteIdl,  matriculeIdl);
     }
@@ -93,7 +102,7 @@ public class coffreFortPOATie extends coffreFortPOA
      * Operation supprimerEmpreinteTemp
      */
     public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
-        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
+        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         _tie.supprimerEmpreinteTemp( cleIdl,  matriculeIdl);
     }

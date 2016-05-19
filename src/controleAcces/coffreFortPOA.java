@@ -33,7 +33,9 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("ajouterEmpreinteTemp")) {
+        if (opName.equals("aEmpreinte")) {
+                return _invoke_aEmpreinte(_is, handler);
+        } else if (opName.equals("ajouterEmpreinteTemp")) {
                 return _invoke_ajouterEmpreinteTemp(_is, handler);
         } else if (opName.equals("modificationEmpreinte")) {
                 return _invoke_modificationEmpreinte(_is, handler);
@@ -47,6 +49,38 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
     }
 
     // helper methods
+    private org.omg.CORBA.portable.OutputStream _invoke_aEmpreinte(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        long arg0_in = controleAcces.CleHelper.read(_is);
+        String arg1_in = controleAcces.MatriculeHelper.read(_is);
+
+        try
+        {
+            aEmpreinte(arg0_in, arg1_in);
+
+            _output = handler.createReply();
+
+        }
+        catch (controleAcces.coffreFortPackage.matriculeInconnuException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
+        return _output;
+    }
+
     private org.omg.CORBA.portable.OutputStream _invoke_validerEmpreinte(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
@@ -94,6 +128,11 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
 
             _output = handler.createReply();
 
+        }
+        catch (controleAcces.coffreFortPackage.matriculeInconnuException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.write(_output,_exception);
         }
         catch (controleAcces.sessionInvalidException _exception)
         {
@@ -149,6 +188,11 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
 
             _output = handler.createReply();
 
+        }
+        catch (controleAcces.coffreFortPackage.matriculeInconnuException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.write(_output,_exception);
         }
         catch (controleAcces.sessionInvalidException _exception)
         {

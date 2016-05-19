@@ -1,0 +1,258 @@
+module controleAcces{
+
+typedef string Heure;
+
+typedef string Jour;
+
+typedef string Matricule;
+
+typedef long long Empreinte;
+
+typedef long long Cle;
+
+typedef struct personneIdl{
+  Matricule matricule;
+  string nom;
+  string prenom;
+  string photo;
+  string mdp;
+  boolean mdpChange;
+} personneStruct;
+
+/********** Exceptions *****/
+
+  exception sessionInvalidException{
+    string message;
+  };
+
+  exception sessionExpireeException{
+	string message;
+  };
+
+
+/******************** TROUSSEAU ********************/
+interface trousseau{
+
+  /********** Types *****/
+
+  /********** Méthodes *****/
+
+  Cle startSession();
+
+  void valideSession(in Cle cleIdl)
+    raises (sessionInvalidException, sessionExpireeException);
+
+};
+
+/******************** ANNUAIRE ********************/
+interface annuaire{
+
+  /********** Types *****/
+	
+  typedef sequence<personneStruct> listePersonne;
+
+  /********** Exceptions *****/
+
+  exception loginIncorrectException{
+    string message;
+  };
+
+  exception mdpIdentiqueException{
+    string message;
+  };
+
+  exception personneInexistanteException{
+    string message;
+  };
+
+  /********** Méthodes *****/
+
+  /*
+   * Vérifie des données d'identification.
+   * Retourne une clé permettant d’accéder aux services nécessitant une authentification.
+   */
+  Cle authentification(in Matricule matriculeIdl, in string mdp)
+	  raises (loginIncorrectException);
+
+  /*
+   * Modification de mot de passe pour les employés permanents uniquement.
+   * La clé provient d'un appel à authentification().
+   */
+  void modificationMdp(in Cle cleIdl, in Matricule matriculeIdl, in string nouveauMdp)
+	  raises (mdpIdentiqueException, sessionInvalidException, sessionExpireeException, personneInexistanteException);
+
+  /*
+   * Recherche d'un employé par matricule et/ou nom et/ou prenom.
+   * Peut retourner plusieurs personnes.
+   */
+  listePersonne rechercherPersonne(in Matricule matriculeIdl, in string nom, in string prenom)
+	  raises (personneInexistanteException);
+
+  /*
+   * Permet de chercher un employé à partir de son matricule.
+   *
+   */
+  personneStruct validerIdentite(in Matricule matriculeIdl)
+	  raises(personneInexistanteException);
+
+  /*
+   * Ajouter un nouvel employé permanent : fournir nom, prenom, photo
+   *   -> dans une structure Personne incomplète.
+   * Calcul automatique et renvoi du matricule (incrémental) et du mot de passe
+   *   -> dans une structure Personne complète.
+   */
+  personneStruct ajouterPermanent(in personneStruct p);
+
+  /*
+   * Ajouter un nouvel employé temporaire : fournir nom, prenom, photo
+   *   -> dans une structure Personne incomplète.
+   * Calcul automatique et renvoi du matricule (incrémental)
+   *   -> dans une structure Personne presque complète (pas de mot de passe)
+   */
+  personneStruct ajouterTemporaire(in personneStruct p);
+
+};
+
+/******************** AUTORISATEUR ********************/
+
+interface autorisateur{
+
+  /********** Types *****/
+
+  typedef struct autorisationP{
+	  Matricule matricule;
+	  Heure heureD;
+	  Heure heureF;
+  } autorisationPStruct;
+
+  typedef struct autorisationT{
+	  Matricule matricule;
+	  Heure heureD;
+	  Heure heureF;
+	  Jour jourD;
+	  Jour jourF;
+  } autorisationTStruct;
+
+  /********** Exceptions *****/
+
+  exception conflitAutorisationException{
+	  string message;
+  };
+
+  exception autorisationRefuseeException{
+	  string message;
+	  Heure heure;
+  };
+
+  /********** Méthodes *****/
+
+  /*
+   * Ajouter une autorisation pour un employé permanent.
+   */
+  void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisation)
+	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
+
+  /*
+   * Ajouter une autorisation pour une employé temporaire.
+   */
+  void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisation)
+	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
+
+  /*
+   * Vérifie s'il existe une autorisation d'accès à une zone pour un employé.
+   */
+  void autoriser(in Matricule matriculeIdl)
+	  raises (autorisationRefuseeException);
+
+};
+
+/******************** COFFREFORT ********************/
+
+interface coffreFort{
+
+  /********** Exceptions *****/
+
+  exception empreinteInconnueException{
+	  string message;
+  };
+
+  exception matriculeInconnuException{
+	  string message;
+  };
+
+  /********** Méthodes *****/
+
+
+  /*
+   * Vérifie si un emloyé a déjà une empreinte.
+   */
+  void aEmpreinte(in Cle cleIdl, in Matricule matriculeIdl)
+	  raises(matriculeInconnuException, sessionInvalidException, sessionExpireeException);
+
+  /*
+   * Permet de récupérer le matricule d'un employé à partir de son empreinte.
+   */
+  Matricule validerEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl)
+	  raises (empreinteInconnueException, sessionInvalidException, sessionExpireeException);
+
+  /*
+   * Permet d'ajouter ou de modifier l'empreinte d'un employé permanent.
+   */
+  void modificationEmpreinte(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl)
+    raises (matriculeInconnuException, sessionInvalidException, sessionExpireeException);
+
+  /*
+   * Permet d'ajouter l'empreinte d'un employé temporaire.
+   */
+  void ajouterEmpreinteTemp(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl)
+    raises (sessionInvalidException, sessionExpireeException);
+
+  /*
+   * Permet de supprimer l'empreinte d'un employé temporaire.
+   */
+  void supprimerEmpreinteTemp(in Cle cleIdl, in Matricule matriculeIdl)
+    raises (matriculeInconnuException, sessionInvalidException, sessionExpireeException);
+
+};
+
+/******************** JOURNAL ********************/
+
+interface journal{
+
+  /********** Types *****/
+	
+  typedef struct date{
+	  long timestamp;
+  } dateStruct;
+
+  typedef struct demandeIdl{
+    Matricule matricule;
+    dateStruct dateHeure;
+    long idZone;
+    long idPorte;
+    string statut;
+    long type;
+  } demandeStruct;
+
+  typedef sequence<demandeStruct> listeDemande;
+
+  /********** Méthodes *****/
+
+  /*
+   * Log d'une acceptation/refus d'accès d'une personne après une identification réussie.
+   */
+  oneway void loguer(in Matricule matriculeIdl, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+
+  /*
+   * Log d'un échec d'identification.
+   */
+  oneway void loguerInconnu(in Empreinte empreinteIdl, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+
+  /*
+   * Consultation des demandes à partir d'un matricule.
+   */
+  listeDemande consulter(in Matricule matriculeIdl);
+
+};
+
+};
