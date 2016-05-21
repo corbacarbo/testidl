@@ -13,6 +13,11 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
     public String matricule;
 
     /**
+     * Struct member empreinteIdl
+     */
+    public long empreinteIdl;
+
+    /**
      * Struct member dateHeure
      */
     public long dateHeure;
@@ -46,15 +51,17 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
     /**
      * Constructor with fields initialization
      * @param matricule matricule struct member
+     * @param empreinteIdl empreinteIdl struct member
      * @param dateHeure dateHeure struct member
      * @param idZone idZone struct member
      * @param idPorte idPorte struct member
      * @param statut statut struct member
      * @param type type struct member
      */
-    public demandeIdl(String matricule, long dateHeure, int idZone, int idPorte, String statut, int type)
+    public demandeIdl(String matricule, long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
     {
         this.matricule = matricule;
+        this.empreinteIdl = empreinteIdl;
         this.dateHeure = dateHeure;
         this.idZone = idZone;
         this.idPorte = idPorte;

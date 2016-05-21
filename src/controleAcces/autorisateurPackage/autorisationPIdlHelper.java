@@ -73,23 +73,17 @@ public class autorisationPIdlHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[5];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[3];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "matricule";
                 _members[0].type = controleAcces.MatriculeHelper.type();
                 _members[1] = new org.omg.CORBA.StructMember();
-                _members[1].name = "heureD";
-                _members[1].type = controleAcces.HeureHelper.type();
+                _members[1].name = "horaireD";
+                _members[1].type = controleAcces.HoraireHelper.type();
                 _members[2] = new org.omg.CORBA.StructMember();
-                _members[2].name = "minuteD";
-                _members[2].type = controleAcces.MinuteHelper.type();
-                _members[3] = new org.omg.CORBA.StructMember();
-                _members[3].name = "heureF";
-                _members[3].type = controleAcces.HeureHelper.type();
-                _members[4] = new org.omg.CORBA.StructMember();
-                _members[4].name = "minuteF";
-                _members[4].type = controleAcces.MinuteHelper.type();
+                _members[2].name = "horaireF";
+                _members[2].type = controleAcces.HoraireHelper.type();
                 _tc = orb.create_struct_tc(id(),"autorisationPIdl",_members);
                 _working = false;
             }
@@ -118,10 +112,8 @@ public class autorisationPIdlHelper
         controleAcces.autorisateurPackage.autorisationPIdl new_one = new controleAcces.autorisateurPackage.autorisationPIdl();
 
         new_one.matricule = controleAcces.MatriculeHelper.read(istream);
-        new_one.heureD = controleAcces.HeureHelper.read(istream);
-        new_one.minuteD = controleAcces.MinuteHelper.read(istream);
-        new_one.heureF = controleAcces.HeureHelper.read(istream);
-        new_one.minuteF = controleAcces.MinuteHelper.read(istream);
+        new_one.horaireD = controleAcces.HoraireHelper.read(istream);
+        new_one.horaireF = controleAcces.HoraireHelper.read(istream);
 
         return new_one;
     }
@@ -134,10 +126,8 @@ public class autorisationPIdlHelper
     public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationPIdl value)
     {
         controleAcces.MatriculeHelper.write(ostream,value.matricule);
-        controleAcces.HeureHelper.write(ostream,value.heureD);
-        controleAcces.MinuteHelper.write(ostream,value.minuteD);
-        controleAcces.HeureHelper.write(ostream,value.heureF);
-        controleAcces.MinuteHelper.write(ostream,value.minuteF);
+        controleAcces.HoraireHelper.write(ostream,value.horaireD);
+        controleAcces.HoraireHelper.write(ostream,value.horaireF);
     }
 
 }

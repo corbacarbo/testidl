@@ -23,7 +23,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation loguer
      */
-    public void loguer(String matriculeIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguer(controleAcces.journalPackage.demandeIdl demandeIdl)
     {
         while(true)
         {
@@ -33,12 +33,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("loguer",false);
-                    controleAcces.MatriculeHelper.write(_output,matriculeIdl);
-                    _output.write_longlong(dateHeure);
-                    _output.write_long(idZone);
-                    _output.write_long(idPorte);
-                    _output.write_string(statut);
-                    _output.write_long(type);
+                    controleAcces.journalPackage.demandeStructHelper.write(_output,demandeIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -64,7 +59,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.journalOperations _self = (controleAcces.journalOperations) _so.servant;
                 try
                 {
-                    _self.loguer( matriculeIdl,  dateHeure,  idZone,  idPorte,  statut,  type);
+                    _self.loguer( demandeIdl);
                     return;
                 }
                 finally
@@ -78,7 +73,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguerInconnu(controleAcces.journalPackage.demandeIdl demandeIdl)
     {
         while(true)
         {
@@ -88,12 +83,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("loguerInconnu",false);
-                    controleAcces.EmpreinteHelper.write(_output,empreinteIdl);
-                    _output.write_longlong(dateHeure);
-                    _output.write_long(idZone);
-                    _output.write_long(idPorte);
-                    _output.write_string(statut);
-                    _output.write_long(type);
+                    controleAcces.journalPackage.demandeStructHelper.write(_output,demandeIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -119,7 +109,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.journalOperations _self = (controleAcces.journalOperations) _so.servant;
                 try
                 {
-                    _self.loguerInconnu( empreinteIdl,  dateHeure,  idZone,  idPorte,  statut,  type);
+                    _self.loguerInconnu( demandeIdl);
                     return;
                 }
                 finally
@@ -131,9 +121,9 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation consulter
+     * Operation consulterByMatricule
      */
-    public controleAcces.journalPackage.demandeIdl[] consulter(String matriculeIdl)
+    public controleAcces.journalPackage.demandeIdl[] consulterByMatricule(String matriculeIdl)
     {
         while(true)
         {
@@ -142,7 +132,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("consulter",true);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("consulterByMatricule",true);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
                     _input = this._invoke(_output);
                     controleAcces.journalPackage.demandeIdl[] _arg_ret = controleAcces.journalPackage.listeDemandeHelper.read(_input);
@@ -164,13 +154,63 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("consulter",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("consulterByMatricule",_opsClass);
                 if (_so == null)
                    continue;
                 controleAcces.journalOperations _self = (controleAcces.journalOperations) _so.servant;
                 try
                 {
-                    return _self.consulter( matriculeIdl);
+                    return _self.consulterByMatricule( matriculeIdl);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation consulterByDate
+     */
+    public controleAcces.journalPackage.demandeIdl[] consulterByDate(long date)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("consulterByDate",true);
+                    _output.write_longlong(date);
+                    _input = this._invoke(_output);
+                    controleAcces.journalPackage.demandeIdl[] _arg_ret = controleAcces.journalPackage.listeDemandeHelper.read(_input);
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("consulterByDate",_opsClass);
+                if (_so == null)
+                   continue;
+                controleAcces.journalOperations _self = (controleAcces.journalOperations) _so.servant;
+                try
+                {
+                    return _self.consulterByDate( date);
                 }
                 finally
                 {

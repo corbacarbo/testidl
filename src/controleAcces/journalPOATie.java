@@ -65,25 +65,33 @@ public class journalPOATie extends journalPOA
     /**
      * Operation loguer
      */
-    public void loguer(String matriculeIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguer(controleAcces.journalPackage.demandeIdl demandeIdl)
     {
-        _tie.loguer( matriculeIdl,  dateHeure,  idZone,  idPorte,  statut,  type);
+        _tie.loguer( demandeIdl);
     }
 
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguerInconnu(controleAcces.journalPackage.demandeIdl demandeIdl)
     {
-        _tie.loguerInconnu( empreinteIdl,  dateHeure,  idZone,  idPorte,  statut,  type);
+        _tie.loguerInconnu( demandeIdl);
     }
 
     /**
-     * Operation consulter
+     * Operation consulterByMatricule
      */
-    public controleAcces.journalPackage.demandeIdl[] consulter(String matriculeIdl)
+    public controleAcces.journalPackage.demandeIdl[] consulterByMatricule(String matriculeIdl)
     {
-        return _tie.consulter( matriculeIdl);
+        return _tie.consulterByMatricule( matriculeIdl);
+    }
+
+    /**
+     * Operation consulterByDate
+     */
+    public controleAcces.journalPackage.demandeIdl[] consulterByDate(long date)
+    {
+        return _tie.consulterByDate( date);
     }
 
 }

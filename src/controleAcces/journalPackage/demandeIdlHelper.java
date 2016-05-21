@@ -73,26 +73,29 @@ public class demandeIdlHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[6];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[7];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "matricule";
                 _members[0].type = controleAcces.MatriculeHelper.type();
                 _members[1] = new org.omg.CORBA.StructMember();
-                _members[1].name = "dateHeure";
-                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong);
+                _members[1].name = "empreinteIdl";
+                _members[1].type = controleAcces.EmpreinteHelper.type();
                 _members[2] = new org.omg.CORBA.StructMember();
-                _members[2].name = "idZone";
-                _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[2].name = "dateHeure";
+                _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong);
                 _members[3] = new org.omg.CORBA.StructMember();
-                _members[3].name = "idPorte";
+                _members[3].name = "idZone";
                 _members[3].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
                 _members[4] = new org.omg.CORBA.StructMember();
-                _members[4].name = "statut";
-                _members[4].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[4].name = "idPorte";
+                _members[4].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
                 _members[5] = new org.omg.CORBA.StructMember();
-                _members[5].name = "type";
-                _members[5].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[5].name = "statut";
+                _members[5].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
+                _members[6] = new org.omg.CORBA.StructMember();
+                _members[6].name = "type";
+                _members[6].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
                 _tc = orb.create_struct_tc(id(),"demandeIdl",_members);
                 _working = false;
             }
@@ -121,6 +124,7 @@ public class demandeIdlHelper
         controleAcces.journalPackage.demandeIdl new_one = new controleAcces.journalPackage.demandeIdl();
 
         new_one.matricule = controleAcces.MatriculeHelper.read(istream);
+        new_one.empreinteIdl = controleAcces.EmpreinteHelper.read(istream);
         new_one.dateHeure = istream.read_longlong();
         new_one.idZone = istream.read_long();
         new_one.idPorte = istream.read_long();
@@ -138,6 +142,7 @@ public class demandeIdlHelper
     public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.journalPackage.demandeIdl value)
     {
         controleAcces.MatriculeHelper.write(ostream,value.matricule);
+        controleAcces.EmpreinteHelper.write(ostream,value.empreinteIdl);
         ostream.write_longlong(value.dateHeure);
         ostream.write_long(value.idZone);
         ostream.write_long(value.idPorte);

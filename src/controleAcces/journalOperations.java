@@ -10,16 +10,21 @@ public interface journalOperations
     /**
      * Operation loguer
      */
-    public void loguer(String matriculeIdl, long dateHeure, int idZone, int idPorte, String statut, int type);
+    public void loguer(controleAcces.journalPackage.demandeIdl demandeIdl);
 
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type);
+    public void loguerInconnu(controleAcces.journalPackage.demandeIdl demandeIdl);
 
     /**
-     * Operation consulter
+     * Operation consulterByMatricule
      */
-    public controleAcces.journalPackage.demandeIdl[] consulter(String matriculeIdl);
+    public controleAcces.journalPackage.demandeIdl[] consulterByMatricule(String matriculeIdl);
+
+    /**
+     * Operation consulterByDate
+     */
+    public controleAcces.journalPackage.demandeIdl[] consulterByDate(long date);
 
 }

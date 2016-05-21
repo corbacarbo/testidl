@@ -33,8 +33,10 @@ public abstract class journalPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("consulter")) {
-                return _invoke_consulter(_is, handler);
+        if (opName.equals("consulterByDate")) {
+                return _invoke_consulterByDate(_is, handler);
+        } else if (opName.equals("consulterByMatricule")) {
+                return _invoke_consulterByMatricule(_is, handler);
         } else if (opName.equals("loguer")) {
                 return _invoke_loguer(_is, handler);
         } else if (opName.equals("loguerInconnu")) {
@@ -49,14 +51,9 @@ public abstract class journalPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = controleAcces.MatriculeHelper.read(_is);
-        long arg1_in = _is.read_longlong();
-        int arg2_in = _is.read_long();
-        int arg3_in = _is.read_long();
-        String arg4_in = _is.read_string();
-        int arg5_in = _is.read_long();
+        controleAcces.journalPackage.demandeIdl arg0_in = controleAcces.journalPackage.demandeStructHelper.read(_is);
 
-        loguer(arg0_in, arg1_in, arg2_in, arg3_in, arg4_in, arg5_in);
+        loguer(arg0_in);
 
         _output = handler.createReply();
 
@@ -67,27 +64,36 @@ public abstract class journalPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        long arg0_in = controleAcces.EmpreinteHelper.read(_is);
-        long arg1_in = _is.read_longlong();
-        int arg2_in = _is.read_long();
-        int arg3_in = _is.read_long();
-        String arg4_in = _is.read_string();
-        int arg5_in = _is.read_long();
+        controleAcces.journalPackage.demandeIdl arg0_in = controleAcces.journalPackage.demandeStructHelper.read(_is);
 
-        loguerInconnu(arg0_in, arg1_in, arg2_in, arg3_in, arg4_in, arg5_in);
+        loguerInconnu(arg0_in);
 
         _output = handler.createReply();
 
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_consulter(
+    private org.omg.CORBA.portable.OutputStream _invoke_consulterByMatricule(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         String arg0_in = controleAcces.MatriculeHelper.read(_is);
 
-        controleAcces.journalPackage.demandeIdl[] _arg_result = consulter(arg0_in);
+        controleAcces.journalPackage.demandeIdl[] _arg_result = consulterByMatricule(arg0_in);
+
+        _output = handler.createReply();
+        controleAcces.journalPackage.listeDemandeHelper.write(_output,_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_consulterByDate(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        long arg0_in = _is.read_longlong();
+
+        controleAcces.journalPackage.demandeIdl[] _arg_result = consulterByDate(arg0_in);
 
         _output = handler.createReply();
         controleAcces.journalPackage.listeDemandeHelper.write(_output,_arg_result);

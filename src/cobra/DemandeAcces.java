@@ -10,8 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
- *
- * @author Mélanie
+ * Classe métier. Une Demande d'acces est un log d'une tentive de passage de porte.
  */
 public class DemandeAcces implements Comparable{
     /**
@@ -39,15 +38,27 @@ public class DemandeAcces implements Comparable{
     */
     private String type;
     
+    /**
+     * empreinte de la personne si elle n'a pas pu être authentifiée
+     */
     private Empreinte empreinteInconnu;
+
+    public Matricule getMatricule() {
+        return matricule;
+    }
+
+    public GregorianCalendar getDateHeure() {
+        return dateHeure;
+    }
    
-    public DemandeAcces(demandeIdl d, String emp){
+    public DemandeAcces(demandeIdl d){
         if (null==d.matricule){
             this.matricule = new Matricule("");
-            this.empreinteInconnu = new Empreinte(emp);
+            this.empreinteInconnu = new Empreinte(d.empreinteIdl);
         }
         else{
             this.matricule = new Matricule(d.matricule);
+            this.empreinteInconnu = new Empreinte("");
         }
         this.dateHeure.setTimeInMillis(d.dateHeure);
         this.idPorte=d.idPorte;
@@ -62,11 +73,17 @@ public class DemandeAcces implements Comparable{
             }
         }        
     }
-    public String afficher(){
+    
+    /**
+     * Methode d'affiche
+     * @return un string représentatif de l'objet demande d'accès.
+     */
+    @Override
+    public String toString(){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY - HH:mm:ss");
         String versLeFutur = format.format(this.dateHeure.getTime())+" - ";
         if (this.matricule.toString().equals("")){
-            versLeFutur+="Inconnu - ";
+            versLeFutur+="Inconnu - Hash de l'empreinte : "+this.empreinteInconnu.toString()+" - ";
         }
         else {
             versLeFutur+=this.matricule.toString()+" - ";
@@ -75,13 +92,16 @@ public class DemandeAcces implements Comparable{
         versLeFutur+="Statut "+this.statut+" - Type "+ this.type;
         return versLeFutur;
     }
-    
+    /**
+     * Methode de conversion
+     * @return un objet demandeIdl,  parti de l'objet courant demande d'accès
+     */
     public demandeIdl toIdl(){
         int typeES=0;
         if (this.type.equals("Sortie")){
             typeES=1;
         }
-        return new demandeIdl(this.matricule.toIdl(), this.dateHeure.getTimeInMillis(), this.idZone, this.idPorte, this.statut, typeES);
+        return new demandeIdl(this.matricule.toIdl(),this.empreinteInconnu.toIdl(), this.dateHeure.getTimeInMillis(), this.idZone, this.idPorte, this.statut, typeES);
     };
     /**
      * @param o une demande d'acces

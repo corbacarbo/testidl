@@ -12,6 +12,8 @@ typedef long long Empreinte;
 
 typedef long long Cle;
 
+typedef long Horaire;
+
 typedef struct personneIdl{
   Matricule matricule;
   string nom;
@@ -230,6 +232,7 @@ interface journal{
 
   typedef struct demandeIdl{
     Matricule matricule;
+    Empreinte empreinteIdl;
     long long dateHeure;
     long idZone;
     long idPorte;
@@ -244,17 +247,22 @@ interface journal{
   /*
    * Log d'une acceptation/refus d'accès d'une personne après une identification réussie.
    */
-  oneway void loguer(in Matricule matriculeIdl, in long long dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+  oneway void loguer(in demandeStruct demandeIdl);
 
   /*
    * Log d'un échec d'identification.
    */
-  oneway void loguerInconnu(in Empreinte empreinteIdl, in long long dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+  oneway void loguerInconnu(in demandeStruct demandeIdl);
 
   /*
    * Consultation des demandes à partir d'un matricule.
    */
-  listeDemande consulter(in Matricule matriculeIdl);
+  listeDemande consulterByMatricule(in Matricule matriculeIdl);
+
+ /*
+   * Consultation des demandes à partir d'une date.
+   */
+  listeDemande consulterByDate(in long long date);
 
 };
 
