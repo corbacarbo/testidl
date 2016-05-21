@@ -50,7 +50,7 @@ public abstract class journalPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         String arg0_in = controleAcces.MatriculeHelper.read(_is);
-        controleAcces.journalPackage.date arg1_in = controleAcces.journalPackage.dateStructHelper.read(_is);
+        long arg1_in = _is.read_longlong();
         int arg2_in = _is.read_long();
         int arg3_in = _is.read_long();
         String arg4_in = _is.read_string();
@@ -68,7 +68,7 @@ public abstract class journalPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.EmpreinteHelper.read(_is);
-        controleAcces.journalPackage.date arg1_in = controleAcces.journalPackage.dateStructHelper.read(_is);
+        long arg1_in = _is.read_longlong();
         int arg2_in = _is.read_long();
         int arg3_in = _is.read_long();
         String arg4_in = _is.read_string();

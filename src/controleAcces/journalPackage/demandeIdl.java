@@ -15,7 +15,7 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member dateHeure
      */
-    public controleAcces.journalPackage.date dateHeure;
+    public long dateHeure;
 
     /**
      * Struct member idZone
@@ -52,7 +52,7 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
      * @param statut statut struct member
      * @param type type struct member
      */
-    public demandeIdl(String matricule, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
+    public demandeIdl(String matricule, long dateHeure, int idZone, int idPorte, String statut, int type)
     {
         this.matricule = matricule;
         this.dateHeure = dateHeure;

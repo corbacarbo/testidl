@@ -23,7 +23,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation loguer
      */
-    public void loguer(String matriculeIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguer(String matriculeIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
     {
         while(true)
         {
@@ -34,7 +34,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("loguer",false);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
-                    controleAcces.journalPackage.dateStructHelper.write(_output,dateHeure);
+                    _output.write_longlong(dateHeure);
                     _output.write_long(idZone);
                     _output.write_long(idPorte);
                     _output.write_string(statut);
@@ -78,7 +78,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(long empreinteIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguerInconnu(long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
     {
         while(true)
         {
@@ -89,7 +89,7 @@ public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("loguerInconnu",false);
                     controleAcces.EmpreinteHelper.write(_output,empreinteIdl);
-                    controleAcces.journalPackage.dateStructHelper.write(_output,dateHeure);
+                    _output.write_longlong(dateHeure);
                     _output.write_long(idZone);
                     _output.write_long(idPorte);
                     _output.write_string(statut);
