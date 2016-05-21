@@ -65,19 +65,19 @@ public class autorisateurPOATie extends autorisateurPOA
     /**
      * Operation ajouterAutorisationP
      */
-    public void ajouterAutorisationP(long cleIdl, controleAcces.autorisateurPackage.autorisationP autorisation)
+    public void ajouterAutorisationP(long cleIdl, controleAcces.autorisateurPackage.autorisationPIdl autorisationIdl)
         throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        _tie.ajouterAutorisationP( cleIdl,  autorisation);
+        _tie.ajouterAutorisationP( cleIdl,  autorisationIdl);
     }
 
     /**
      * Operation ajouterAutorisationT
      */
-    public void ajouterAutorisationT(long cleIdl, controleAcces.autorisateurPackage.autorisationT autorisation)
+    public void ajouterAutorisationT(long cleIdl, controleAcces.autorisateurPackage.autorisationTIdl autorisationIdl)
         throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        _tie.ajouterAutorisationT( cleIdl,  autorisation);
+        _tie.ajouterAutorisationT( cleIdl,  autorisationIdl);
     }
 
     /**

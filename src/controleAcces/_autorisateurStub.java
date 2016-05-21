@@ -23,7 +23,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajouterAutorisationP
      */
-    public void ajouterAutorisationP(long cleIdl, controleAcces.autorisateurPackage.autorisationP autorisation)
+    public void ajouterAutorisationP(long cleIdl, controleAcces.autorisateurPackage.autorisationPIdl autorisationIdl)
         throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
@@ -35,7 +35,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("ajouterAutorisationP",true);
                     controleAcces.CleHelper.write(_output,cleIdl);
-                    controleAcces.autorisateurPackage.autorisationPStructHelper.write(_output,autorisation);
+                    controleAcces.autorisateurPackage.autorisationPStructHelper.write(_output,autorisationIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -76,7 +76,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.autorisateurOperations _self = (controleAcces.autorisateurOperations) _so.servant;
                 try
                 {
-                    _self.ajouterAutorisationP( cleIdl,  autorisation);
+                    _self.ajouterAutorisationP( cleIdl,  autorisationIdl);
                     return;
                 }
                 finally
@@ -90,7 +90,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajouterAutorisationT
      */
-    public void ajouterAutorisationT(long cleIdl, controleAcces.autorisateurPackage.autorisationT autorisation)
+    public void ajouterAutorisationT(long cleIdl, controleAcces.autorisateurPackage.autorisationTIdl autorisationIdl)
         throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
@@ -102,7 +102,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("ajouterAutorisationT",true);
                     controleAcces.CleHelper.write(_output,cleIdl);
-                    controleAcces.autorisateurPackage.autorisationTStructHelper.write(_output,autorisation);
+                    controleAcces.autorisateurPackage.autorisationTStructHelper.write(_output,autorisationIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -143,7 +143,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.autorisateurOperations _self = (controleAcces.autorisateurOperations) _so.servant;
                 try
                 {
-                    _self.ajouterAutorisationT( cleIdl,  autorisation);
+                    _self.ajouterAutorisationT( cleIdl,  autorisationIdl);
                     return;
                 }
                 finally

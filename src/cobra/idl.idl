@@ -1,8 +1,10 @@
 module controleAcces{
 
 typedef string Heure;
-
+typedef string Minute;
 typedef string Jour;
+typedef string Mois;
+typedef string Annee;
 
 typedef string Matricule;
 
@@ -119,18 +121,22 @@ interface autorisateur{
 
   /********** Types *****/
 
-  typedef struct autorisationP{
+  typedef struct autorisationPIdl{
 	  Matricule matricule;
-	  Heure heureD;
-	  Heure heureF;
+	  Horaire horaireD;
+	  Horaire horaireF;
   } autorisationPStruct;
 
-  typedef struct autorisationT{
+  typedef struct autorisationTIdl{
 	  Matricule matricule;
-	  Heure heureD;
-	  Heure heureF;
+	  Horaire horaireD;
+	  Horaire horaireF;
 	  Jour jourD;
+	  Mois moisD;
+	  Annee anneeD;
 	  Jour jourF;
+	  Mois moisF;
+	  Annee anneeF;
   } autorisationTStruct;
 
   /********** Exceptions *****/
@@ -149,13 +155,13 @@ interface autorisateur{
   /*
    * Ajouter une autorisation pour un employé permanent.
    */
-  void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisation)
+  void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisationIdl)
 	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Ajouter une autorisation pour une employé temporaire.
    */
-  void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisation)
+  void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisationIdl)
 	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*
