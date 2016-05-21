@@ -23,9 +23,9 @@ public class autorisationPStructHelper
      * @param a an any
      * @param t autorisationPStruct value
      */
-    public static void insert(org.omg.CORBA.Any a, controleAcces.autorisateurPackage.autorisationP t)
+    public static void insert(org.omg.CORBA.Any a, controleAcces.autorisateurPackage.autorisationPIdl t)
     {
-        a.insert_Streamable(new controleAcces.autorisateurPackage.autorisationPHolder(t));
+        a.insert_Streamable(new controleAcces.autorisateurPackage.autorisationPIdlHolder(t));
     }
 
     /**
@@ -33,7 +33,7 @@ public class autorisationPStructHelper
      * @param a an any
      * @return the extracted autorisationPStruct value
      */
-    public static controleAcces.autorisateurPackage.autorisationP extract(org.omg.CORBA.Any a)
+    public static controleAcces.autorisateurPackage.autorisationPIdl extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -42,11 +42,11 @@ public class autorisationPStructHelper
             org.openorb.CORBA.Any any = (org.openorb.CORBA.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if(s instanceof controleAcces.autorisateurPackage.autorisationPHolder)
-                    return ((controleAcces.autorisateurPackage.autorisationPHolder)s).value;
+                if(s instanceof controleAcces.autorisateurPackage.autorisationPIdlHolder)
+                    return ((controleAcces.autorisateurPackage.autorisationPIdlHolder)s).value;
             } catch (org.omg.CORBA.BAD_INV_ORDER ex) {
             }
-            controleAcces.autorisateurPackage.autorisationPHolder h = new controleAcces.autorisateurPackage.autorisationPHolder(read(a.create_input_stream()));
+            controleAcces.autorisateurPackage.autorisationPIdlHolder h = new controleAcces.autorisateurPackage.autorisationPIdlHolder(read(a.create_input_stream()));
             a.insert_Streamable(h);
             return h.value;
         }
@@ -73,7 +73,7 @@ public class autorisationPStructHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-            _tc = orb.create_alias_tc(id(),"autorisationPStruct",controleAcces.autorisateurPackage.autorisationPHelper.type());
+            _tc = orb.create_alias_tc(id(),"autorisationPStruct",controleAcces.autorisateurPackage.autorisationPIdlHelper.type());
                 _working = false;
             }
         }
@@ -96,9 +96,9 @@ public class autorisationPStructHelper
      * @param istream the input stream
      * @return the readed autorisationPStruct value
      */
-    public static controleAcces.autorisateurPackage.autorisationP read(org.omg.CORBA.portable.InputStream istream)
+    public static controleAcces.autorisateurPackage.autorisationPIdl read(org.omg.CORBA.portable.InputStream istream)
     {
-        return controleAcces.autorisateurPackage.autorisationPHelper.read(istream);
+        return controleAcces.autorisateurPackage.autorisationPIdlHelper.read(istream);
     }
 
     /**
@@ -106,9 +106,9 @@ public class autorisationPStructHelper
      * @param ostream the output stream
      * @param value autorisationPStruct value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationP value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationPIdl value)
     {
-        controleAcces.autorisateurPackage.autorisationPHelper.write(ostream, value);
+        controleAcces.autorisateurPackage.autorisationPIdlHelper.write(ostream, value);
     }
 
 }

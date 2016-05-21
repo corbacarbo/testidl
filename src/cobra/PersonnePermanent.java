@@ -34,7 +34,7 @@ public class PersonnePermanent extends Personne {
 
   @Override
   public personneIdl toIdl() {
-    return new personneIdl(matricule.toString(), nom, prenom, photo, mdp, mdpChange);
+    return new personneIdl(matricule.toIdl(), nom, prenom, photo, mdp, mdpChange);
   }
 
   public boolean isMdpChange() {
