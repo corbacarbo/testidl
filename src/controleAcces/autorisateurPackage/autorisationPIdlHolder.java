@@ -1,58 +1,58 @@
 package controleAcces.autorisateurPackage;
 
 /**
- * Holder class for : autorisationP
+ * Holder class for : autorisationPIdl
  * 
  * @author OpenORB Compiler
  */
-final public class autorisationPHolder
+final public class autorisationPIdlHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal autorisationP value
+     * Internal autorisationPIdl value
      */
-    public controleAcces.autorisateurPackage.autorisationP value;
+    public controleAcces.autorisateurPackage.autorisationPIdl value;
 
     /**
      * Default constructor
      */
-    public autorisationPHolder()
+    public autorisationPIdlHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public autorisationPHolder(controleAcces.autorisateurPackage.autorisationP initial)
+    public autorisationPIdlHolder(controleAcces.autorisateurPackage.autorisationPIdl initial)
     {
         value = initial;
     }
 
     /**
-     * Read autorisationP from a marshalled stream
+     * Read autorisationPIdl from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = autorisationPHelper.read(istream);
+        value = autorisationPIdlHelper.read(istream);
     }
 
     /**
-     * Write autorisationP into a marshalled stream
+     * Write autorisationPIdl into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        autorisationPHelper.write(ostream,value);
+        autorisationPIdlHelper.write(ostream,value);
     }
 
     /**
-     * Return the autorisationP TypeCode
+     * Return the autorisationPIdl TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return autorisationPHelper.type();
+        return autorisationPIdlHelper.type();
     }
 
 }

@@ -34,7 +34,7 @@ public class Borne extends CorbaClient implements Runnable {
   public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
     annuaire annuaire = resolveAnnuaire();
     cle = new Cle(annuaire.authentification(mat, mdp));
-    System.out.println("Authentification réussie " + cle);
+    System.out.println("Authentification réussie " + cle + "  " + mat);
 
     personneIdl personneIdl = annuaire.validerIdentite(mat);
     personne = new PersonnePermanent(personneIdl);

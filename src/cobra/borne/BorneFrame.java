@@ -291,12 +291,16 @@ public class BorneFrame extends javax.swing.JFrame {
 			}
 		  } catch (mdpIdentiqueException ex) {
 			setMessage(ETATM.ERROR, ex.message);
+			etat = ETAT.CHANGEMDP;
+			activateChangeMdp();
 		  } catch (sessionInvalidException ex) {
 			sessionInvalide();
 		  } catch (sessionExpireeException ex) {
 			sessionExpiree();
 		  } catch (personneInexistanteException ex) {
 			setMessage(ETATM.ERROR, "Erreur changement.");
+			etat = ETAT.CHANGEMDP;
+			activateChangeMdp();
 		  }
 
 		} else {

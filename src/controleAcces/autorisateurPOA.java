@@ -50,7 +50,7 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        controleAcces.autorisateurPackage.autorisationP arg1_in = controleAcces.autorisateurPackage.autorisationPStructHelper.read(_is);
+        controleAcces.autorisateurPackage.autorisationPIdl arg1_in = controleAcces.autorisateurPackage.autorisationPStructHelper.read(_is);
 
         try
         {
@@ -82,7 +82,7 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        controleAcces.autorisateurPackage.autorisationT arg1_in = controleAcces.autorisateurPackage.autorisationTStructHelper.read(_is);
+        controleAcces.autorisateurPackage.autorisationTIdl arg1_in = controleAcces.autorisateurPackage.autorisationTStructHelper.read(_is);
 
         try
         {
