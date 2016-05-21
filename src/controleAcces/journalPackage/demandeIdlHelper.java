@@ -80,7 +80,7 @@ public class demandeIdlHelper
                 _members[0].type = controleAcces.MatriculeHelper.type();
                 _members[1] = new org.omg.CORBA.StructMember();
                 _members[1].name = "dateHeure";
-                _members[1].type = controleAcces.journalPackage.dateStructHelper.type();
+                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong);
                 _members[2] = new org.omg.CORBA.StructMember();
                 _members[2].name = "idZone";
                 _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
@@ -121,7 +121,7 @@ public class demandeIdlHelper
         controleAcces.journalPackage.demandeIdl new_one = new controleAcces.journalPackage.demandeIdl();
 
         new_one.matricule = controleAcces.MatriculeHelper.read(istream);
-        new_one.dateHeure = controleAcces.journalPackage.dateStructHelper.read(istream);
+        new_one.dateHeure = istream.read_longlong();
         new_one.idZone = istream.read_long();
         new_one.idPorte = istream.read_long();
         new_one.statut = istream.read_string();
@@ -138,7 +138,7 @@ public class demandeIdlHelper
     public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.journalPackage.demandeIdl value)
     {
         controleAcces.MatriculeHelper.write(ostream,value.matricule);
-        controleAcces.journalPackage.dateStructHelper.write(ostream,value.dateHeure);
+        ostream.write_longlong(value.dateHeure);
         ostream.write_long(value.idZone);
         ostream.write_long(value.idPorte);
         ostream.write_string(value.statut);

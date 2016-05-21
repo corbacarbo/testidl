@@ -65,7 +65,7 @@ public class journalPOATie extends journalPOA
     /**
      * Operation loguer
      */
-    public void loguer(String matriculeIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguer(String matriculeIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
     {
         _tie.loguer( matriculeIdl,  dateHeure,  idZone,  idPorte,  statut,  type);
     }
@@ -73,7 +73,7 @@ public class journalPOATie extends journalPOA
     /**
      * Operation loguerInconnu
      */
-    public void loguerInconnu(long empreinteIdl, controleAcces.journalPackage.date dateHeure, int idZone, int idPorte, String statut, int type)
+    public void loguerInconnu(long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
     {
         _tie.loguerInconnu( empreinteIdl,  dateHeure,  idZone,  idPorte,  statut,  type);
     }

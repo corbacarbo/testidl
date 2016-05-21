@@ -221,13 +221,10 @@ interface journal{
 
   /********** Types *****/
 	
-  typedef struct date{
-	  long timestamp;
-  } dateStruct;
 
   typedef struct demandeIdl{
     Matricule matricule;
-    dateStruct dateHeure;
+    long long dateHeure;
     long idZone;
     long idPorte;
     string statut;
@@ -241,12 +238,12 @@ interface journal{
   /*
    * Log d'une acceptation/refus d'accès d'une personne après une identification réussie.
    */
-  oneway void loguer(in Matricule matriculeIdl, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+  oneway void loguer(in Matricule matriculeIdl, in long long dateHeure, in long idZone, in long idPorte, in string statut, in long type);
 
   /*
    * Log d'un échec d'identification.
    */
-  oneway void loguerInconnu(in Empreinte empreinteIdl, in dateStruct dateHeure, in long idZone, in long idPorte, in string statut, in long type);
+  oneway void loguerInconnu(in Empreinte empreinteIdl, in long long dateHeure, in long idZone, in long idPorte, in string statut, in long type);
 
   /*
    * Consultation des demandes à partir d'un matricule.
