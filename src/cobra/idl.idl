@@ -105,7 +105,8 @@ interface annuaire{
    * Calcul automatique et renvoi du matricule (incrémental) et du mot de passe
    *   -> dans une structure Personne complète.
    */
-  personneStruct ajouterPermanent(in personneStruct p);
+  personneStruct ajouterPermanent(in Cle cleIdl, in personneStruct p)
+        raises (sessionInvalidException, sessionExpireeException);
 
   /*
    * Ajouter un nouvel employé temporaire : fournir nom, prenom, photo
@@ -113,7 +114,8 @@ interface annuaire{
    * Calcul automatique et renvoi du matricule (incrémental)
    *   -> dans une structure Personne presque complète (pas de mot de passe)
    */
-  personneStruct ajouterTemporaire(in personneStruct p);
+  personneStruct ajouterTemporaire(in Cle cleIdl, in personneStruct p)
+        raises (sessionInvalidException, sessionExpireeException);
 
 };
 

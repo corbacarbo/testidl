@@ -101,17 +101,19 @@ public class annuairePOATie extends annuairePOA
     /**
      * Operation ajouterPermanent
      */
-    public controleAcces.personneIdl ajouterPermanent(controleAcces.personneIdl p)
+    public controleAcces.personneIdl ajouterPermanent(long cleIdl, controleAcces.personneIdl p)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        return _tie.ajouterPermanent( p);
+        return _tie.ajouterPermanent( cleIdl,  p);
     }
 
     /**
      * Operation ajouterTemporaire
      */
-    public controleAcces.personneIdl ajouterTemporaire(controleAcces.personneIdl p)
+    public controleAcces.personneIdl ajouterTemporaire(long cleIdl, controleAcces.personneIdl p)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        return _tie.ajouterTemporaire( p);
+        return _tie.ajouterTemporaire( cleIdl,  p);
     }
 
 }
