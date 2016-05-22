@@ -83,6 +83,10 @@ public class AutorisateurImpl implements autorisateurOperations {
 	}
 	System.out.println("------------------------");
   }
+  
+  private void checkRecouvrement(Autorisation a) throws conflitAutorisationException{
+	
+  }
 
   @Override
   public void ajouterAutorisationP(long cleIdl, autorisationPIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {

@@ -26,6 +26,25 @@ public class AutorisationPermanent extends Autorisation{
 	return "AutorisationPermanent{" + matricule + " " + horaireD + " " + horaireF + '}';
   }
   
+  public boolean recouvrement(AutorisationPermanent a){
+	// |--------|   this
+	//    |---      a
+	if(this.horaireD.before(a.horaireD) && this.horaireF.after(a.horaireD) || this.horaireF.equals(a.horaireD))
+	  return true;
+	//    |----
+	// |--------|
+	else if(this.horaireD.after(a.horaireD) && this.horaireD.before(a.horaireF) || this.horaireD.equals(a.horaireF))
+	  return true;
+	else if(this.horaireD.equals(a.horaireD))
+	  return true;
+	return false;
+  }
  
+  public static void main(String[] args){
+	AutorisationPermanent a = new AutorisationPermanent(new Matricule("a"), new Horaire("8:00"), new Horaire("15:00"));
+	AutorisationPermanent b = new AutorisationPermanent(new Matricule("a"), new Horaire("5:00"), new Horaire("8:00"));
+	
+	System.out.println(a.recouvrement(b));
+  }
  
 }

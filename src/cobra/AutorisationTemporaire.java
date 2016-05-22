@@ -36,7 +36,17 @@ public class AutorisationTemporaire extends Autorisation{
 	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dateD + " " + dateF + " " + zone + '}';
   }
 
-
+  public boolean recouvrement(AutorisationTemporaire a){
+	// |--------|   this
+	//    |---      a
+	if(this.dateD.before(a.dateD) && this.dateF.after(a.dateD) || this.dateF.equals(a.dateD))
+	  return true;
+	//    |----
+	// |--------|
+	else if(this.dateD.after(a.dateD) && this.dateD.before(a.dateF) || this.dateD.equals(a.dateF))
+	  return true;
+	return false;
+  }
   
   
 }
