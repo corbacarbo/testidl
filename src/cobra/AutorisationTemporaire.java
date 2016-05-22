@@ -6,6 +6,7 @@ public class AutorisationTemporaire extends Autorisation{
 
   protected Date dateD;
   protected Date dateF;
+  private String zone;
 
   public AutorisationTemporaire(Date dateD, Date dateF, Matricule matricule, Horaire heureD, Horaire heureF) {
 	super(matricule, heureD, heureF);
@@ -29,5 +30,13 @@ public class AutorisationTemporaire extends Autorisation{
 			dateD.jourToIdl(), dateD.moisToIdl(), dateD.anneeToIdl(), 
 			dateF.jourToIdl(), dateF.moisToIdl(), dateF.anneeToIdl());
   }
+
+  @Override
+  public String toString() {
+	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dateD + " " + dateF + " " + zone + '}';
+  }
+
+
+  
   
 }

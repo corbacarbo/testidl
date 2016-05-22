@@ -20,5 +20,12 @@ public class AutorisationPermanent extends Autorisation{
 		   horaireD.heureToIdl(), horaireD.minuteToIdl(), 
 		   horaireF.heureToIdl(), horaireF.minuteToIdl());
  }
+
+  @Override
+  public String toString() {
+	return "AutorisationPermanent{" + matricule + " " + horaireD + " " + horaireF + '}';
+  }
   
+ 
+ 
 }

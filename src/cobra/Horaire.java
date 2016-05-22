@@ -1,6 +1,7 @@
 package cobra;
 
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Horaire extends GregorianCalendar {
 
@@ -8,6 +9,10 @@ public class Horaire extends GregorianCalendar {
 	super(0, 0, 0, h, m, 0);
   }
 
+  public Horaire(String horaire){
+	this(Integer.parseInt(horaire.split(":")[0]), Integer.parseInt(horaire.split(":")[1]));
+  }
+  
   public int heureToIdl() {
 	return get(HOUR_OF_DAY);
   }
@@ -25,7 +30,7 @@ public class Horaire extends GregorianCalendar {
 	/* Tests */
 	Horaire h = new Horaire(8, 22);
 	Thread.sleep(1000);
-	Horaire hh = new Horaire(8, 21);
+	Horaire hh = new Horaire("08:01");
 	System.out.println(h);
 	System.out.println(hh);
 
