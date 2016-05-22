@@ -36,13 +36,15 @@ public interface annuaireOperations
      * Calcul automatique et renvoi du matricule (incrémental) et du mot de passe
      * -> dans une structure Personne complète.
      */
-    public controleAcces.personneIdl ajouterPermanent(controleAcces.personneIdl p);
+    public controleAcces.personneIdl ajouterPermanent(long cleIdl, controleAcces.personneIdl p)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
     /**
      * -> dans une structure Personne incomplète.
      * Calcul automatique et renvoi du matricule (incrémental)
      * -> dans une structure Personne presque complète (pas de mot de passe)
      */
-    public controleAcces.personneIdl ajouterTemporaire(controleAcces.personneIdl p);
+    public controleAcces.personneIdl ajouterTemporaire(long cleIdl, controleAcces.personneIdl p)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
 }

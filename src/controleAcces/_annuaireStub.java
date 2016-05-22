@@ -267,7 +267,8 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajouterPermanent
      */
-    public controleAcces.personneIdl ajouterPermanent(controleAcces.personneIdl p)
+    public controleAcces.personneIdl ajouterPermanent(long cleIdl, controleAcces.personneIdl p)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -277,6 +278,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("ajouterPermanent",true);
+                    controleAcces.CleHelper.write(_output,cleIdl);
                     controleAcces.personneStructHelper.write(_output,p);
                     _input = this._invoke(_output);
                     controleAcces.personneIdl _arg_ret = controleAcces.personneStructHelper.read(_input);
@@ -289,6 +291,16 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -304,7 +316,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.annuaireOperations _self = (controleAcces.annuaireOperations) _so.servant;
                 try
                 {
-                    return _self.ajouterPermanent( p);
+                    return _self.ajouterPermanent( cleIdl,  p);
                 }
                 finally
                 {
@@ -317,7 +329,8 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation ajouterTemporaire
      */
-    public controleAcces.personneIdl ajouterTemporaire(controleAcces.personneIdl p)
+    public controleAcces.personneIdl ajouterTemporaire(long cleIdl, controleAcces.personneIdl p)
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -327,6 +340,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("ajouterTemporaire",true);
+                    controleAcces.CleHelper.write(_output,cleIdl);
                     controleAcces.personneStructHelper.write(_output,p);
                     _input = this._invoke(_output);
                     controleAcces.personneIdl _arg_ret = controleAcces.personneStructHelper.read(_input);
@@ -339,6 +353,16 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -354,7 +378,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.annuaireOperations _self = (controleAcces.annuaireOperations) _so.servant;
                 try
                 {
-                    return _self.ajouterTemporaire( p);
+                    return _self.ajouterTemporaire( cleIdl,  p);
                 }
                 finally
                 {

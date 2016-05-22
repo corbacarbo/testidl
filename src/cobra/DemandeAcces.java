@@ -24,6 +24,9 @@ public class DemandeAcces implements Comparable{
     /**
      * zone dans laquelle la tentative a lieu
      */
+	/* COMMENTAIRE
+	 Plutôt un String ?
+	*/
     private int idZone;
     /**
      * porte pour laquelle la tentative a lieu
@@ -67,6 +70,9 @@ public class DemandeAcces implements Comparable{
         if (d.type==0){
             this.type="Entree";
         }
+		/* COMMENTAIRE
+		Peut-être ajouter la signification de 0 et 1 dans les commentaires de l'idl.
+		*/
         else {
             if (d.type==1){
                 this.type="Sortie";
@@ -109,6 +115,16 @@ public class DemandeAcces implements Comparable{
      */
     @Override
     public int compareTo(Object o) {
+	  /* COMMENTAIRE
+	  Je pense que c'est plus logique de faire directement :
+	  DemandeAcces oDemandeAcces =  (DemandeAcces) o;
+	  return this.dateHeure.compareTo(oDemandeAcces.dateHeure);
+	  
+	  Ce qui nous intéresse je crois, c'est de classer les demandes par date.
+	  Vu que Gregoriancalendar implemente déjà Comparable, autant utiliser ce
+	  qui existe déjà.
+	  */
+	  
         DemandeAcces d = (DemandeAcces) o;
         int versLeFutur = 1;
         if (d.dateHeure.before(this.dateHeure)){

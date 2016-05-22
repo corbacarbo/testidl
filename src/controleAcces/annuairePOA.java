@@ -162,13 +162,27 @@ public abstract class annuairePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        controleAcces.personneIdl arg0_in = controleAcces.personneStructHelper.read(_is);
+        long arg0_in = controleAcces.CleHelper.read(_is);
+        controleAcces.personneIdl arg1_in = controleAcces.personneStructHelper.read(_is);
 
-        controleAcces.personneIdl _arg_result = ajouterPermanent(arg0_in);
+        try
+        {
+            controleAcces.personneIdl _arg_result = ajouterPermanent(arg0_in, arg1_in);
 
-        _output = handler.createReply();
-        controleAcces.personneStructHelper.write(_output,_arg_result);
+            _output = handler.createReply();
+            controleAcces.personneStructHelper.write(_output,_arg_result);
 
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -176,13 +190,27 @@ public abstract class annuairePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        controleAcces.personneIdl arg0_in = controleAcces.personneStructHelper.read(_is);
+        long arg0_in = controleAcces.CleHelper.read(_is);
+        controleAcces.personneIdl arg1_in = controleAcces.personneStructHelper.read(_is);
 
-        controleAcces.personneIdl _arg_result = ajouterTemporaire(arg0_in);
+        try
+        {
+            controleAcces.personneIdl _arg_result = ajouterTemporaire(arg0_in, arg1_in);
 
-        _output = handler.createReply();
-        controleAcces.personneStructHelper.write(_output,_arg_result);
+            _output = handler.createReply();
+            controleAcces.personneStructHelper.write(_output,_arg_result);
 
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 

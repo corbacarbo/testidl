@@ -2,3 +2,4 @@ MATRICULE PRENOM NOM MDP PHOTO CHANGEMDP EMPREINTE
 pjohn;John;Smith;mdp;photoJohn;false;ejohn
 pjames;James;James;mdp;photoJames;true;ejames
 tjean;Jean;Dupuis;mdp;photoJean;true;ejean
+prh;RH;RH;mdp;rh;false;eRH

@@ -50,6 +50,9 @@ public class JournalImpl implements journalOperations {
 
     @Override
     public demandeIdl[] consulterByMatricule(String matriculeIdl) {
+	  /* COMMENTAIRE
+	  Plutôt : demandeIdl[] versLeFutur = null;
+	  */
         demandeIdl[] versLeFutur = new demandeIdl[0];
         if (null != matriculeIdl){
             if (! matriculeIdl.equals("")){

@@ -11,6 +11,10 @@ public class Matricule implements Comparable<Matricule>{
 
   private String matricule;
 
+    public String getMat() {
+        return this.matricule;
+    }
+
   /**
    * Type d'employé
    */
