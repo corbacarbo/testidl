@@ -1,10 +1,10 @@
 module controleAcces{
 
-typedef string Heure;
-typedef string Minute;
-typedef string Jour;
-typedef string Mois;
-typedef string Annee;
+typedef long Heure;
+typedef long Minute;
+typedef long Jour;
+typedef long Mois;
+typedef long Annee;
 
 typedef string Matricule;
 
@@ -123,14 +123,18 @@ interface autorisateur{
 
   typedef struct autorisationPIdl{
 	  Matricule matricule;
-	  Horaire horaireD;
-	  Horaire horaireF;
+	  Heure heureD;
+	  Minute minuteD;
+	  Heure heureF;
+	  Minute minuteF;
   } autorisationPStruct;
 
   typedef struct autorisationTIdl{
 	  Matricule matricule;
-	  Horaire horaireD;
-	  Horaire horaireF;
+	  Heure heureD;
+	  Minute minuteD;
+	  Heure heureF;
+	  Minute minuteF;
 	  Jour jourD;
 	  Mois moisD;
 	  Annee anneeD;

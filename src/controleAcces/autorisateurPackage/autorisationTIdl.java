@@ -15,52 +15,52 @@ public final class autorisationTIdl implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member heureD
      */
-    public String heureD;
+    public int heureD;
 
     /**
      * Struct member minuteD
      */
-    public String minuteD;
+    public int minuteD;
 
     /**
      * Struct member heureF
      */
-    public String heureF;
+    public int heureF;
 
     /**
      * Struct member minuteF
      */
-    public String minuteF;
+    public int minuteF;
 
     /**
      * Struct member jourD
      */
-    public String jourD;
+    public int jourD;
 
     /**
      * Struct member moisD
      */
-    public String moisD;
+    public int moisD;
 
     /**
      * Struct member anneeD
      */
-    public String anneeD;
+    public int anneeD;
 
     /**
      * Struct member jourF
      */
-    public String jourF;
+    public int jourF;
 
     /**
      * Struct member moisF
      */
-    public String moisF;
+    public int moisF;
 
     /**
      * Struct member anneeF
      */
-    public String anneeF;
+    public int anneeF;
 
     /**
      * Default constructor
@@ -82,7 +82,7 @@ public final class autorisationTIdl implements org.omg.CORBA.portable.IDLEntity
      * @param moisF moisF struct member
      * @param anneeF anneeF struct member
      */
-    public autorisationTIdl(String matricule, String heureD, String minuteD, String heureF, String minuteF, String jourD, String moisD, String anneeD, String jourF, String moisF, String anneeF)
+    public autorisationTIdl(String matricule, int heureD, int minuteD, int heureF, int minuteF, int jourD, int moisD, int anneeD, int jourF, int moisF, int anneeF)
     {
         this.matricule = matricule;
         this.heureD = heureD;

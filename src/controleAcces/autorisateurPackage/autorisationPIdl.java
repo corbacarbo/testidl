@@ -15,22 +15,22 @@ public final class autorisationPIdl implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member heureD
      */
-    public String heureD;
+    public int heureD;
 
     /**
      * Struct member minuteD
      */
-    public String minuteD;
+    public int minuteD;
 
     /**
      * Struct member heureF
      */
-    public String heureF;
+    public int heureF;
 
     /**
      * Struct member minuteF
      */
-    public String minuteF;
+    public int minuteF;
 
     /**
      * Default constructor
@@ -46,7 +46,7 @@ public final class autorisationPIdl implements org.omg.CORBA.portable.IDLEntity
      * @param heureF heureF struct member
      * @param minuteF minuteF struct member
      */
-    public autorisationPIdl(String matricule, String heureD, String minuteD, String heureF, String minuteF)
+    public autorisationPIdl(String matricule, int heureD, int minuteD, int heureF, int minuteF)
     {
         this.matricule = matricule;
         this.heureD = heureD;

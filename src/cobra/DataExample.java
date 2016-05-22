@@ -14,14 +14,16 @@ import cobra.Matricule;
 
 public class DataExample {
 
-  private static String filename = "src/cobra/listeA.txt";
+  private static String filenamePersonne = "src/cobra/listePersonne.txt";
+  
+  private static String fileNameAutorisation = "src/cobra/listeAutorisation.txt";
 
   public static HashMap<Matricule, Personne> extractPersonnesFromFile() {
 
 	HashMap<Matricule, Personne> res = new HashMap<>();
 
 	try {
-	  InputStream file = new FileInputStream(filename);
+	  InputStream file = new FileInputStream(filenamePersonne);
 	  Scanner scan = new Scanner(file);
 	  scan.nextLine();
 
@@ -66,7 +68,7 @@ public class DataExample {
 	HashMap<Empreinte, Matricule> res = new HashMap<>();
 
 	try {
-	  InputStream file = new FileInputStream(filename);
+	  InputStream file = new FileInputStream(filenamePersonne);
 	  Scanner scan = new Scanner(file);
 	  scan.nextLine();
 
@@ -87,4 +89,49 @@ public class DataExample {
 	return res;
   }
 
+  public static HashMap<Matricule, Autorisation> extractAutorisationsFromFile(){
+	HashMap<Matricule, Autorisation> res = new HashMap<>();
+
+	try {
+	  InputStream file = new FileInputStream(filenamePersonne);
+	  Scanner scan = new Scanner(file);
+	  scan.nextLine();
+
+	  while (scan.hasNext()) {
+		String line = scan.nextLine();
+		Personne p = extractLinePersonne(line);
+		//res.put(p.getMatricule(), p);
+	  }
+
+	} catch (FileNotFoundException ex) {
+	  Logger.getLogger(DataExample.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (Exception ex) {
+	  Logger.getLogger(DataExample.class.getName()).log(Level.SEVERE, null, ex);
+	}
+
+	return res;
+	
+  }
+  
+    private static Personne extractLineAutorisation(String line) throws Exception {
+	Personne p;
+
+	String[] mots = line.split(";");
+	Matricule matricule = new Matricule(mots[0]);
+	String prenom = mots[1];
+	String nom = mots[2];
+	String photo = mots[4];
+	boolean mdpChange = Boolean.parseBoolean(mots[5]);
+
+	if (matricule.isPermanent()) {
+	  String mdp = mots[3];
+	  p = new PersonnePermanent(mdp, mdpChange, matricule, nom, prenom, photo);
+	} else if (matricule.isTemporaire()) {
+	  p = new PersonneTemporaire(matricule, nom, prenom, photo);
+	} else {
+	  throw new Exception("Erreur de lecture du fichier des personnes.");
+	}
+	return p;
+  }
+  
 }
