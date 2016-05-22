@@ -66,4 +66,12 @@ public class PersonnePermanent extends Personne {
     return s;
   }
 
+    public String getNom() {
+        return this.nom;
+    }
+
+    public String getPhoto() {
+        return this.photo;
+    }
+
 }

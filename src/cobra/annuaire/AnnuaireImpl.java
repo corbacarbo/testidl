@@ -252,12 +252,16 @@ public class AnnuaireImpl implements annuaireOperations {
    * incomplet). Calcul automatique et renvoi du nouveau matricule et du
    * nouveau mot de passe dans un objet personneIdl complet.
    *
+   * @param cle la clé de session autorisant le traitement
    * @param p personne à ajouter dans l'annuaire.
    * @return la personne ajoutée avec un nouveau matricule et un nouveau mot de
    * passe.
+   * @throws controleAcces.sessionInvalidException
+   * @throws controleAcces.sessionExpireeException
    */
   @Override
-  public personneIdl ajouterPermanent(personneIdl p) {
+  public personneIdl ajouterPermanent(long cle, personneIdl p)throws sessionInvalidException, sessionExpireeException 
+  {
     PersonnePermanent personne = new PersonnePermanent(p);
 
     genereMdp(personne);
@@ -273,12 +277,14 @@ public class AnnuaireImpl implements annuaireOperations {
    * fournir les nom, prénom, et photo dans un objet personneIdl (donc
    * incomplet). Calcul automatique et renvoi du nouveau matricule dans
    * un objet personneIdl complet.
-   *
+   * @param cle la clé de session autorisant le traitement
    * @param p
    * @return
+     * @throws controleAcces.sessionInvalidException
+     * @throws controleAcces.sessionExpireeException
    */
   @Override
-  public personneIdl ajouterTemporaire(personneIdl p) {
+  public personneIdl ajouterTemporaire(long cle, personneIdl p) throws sessionInvalidException, sessionExpireeException {
     PersonneTemporaire personne = new PersonneTemporaire(p);
 
     genereMatricule(personne);
