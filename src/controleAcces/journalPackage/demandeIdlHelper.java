@@ -86,7 +86,7 @@ public class demandeIdlHelper
                 _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong);
                 _members[3] = new org.omg.CORBA.StructMember();
                 _members[3].name = "idZone";
-                _members[3].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[3].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[4] = new org.omg.CORBA.StructMember();
                 _members[4].name = "idPorte";
                 _members[4].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
@@ -126,7 +126,7 @@ public class demandeIdlHelper
         new_one.matricule = controleAcces.MatriculeHelper.read(istream);
         new_one.empreinteIdl = controleAcces.EmpreinteHelper.read(istream);
         new_one.dateHeure = istream.read_longlong();
-        new_one.idZone = istream.read_long();
+        new_one.idZone = istream.read_string();
         new_one.idPorte = istream.read_long();
         new_one.statut = istream.read_string();
         new_one.type = istream.read_long();
@@ -144,7 +144,7 @@ public class demandeIdlHelper
         controleAcces.MatriculeHelper.write(ostream,value.matricule);
         controleAcces.EmpreinteHelper.write(ostream,value.empreinteIdl);
         ostream.write_longlong(value.dateHeure);
-        ostream.write_long(value.idZone);
+        ostream.write_string(value.idZone);
         ostream.write_long(value.idPorte);
         ostream.write_string(value.statut);
         ostream.write_long(value.type);

@@ -25,7 +25,7 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member idZone
      */
-    public int idZone;
+    public String idZone;
 
     /**
      * Struct member idPorte
@@ -58,7 +58,7 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
      * @param statut statut struct member
      * @param type type struct member
      */
-    public demandeIdl(String matricule, long empreinteIdl, long dateHeure, int idZone, int idPorte, String statut, int type)
+    public demandeIdl(String matricule, long empreinteIdl, long dateHeure, String idZone, int idPorte, String statut, int type)
     {
         this.matricule = matricule;
         this.empreinteIdl = empreinteIdl;

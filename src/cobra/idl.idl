@@ -231,12 +231,17 @@ interface journal{
 
   /********** Types *****/
 	
-
+    /* demandeIdl est composé des informations relatives à une tentative d'accès à une porte.
+    * Type repésente l'entrée(0) ou la sortie (1).
+    * L'id d'une zone est un caractère, alors que l'id porte est un numéro
+    * si la personne qui tente de passer une porte est reconnu, son matricule est enregistré
+    * sinon, on enregistre le hash de l'empreinte.
+    */
   typedef struct demandeIdl{
     Matricule matricule;
     Empreinte empreinteIdl;
     long long dateHeure;
-    long idZone;
+    string idZone;
     long idPorte;
     string statut;
     long type;
