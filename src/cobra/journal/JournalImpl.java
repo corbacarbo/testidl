@@ -52,6 +52,9 @@ public class JournalImpl implements journalOperations {
     public demandeIdl[] consulterByMatricule(String matriculeIdl) {
 	  /* COMMENTAIRE
 	  Plutôt : demandeIdl[] versLeFutur = null;
+            REPONSE COMMENTAIRE
+          Je l'initialise pour que si la matricule null ou vide "", on renvoie un tableau vide et non pas null...
+            Je peux aussi initialisé à null, et rajouter des else pour prendre ce cas en compte... Tu préfères quoi ?
 	  */
         demandeIdl[] versLeFutur = new demandeIdl[0];
         if (null != matriculeIdl){
