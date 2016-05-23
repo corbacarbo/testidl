@@ -57,7 +57,7 @@ public class AutorisationRestreinte extends Autorisation{
   public boolean autoriserTemps(GregorianCalendar demande) {
 	Date dateDemande = new Date(demande);
 	if(dateD.before(dateDemande) && dateF.after(dateDemande)){
-	  super.autoriserTemps(demande);
+	  return super.autoriserTemps(demande);
 	}
 	return false;
   }

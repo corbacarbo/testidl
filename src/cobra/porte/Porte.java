@@ -27,6 +27,7 @@ public class Porte extends CorbaClient{
 	
 	try {
 	  a.autoriser(matricule.toIdl());
+	  System.out.println("Ok");
 	} catch (autorisationRefuseeException ex) {
 	  System.out.println(ex.message);
 	}

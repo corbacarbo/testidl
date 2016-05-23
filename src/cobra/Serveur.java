@@ -22,8 +22,9 @@ public class Serveur extends CorbaEntite{
   /**
    * 
    * @param fullName nom de la classe avec majuscule(s)
+   * @param param
    */
-  public void createServant2(String fullName){
+  public void createServant2(String fullName, String param){
     
     try {
       
@@ -48,7 +49,7 @@ public class Serveur extends CorbaEntite{
       
       rootPOA.activate_object(servant);
       
-      rebind(halfName, rootPOA.servant_to_reference(servant));
+      rebind(halfName + param, rootPOA.servant_to_reference(servant));
       
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
