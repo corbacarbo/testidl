@@ -11,7 +11,6 @@ import controleAcces.sessionInvalidException;
 import cobra.Cle;
 import cobra.CorbaClient;
 import cobra.Empreinte;
-import cobra.Personne;
 import cobra.PersonnePermanent;
 import controleAcces.coffreFortPackage.matriculeInconnuException;
 

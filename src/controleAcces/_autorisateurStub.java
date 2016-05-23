@@ -21,9 +21,9 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
     private final static Class _opsClass = controleAcces.autorisateurOperations.class;
 
     /**
-     * Operation ajouterAutorisationP
+     * Operation ajouterAutorisation
      */
-    public void ajouterAutorisationP(long cleIdl, controleAcces.autorisateurPackage.autorisationPIdl autorisationIdl)
+    public void ajouterAutorisation(long cleIdl, controleAcces.autorisateurPackage.autorisationIdl autorisationIdl)
         throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
@@ -33,9 +33,9 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("ajouterAutorisationP",true);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("ajouterAutorisation",true);
                     controleAcces.CleHelper.write(_output,cleIdl);
-                    controleAcces.autorisateurPackage.autorisationPStructHelper.write(_output,autorisationIdl);
+                    controleAcces.autorisateurPackage.autorisationStructHelper.write(_output,autorisationIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -70,13 +70,13 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("ajouterAutorisationP",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("ajouterAutorisation",_opsClass);
                 if (_so == null)
                    continue;
                 controleAcces.autorisateurOperations _self = (controleAcces.autorisateurOperations) _so.servant;
                 try
                 {
-                    _self.ajouterAutorisationP( cleIdl,  autorisationIdl);
+                    _self.ajouterAutorisation( cleIdl,  autorisationIdl);
                     return;
                 }
                 finally
@@ -88,9 +88,9 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation ajouterAutorisationT
+     * Operation ajouterAutorisationRestreinte
      */
-    public void ajouterAutorisationT(long cleIdl, controleAcces.autorisateurPackage.autorisationTIdl autorisationIdl)
+    public void ajouterAutorisationRestreinte(long cleIdl, controleAcces.autorisateurPackage.autorisationRestreinteIdl autorisationIdl)
         throws controleAcces.autorisateurPackage.conflitAutorisationException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
@@ -100,9 +100,9 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("ajouterAutorisationT",true);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("ajouterAutorisationRestreinte",true);
                     controleAcces.CleHelper.write(_output,cleIdl);
-                    controleAcces.autorisateurPackage.autorisationTStructHelper.write(_output,autorisationIdl);
+                    controleAcces.autorisateurPackage.autorisationRestreinteStructHelper.write(_output,autorisationIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -137,13 +137,13 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("ajouterAutorisationT",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("ajouterAutorisationRestreinte",_opsClass);
                 if (_so == null)
                    continue;
                 controleAcces.autorisateurOperations _self = (controleAcces.autorisateurOperations) _so.servant;
                 try
                 {
-                    _self.ajouterAutorisationT( cleIdl,  autorisationIdl);
+                    _self.ajouterAutorisationRestreinte( cleIdl,  autorisationIdl);
                     return;
                 }
                 finally

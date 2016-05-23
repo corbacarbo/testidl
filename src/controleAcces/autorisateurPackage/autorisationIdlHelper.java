@@ -1,11 +1,11 @@
 package controleAcces.autorisateurPackage;
 
 /** 
- * Helper class for : autorisationT
+ * Helper class for : autorisationIdl
  *  
  * @author OpenORB Compiler
  */ 
-public class autorisationTHelper
+public class autorisationIdlHelper
 {
     private static final boolean HAS_OPENORB;
     static {
@@ -19,21 +19,21 @@ public class autorisationTHelper
         HAS_OPENORB = hasOpenORB;
     }
     /**
-     * Insert autorisationT into an any
+     * Insert autorisationIdl into an any
      * @param a an any
-     * @param t autorisationT value
+     * @param t autorisationIdl value
      */
-    public static void insert(org.omg.CORBA.Any a, controleAcces.autorisateurPackage.autorisationT t)
+    public static void insert(org.omg.CORBA.Any a, controleAcces.autorisateurPackage.autorisationIdl t)
     {
-        a.insert_Streamable(new controleAcces.autorisateurPackage.autorisationTHolder(t));
+        a.insert_Streamable(new controleAcces.autorisateurPackage.autorisationIdlHolder(t));
     }
 
     /**
-     * Extract autorisationT from an any
+     * Extract autorisationIdl from an any
      * @param a an any
-     * @return the extracted autorisationT value
+     * @return the extracted autorisationIdl value
      */
-    public static controleAcces.autorisateurPackage.autorisationT extract(org.omg.CORBA.Any a)
+    public static controleAcces.autorisateurPackage.autorisationIdl extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -42,11 +42,11 @@ public class autorisationTHelper
             org.openorb.CORBA.Any any = (org.openorb.CORBA.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if(s instanceof controleAcces.autorisateurPackage.autorisationTHolder)
-                    return ((controleAcces.autorisateurPackage.autorisationTHolder)s).value;
+                if(s instanceof controleAcces.autorisateurPackage.autorisationIdlHolder)
+                    return ((controleAcces.autorisateurPackage.autorisationIdlHolder)s).value;
             } catch (org.omg.CORBA.BAD_INV_ORDER ex) {
             }
-            controleAcces.autorisateurPackage.autorisationTHolder h = new controleAcces.autorisateurPackage.autorisationTHolder(read(a.create_input_stream()));
+            controleAcces.autorisateurPackage.autorisationIdlHolder h = new controleAcces.autorisateurPackage.autorisationIdlHolder(read(a.create_input_stream()));
             a.insert_Streamable(h);
             return h.value;
         }
@@ -60,7 +60,7 @@ public class autorisationTHelper
     private static boolean _working = false;
 
     /**
-     * Return the autorisationT TypeCode
+     * Return the autorisationIdl TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
@@ -82,15 +82,15 @@ public class autorisationTHelper
                 _members[1].name = "heureD";
                 _members[1].type = controleAcces.HeureHelper.type();
                 _members[2] = new org.omg.CORBA.StructMember();
-                _members[2].name = "heureF";
-                _members[2].type = controleAcces.HeureHelper.type();
+                _members[2].name = "minuteD";
+                _members[2].type = controleAcces.MinuteHelper.type();
                 _members[3] = new org.omg.CORBA.StructMember();
-                _members[3].name = "jourD";
-                _members[3].type = controleAcces.JourHelper.type();
+                _members[3].name = "heureF";
+                _members[3].type = controleAcces.HeureHelper.type();
                 _members[4] = new org.omg.CORBA.StructMember();
-                _members[4].name = "jourF";
-                _members[4].type = controleAcces.JourHelper.type();
-                _tc = orb.create_struct_tc(id(),"autorisationT",_members);
+                _members[4].name = "minuteF";
+                _members[4].type = controleAcces.MinuteHelper.type();
+                _tc = orb.create_struct_tc(id(),"autorisationIdl",_members);
                 _working = false;
             }
         }
@@ -98,7 +98,7 @@ public class autorisationTHelper
     }
 
     /**
-     * Return the autorisationT IDL ID
+     * Return the autorisationIdl IDL ID
      * @return an ID
      */
     public static String id()
@@ -106,38 +106,38 @@ public class autorisationTHelper
         return _id;
     }
 
-    private final static String _id = "IDL:controleAcces/autorisateur/autorisationT:1.0";
+    private final static String _id = "IDL:controleAcces/autorisateur/autorisationIdl:1.0";
 
     /**
-     * Read autorisationT from a marshalled stream
+     * Read autorisationIdl from a marshalled stream
      * @param istream the input stream
-     * @return the readed autorisationT value
+     * @return the readed autorisationIdl value
      */
-    public static controleAcces.autorisateurPackage.autorisationT read(org.omg.CORBA.portable.InputStream istream)
+    public static controleAcces.autorisateurPackage.autorisationIdl read(org.omg.CORBA.portable.InputStream istream)
     {
-        controleAcces.autorisateurPackage.autorisationT new_one = new controleAcces.autorisateurPackage.autorisationT();
+        controleAcces.autorisateurPackage.autorisationIdl new_one = new controleAcces.autorisateurPackage.autorisationIdl();
 
         new_one.matricule = controleAcces.MatriculeHelper.read(istream);
         new_one.heureD = controleAcces.HeureHelper.read(istream);
+        new_one.minuteD = controleAcces.MinuteHelper.read(istream);
         new_one.heureF = controleAcces.HeureHelper.read(istream);
-        new_one.jourD = controleAcces.JourHelper.read(istream);
-        new_one.jourF = controleAcces.JourHelper.read(istream);
+        new_one.minuteF = controleAcces.MinuteHelper.read(istream);
 
         return new_one;
     }
 
     /**
-     * Write autorisationT into a marshalled stream
+     * Write autorisationIdl into a marshalled stream
      * @param ostream the output stream
-     * @param value autorisationT value
+     * @param value autorisationIdl value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationT value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationIdl value)
     {
         controleAcces.MatriculeHelper.write(ostream,value.matricule);
         controleAcces.HeureHelper.write(ostream,value.heureD);
+        controleAcces.MinuteHelper.write(ostream,value.minuteD);
         controleAcces.HeureHelper.write(ostream,value.heureF);
-        controleAcces.JourHelper.write(ostream,value.jourD);
-        controleAcces.JourHelper.write(ostream,value.jourF);
+        controleAcces.MinuteHelper.write(ostream,value.minuteF);
     }
 
 }

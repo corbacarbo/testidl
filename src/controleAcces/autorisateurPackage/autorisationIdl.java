@@ -1,11 +1,11 @@
 package controleAcces.autorisateurPackage;
 
 /**
- * Struct definition : autorisationT
+ * Struct definition : autorisationIdl
  * 
  * @author OpenORB Compiler
 */
-public final class autorisationT implements org.omg.CORBA.portable.IDLEntity
+public final class autorisationIdl implements org.omg.CORBA.portable.IDLEntity
 {
     /**
      * Struct member matricule
@@ -15,44 +15,44 @@ public final class autorisationT implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member heureD
      */
-    public String heureD;
+    public int heureD;
+
+    /**
+     * Struct member minuteD
+     */
+    public int minuteD;
 
     /**
      * Struct member heureF
      */
-    public String heureF;
+    public int heureF;
 
     /**
-     * Struct member jourD
+     * Struct member minuteF
      */
-    public String jourD;
-
-    /**
-     * Struct member jourF
-     */
-    public String jourF;
+    public int minuteF;
 
     /**
      * Default constructor
      */
-    public autorisationT()
+    public autorisationIdl()
     { }
 
     /**
      * Constructor with fields initialization
      * @param matricule matricule struct member
      * @param heureD heureD struct member
+     * @param minuteD minuteD struct member
      * @param heureF heureF struct member
-     * @param jourD jourD struct member
-     * @param jourF jourF struct member
+     * @param minuteF minuteF struct member
      */
-    public autorisationT(String matricule, String heureD, String heureF, String jourD, String jourF)
+    public autorisationIdl(String matricule, int heureD, int minuteD, int heureF, int minuteF)
     {
         this.matricule = matricule;
         this.heureD = heureD;
+        this.minuteD = minuteD;
         this.heureF = heureF;
-        this.jourD = jourD;
-        this.jourF = jourF;
+        this.minuteF = minuteF;
     }
 
 }

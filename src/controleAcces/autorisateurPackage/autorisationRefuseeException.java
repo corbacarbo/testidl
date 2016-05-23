@@ -15,7 +15,7 @@ public final class autorisationRefuseeException extends org.omg.CORBA.UserExcept
     /**
      * Exception member heure
      */
-    public String heure;
+    public long heure;
 
     /**
      * Default constructor
@@ -30,7 +30,7 @@ public final class autorisationRefuseeException extends org.omg.CORBA.UserExcept
      * @param message message exception member
      * @param heure heure exception member
      */
-    public autorisationRefuseeException(String message, String heure)
+    public autorisationRefuseeException(String message, long heure)
     {
         super(autorisationRefuseeExceptionHelper.id());
         this.message = message;
@@ -42,7 +42,7 @@ public final class autorisationRefuseeException extends org.omg.CORBA.UserExcept
      * @param message message exception member
      * @param heure heure exception member
      */
-    public autorisationRefuseeException(String orb_reason, String message, String heure)
+    public autorisationRefuseeException(String orb_reason, String message, long heure)
     {
         super(autorisationRefuseeExceptionHelper.id() +" " +  orb_reason);
         this.message = message;

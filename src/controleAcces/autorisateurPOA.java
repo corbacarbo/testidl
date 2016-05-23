@@ -33,10 +33,10 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("ajouterAutorisationP")) {
-                return _invoke_ajouterAutorisationP(_is, handler);
-        } else if (opName.equals("ajouterAutorisationT")) {
-                return _invoke_ajouterAutorisationT(_is, handler);
+        if (opName.equals("ajouterAutorisation")) {
+                return _invoke_ajouterAutorisation(_is, handler);
+        } else if (opName.equals("ajouterAutorisationRestreinte")) {
+                return _invoke_ajouterAutorisationRestreinte(_is, handler);
         } else if (opName.equals("autoriser")) {
                 return _invoke_autoriser(_is, handler);
         } else {
@@ -45,16 +45,16 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
     }
 
     // helper methods
-    private org.omg.CORBA.portable.OutputStream _invoke_ajouterAutorisationP(
+    private org.omg.CORBA.portable.OutputStream _invoke_ajouterAutorisation(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        controleAcces.autorisateurPackage.autorisationPIdl arg1_in = controleAcces.autorisateurPackage.autorisationPStructHelper.read(_is);
+        controleAcces.autorisateurPackage.autorisationIdl arg1_in = controleAcces.autorisateurPackage.autorisationStructHelper.read(_is);
 
         try
         {
-            ajouterAutorisationP(arg0_in, arg1_in);
+            ajouterAutorisation(arg0_in, arg1_in);
 
             _output = handler.createReply();
 
@@ -77,16 +77,16 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_ajouterAutorisationT(
+    private org.omg.CORBA.portable.OutputStream _invoke_ajouterAutorisationRestreinte(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         long arg0_in = controleAcces.CleHelper.read(_is);
-        controleAcces.autorisateurPackage.autorisationTIdl arg1_in = controleAcces.autorisateurPackage.autorisationTStructHelper.read(_is);
+        controleAcces.autorisateurPackage.autorisationRestreinteIdl arg1_in = controleAcces.autorisateurPackage.autorisationRestreinteStructHelper.read(_is);
 
         try
         {
-            ajouterAutorisationT(arg0_in, arg1_in);
+            ajouterAutorisationRestreinte(arg0_in, arg1_in);
 
             _output = handler.createReply();
 

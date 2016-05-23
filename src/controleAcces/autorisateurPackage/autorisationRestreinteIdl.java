@@ -1,11 +1,11 @@
 package controleAcces.autorisateurPackage;
 
 /**
- * Struct definition : autorisationTIdl
+ * Struct definition : autorisationRestreinteIdl
  * 
  * @author OpenORB Compiler
 */
-public final class autorisationTIdl implements org.omg.CORBA.portable.IDLEntity
+public final class autorisationRestreinteIdl implements org.omg.CORBA.portable.IDLEntity
 {
     /**
      * Struct member matricule
@@ -13,56 +13,68 @@ public final class autorisationTIdl implements org.omg.CORBA.portable.IDLEntity
     public String matricule;
 
     /**
-     * Struct member horaireD
+     * Struct member heureD
      */
-    public int horaireD;
+    public int heureD;
 
     /**
-     * Struct member horaireF
+     * Struct member minuteD
      */
-    public int horaireF;
+    public int minuteD;
+
+    /**
+     * Struct member heureF
+     */
+    public int heureF;
+
+    /**
+     * Struct member minuteF
+     */
+    public int minuteF;
 
     /**
      * Struct member jourD
      */
-    public String jourD;
+    public int jourD;
 
     /**
      * Struct member moisD
      */
-    public String moisD;
+    public int moisD;
 
     /**
      * Struct member anneeD
      */
-    public String anneeD;
+    public int anneeD;
 
     /**
      * Struct member jourF
      */
-    public String jourF;
+    public int jourF;
 
     /**
      * Struct member moisF
      */
-    public String moisF;
+    public int moisF;
 
     /**
      * Struct member anneeF
      */
-    public String anneeF;
+    public int anneeF;
 
     /**
      * Default constructor
      */
-    public autorisationTIdl()
+    public autorisationRestreinteIdl()
     { }
 
     /**
      * Constructor with fields initialization
      * @param matricule matricule struct member
-     * @param horaireD horaireD struct member
-     * @param horaireF horaireF struct member
+     * @param heureD heureD struct member
+     * @param minuteD minuteD struct member
+     * @param heureF heureF struct member
+     * @param minuteF minuteF struct member
      * @param jourD jourD struct member
      * @param moisD moisD struct member
      * @param anneeD anneeD struct member
@@ -70,11 +82,13 @@ public final class autorisationTIdl implements org.omg.CORBA.portable.IDLEntity
      * @param moisF moisF struct member
      * @param anneeF anneeF struct member
      */
-    public autorisationTIdl(String matricule, int horaireD, int horaireF, String jourD, String moisD, String anneeD, String jourF, String moisF, String anneeF)
+    public autorisationRestreinteIdl(String matricule, int heureD, int minuteD, int heureF, int minuteF, int jourD, int moisD, int anneeD, int jourF, int moisF, int anneeF)
     {
         this.matricule = matricule;
-        this.horaireD = horaireD;
-        this.horaireF = horaireF;
+        this.heureD = heureD;
+        this.minuteD = minuteD;
+        this.heureF = heureF;
+        this.minuteF = minuteF;
         this.jourD = jourD;
         this.moisD = moisD;
         this.anneeD = anneeD;

@@ -2,6 +2,8 @@ package cobra;
 
 import controleAcces.annuaire;
 import controleAcces.annuaireHelper;
+import controleAcces.autorisateur;
+import controleAcces.autorisateurHelper;
 import controleAcces.coffreFort;
 import controleAcces.coffreFortHelper;
 import controleAcces.trousseau;
@@ -109,6 +111,18 @@ public class CorbaUtil {
       return coffreFortHelper.narrow(o);
     } catch (NotFound ex) {
       System.out.println("Entité 'coffreFort' non joignable.");
+    } catch (CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
+      Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+  }
+  
+  public autorisateur resolveAutorisateur() {
+    try {
+      org.omg.CORBA.Object o = resolve("autorisateur");
+      return autorisateurHelper.narrow(o);
+    } catch (NotFound ex) {
+      System.out.println("Entité 'autorisateur' non joignable.");
     } catch (CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
       Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
     }

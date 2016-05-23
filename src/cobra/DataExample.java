@@ -11,17 +11,20 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import cobra.Matricule;
+import java.util.ArrayList;
 
 public class DataExample {
 
-  private static String filename = "src/cobra/listeA.txt";
+  private static String filenamePersonne = "src/cobra/listePersonne.txt";
+
+  private static String fileNameAutorisation = "src/cobra/listeAutorisation.txt";
 
   public static HashMap<Matricule, Personne> extractPersonnesFromFile() {
 
 	HashMap<Matricule, Personne> res = new HashMap<>();
 
 	try {
-	  InputStream file = new FileInputStream(filename);
+	  InputStream file = new FileInputStream(filenamePersonne);
 	  Scanner scan = new Scanner(file);
 	  scan.nextLine();
 
@@ -66,7 +69,7 @@ public class DataExample {
 	HashMap<Empreinte, Matricule> res = new HashMap<>();
 
 	try {
-	  InputStream file = new FileInputStream(filename);
+	  InputStream file = new FileInputStream(filenamePersonne);
 	  Scanner scan = new Scanner(file);
 	  scan.nextLine();
 
@@ -87,4 +90,37 @@ public class DataExample {
 	return res;
   }
 
+  public static ArrayList<Autorisation> extractAutorisationsFromFile(String zoneParam) {
+	ArrayList<Autorisation> res = new ArrayList<>();
+
+	try {
+	  InputStream file = new FileInputStream(fileNameAutorisation);
+	  Scanner scan = new Scanner(file);
+	  scan.nextLine(); // Après les en-têtes
+
+	  while (scan.hasNext()) {
+		String line = scan.nextLine();
+		String[] mot = line.split(";");
+
+		Matricule matricule = new Matricule(mot[0]);
+		String zone = mot[5];
+		
+		if (zoneParam != null && zone.equals(zoneParam) && matricule.isPermanent()) {
+			res.add(new Autorisation(matricule, new Horaire(mot[1]), new Horaire(mot[2])));
+		}
+		else if(zoneParam == null && matricule.isTemporaire()){
+		  res.add(new AutorisationRestreinte(new Date(mot[3]), new Date(mot[4]), matricule, new Horaire(mot[1]), new Horaire(mot[2])));
+		}
+
+	  }
+
+	} catch (FileNotFoundException ex) {
+	  Logger.getLogger(DataExample.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (Exception ex) {
+	  Logger.getLogger(DataExample.class.getName()).log(Level.SEVERE, null, ex);
+	}
+
+	return res;
+
+  }
 }

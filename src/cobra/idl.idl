@@ -1,10 +1,10 @@
 module controleAcces{
 
-typedef string Heure;
-typedef string Minute;
-typedef string Jour;
-typedef string Mois;
-typedef string Annee;
+typedef long Heure;
+typedef long Minute;
+typedef long Jour;
+typedef long Mois;
+typedef long Annee;
 
 typedef string Matricule;
 
@@ -125,23 +125,27 @@ interface autorisateur{
 
   /********** Types *****/
 
-  typedef struct autorisationPIdl{
+  typedef struct autorisationIdl{
 	  Matricule matricule;
-	  Horaire horaireD;
-	  Horaire horaireF;
-  } autorisationPStruct;
+	  Heure heureD;
+	  Minute minuteD;
+	  Heure heureF;
+	  Minute minuteF;
+  } autorisationStruct;
 
-  typedef struct autorisationTIdl{
+  typedef struct autorisationRestreinteIdl{
 	  Matricule matricule;
-	  Horaire horaireD;
-	  Horaire horaireF;
+	  Heure heureD;
+	  Minute minuteD;
+	  Heure heureF;
+	  Minute minuteF;
 	  Jour jourD;
 	  Mois moisD;
 	  Annee anneeD;
 	  Jour jourF;
 	  Mois moisF;
 	  Annee anneeF;
-  } autorisationTStruct;
+  } autorisationRestreinteStruct;
 
   /********** Exceptions *****/
 
@@ -151,7 +155,7 @@ interface autorisateur{
 
   exception autorisationRefuseeException{
 	  string message;
-	  Heure heure;
+	  long long heure;
   };
 
   /********** Méthodes *****/
@@ -159,13 +163,13 @@ interface autorisateur{
   /*
    * Ajouter une autorisation pour un employé permanent.
    */
-  void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisationIdl)
+  void ajouterAutorisation(in Cle cleIdl, in autorisationStruct autorisationIdl)
 	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Ajouter une autorisation pour une employé temporaire.
    */
-  void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisationIdl)
+  void ajouterAutorisationRestreinte(in Cle cleIdl, in autorisationRestreinteStruct autorisationIdl)
 	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*

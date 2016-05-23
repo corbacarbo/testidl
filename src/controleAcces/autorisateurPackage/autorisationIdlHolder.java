@@ -1,58 +1,58 @@
 package controleAcces.autorisateurPackage;
 
 /**
- * Holder class for : autorisationTIdl
+ * Holder class for : autorisationIdl
  * 
  * @author OpenORB Compiler
  */
-final public class autorisationTIdlHolder
+final public class autorisationIdlHolder
         implements org.omg.CORBA.portable.Streamable
 {
     /**
-     * Internal autorisationTIdl value
+     * Internal autorisationIdl value
      */
-    public controleAcces.autorisateurPackage.autorisationTIdl value;
+    public controleAcces.autorisateurPackage.autorisationIdl value;
 
     /**
      * Default constructor
      */
-    public autorisationTIdlHolder()
+    public autorisationIdlHolder()
     { }
 
     /**
      * Constructor with value initialisation
      * @param initial the initial value
      */
-    public autorisationTIdlHolder(controleAcces.autorisateurPackage.autorisationTIdl initial)
+    public autorisationIdlHolder(controleAcces.autorisateurPackage.autorisationIdl initial)
     {
         value = initial;
     }
 
     /**
-     * Read autorisationTIdl from a marshalled stream
+     * Read autorisationIdl from a marshalled stream
      * @param istream the input stream
      */
     public void _read(org.omg.CORBA.portable.InputStream istream)
     {
-        value = autorisationTIdlHelper.read(istream);
+        value = autorisationIdlHelper.read(istream);
     }
 
     /**
-     * Write autorisationTIdl into a marshalled stream
+     * Write autorisationIdl into a marshalled stream
      * @param ostream the output stream
      */
     public void _write(org.omg.CORBA.portable.OutputStream ostream)
     {
-        autorisationTIdlHelper.write(ostream,value);
+        autorisationIdlHelper.write(ostream,value);
     }
 
     /**
-     * Return the autorisationTIdl TypeCode
+     * Return the autorisationIdl TypeCode
      * @return a TypeCode
      */
     public org.omg.CORBA.TypeCode _type()
     {
-        return autorisationTIdlHelper.type();
+        return autorisationIdlHelper.type();
     }
 
 }
