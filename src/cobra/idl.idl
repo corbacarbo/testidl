@@ -121,15 +121,15 @@ interface autorisateur{
 
   /********** Types *****/
 
-  typedef struct autorisationPIdl{
+  typedef struct autorisationIdl{
 	  Matricule matricule;
 	  Heure heureD;
 	  Minute minuteD;
 	  Heure heureF;
 	  Minute minuteF;
-  } autorisationPStruct;
+  } autorisationStruct;
 
-  typedef struct autorisationTIdl{
+  typedef struct autorisationRestreinteIdl{
 	  Matricule matricule;
 	  Heure heureD;
 	  Minute minuteD;
@@ -141,7 +141,7 @@ interface autorisateur{
 	  Jour jourF;
 	  Mois moisF;
 	  Annee anneeF;
-  } autorisationTStruct;
+  } autorisationRestreinteStruct;
 
   /********** Exceptions *****/
 
@@ -151,7 +151,7 @@ interface autorisateur{
 
   exception autorisationRefuseeException{
 	  string message;
-	  Heure heure;
+	  long long heure;
   };
 
   /********** Méthodes *****/
@@ -159,13 +159,13 @@ interface autorisateur{
   /*
    * Ajouter une autorisation pour un employé permanent.
    */
-  void ajouterAutorisationP(in Cle cleIdl, in autorisationPStruct autorisationIdl)
+  void ajouterAutorisation(in Cle cleIdl, in autorisationStruct autorisationIdl)
 	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Ajouter une autorisation pour une employé temporaire.
    */
-  void ajouterAutorisationT(in Cle cleIdl, in autorisationTStruct autorisationIdl)
+  void ajouterAutorisationRestreinte(in Cle cleIdl, in autorisationRestreinteStruct autorisationIdl)
 	  raises (conflitAutorisationException, sessionInvalidException, sessionExpireeException);
 
   /*

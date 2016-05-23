@@ -1,11 +1,11 @@
 package controleAcces.autorisateurPackage;
 
 /** 
- * Helper class for : autorisationTIdl
+ * Helper class for : autorisationRestreinteIdl
  *  
  * @author OpenORB Compiler
  */ 
-public class autorisationTIdlHelper
+public class autorisationRestreinteIdlHelper
 {
     private static final boolean HAS_OPENORB;
     static {
@@ -19,21 +19,21 @@ public class autorisationTIdlHelper
         HAS_OPENORB = hasOpenORB;
     }
     /**
-     * Insert autorisationTIdl into an any
+     * Insert autorisationRestreinteIdl into an any
      * @param a an any
-     * @param t autorisationTIdl value
+     * @param t autorisationRestreinteIdl value
      */
-    public static void insert(org.omg.CORBA.Any a, controleAcces.autorisateurPackage.autorisationTIdl t)
+    public static void insert(org.omg.CORBA.Any a, controleAcces.autorisateurPackage.autorisationRestreinteIdl t)
     {
-        a.insert_Streamable(new controleAcces.autorisateurPackage.autorisationTIdlHolder(t));
+        a.insert_Streamable(new controleAcces.autorisateurPackage.autorisationRestreinteIdlHolder(t));
     }
 
     /**
-     * Extract autorisationTIdl from an any
+     * Extract autorisationRestreinteIdl from an any
      * @param a an any
-     * @return the extracted autorisationTIdl value
+     * @return the extracted autorisationRestreinteIdl value
      */
-    public static controleAcces.autorisateurPackage.autorisationTIdl extract(org.omg.CORBA.Any a)
+    public static controleAcces.autorisateurPackage.autorisationRestreinteIdl extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -42,11 +42,11 @@ public class autorisationTIdlHelper
             org.openorb.CORBA.Any any = (org.openorb.CORBA.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if(s instanceof controleAcces.autorisateurPackage.autorisationTIdlHolder)
-                    return ((controleAcces.autorisateurPackage.autorisationTIdlHolder)s).value;
+                if(s instanceof controleAcces.autorisateurPackage.autorisationRestreinteIdlHolder)
+                    return ((controleAcces.autorisateurPackage.autorisationRestreinteIdlHolder)s).value;
             } catch (org.omg.CORBA.BAD_INV_ORDER ex) {
             }
-            controleAcces.autorisateurPackage.autorisationTIdlHolder h = new controleAcces.autorisateurPackage.autorisationTIdlHolder(read(a.create_input_stream()));
+            controleAcces.autorisateurPackage.autorisationRestreinteIdlHolder h = new controleAcces.autorisateurPackage.autorisationRestreinteIdlHolder(read(a.create_input_stream()));
             a.insert_Streamable(h);
             return h.value;
         }
@@ -60,7 +60,7 @@ public class autorisationTIdlHelper
     private static boolean _working = false;
 
     /**
-     * Return the autorisationTIdl TypeCode
+     * Return the autorisationRestreinteIdl TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
@@ -108,7 +108,7 @@ public class autorisationTIdlHelper
                 _members[10] = new org.omg.CORBA.StructMember();
                 _members[10].name = "anneeF";
                 _members[10].type = controleAcces.AnneeHelper.type();
-                _tc = orb.create_struct_tc(id(),"autorisationTIdl",_members);
+                _tc = orb.create_struct_tc(id(),"autorisationRestreinteIdl",_members);
                 _working = false;
             }
         }
@@ -116,7 +116,7 @@ public class autorisationTIdlHelper
     }
 
     /**
-     * Return the autorisationTIdl IDL ID
+     * Return the autorisationRestreinteIdl IDL ID
      * @return an ID
      */
     public static String id()
@@ -124,16 +124,16 @@ public class autorisationTIdlHelper
         return _id;
     }
 
-    private final static String _id = "IDL:controleAcces/autorisateur/autorisationTIdl:1.0";
+    private final static String _id = "IDL:controleAcces/autorisateur/autorisationRestreinteIdl:1.0";
 
     /**
-     * Read autorisationTIdl from a marshalled stream
+     * Read autorisationRestreinteIdl from a marshalled stream
      * @param istream the input stream
-     * @return the readed autorisationTIdl value
+     * @return the readed autorisationRestreinteIdl value
      */
-    public static controleAcces.autorisateurPackage.autorisationTIdl read(org.omg.CORBA.portable.InputStream istream)
+    public static controleAcces.autorisateurPackage.autorisationRestreinteIdl read(org.omg.CORBA.portable.InputStream istream)
     {
-        controleAcces.autorisateurPackage.autorisationTIdl new_one = new controleAcces.autorisateurPackage.autorisationTIdl();
+        controleAcces.autorisateurPackage.autorisationRestreinteIdl new_one = new controleAcces.autorisateurPackage.autorisationRestreinteIdl();
 
         new_one.matricule = controleAcces.MatriculeHelper.read(istream);
         new_one.heureD = controleAcces.HeureHelper.read(istream);
@@ -151,11 +151,11 @@ public class autorisationTIdlHelper
     }
 
     /**
-     * Write autorisationTIdl into a marshalled stream
+     * Write autorisationRestreinteIdl into a marshalled stream
      * @param ostream the output stream
-     * @param value autorisationTIdl value
+     * @param value autorisationRestreinteIdl value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationTIdl value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, controleAcces.autorisateurPackage.autorisationRestreinteIdl value)
     {
         controleAcces.MatriculeHelper.write(ostream,value.matricule);
         controleAcces.HeureHelper.write(ostream,value.heureD);

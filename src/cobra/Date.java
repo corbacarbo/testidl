@@ -17,6 +17,10 @@ public class Date extends GregorianCalendar {
 	this(Integer.parseInt(s.split("/")[2]), Integer.parseInt(s.split("/")[1]), Integer.parseInt(s.split("/")[0]));
   }
 
+  public Date(GregorianCalendar cal){
+	this(cal.get(YEAR), cal.get(MONTH) + 1, cal.get(DAY_OF_MONTH));
+  }
+  
   public int jourToIdl() {
 	return get(DAY_OF_MONTH);
   }

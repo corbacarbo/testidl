@@ -1,26 +1,28 @@
 package cobra.autorisateur;
 
 import cobra.Autorisation;
+import cobra.AutorisationRestreinte;
 import cobra.CorbaEntite;
 import cobra.DataExample;
+import cobra.Matricule;
 import controleAcces.autorisateurOperations;
-import controleAcces.autorisateurPackage.autorisationPIdl;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
-import controleAcces.autorisateurPackage.autorisationTIdl;
+import controleAcces.autorisateurPackage.autorisationIdl;
+import controleAcces.autorisateurPackage.autorisationRestreinteIdl;
 import controleAcces.autorisateurPackage.conflitAutorisationException;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 /**
- * Il existe deux types d'autorisateur:
- *  - pour les permanents : il en existe un par zone, responsable de toutes
- *    les autorisations de cette zone ;
- *  - pour les temporaires : il en existe un unique, responsable de toutes les
- *    autorisations des temporaires.
- * Cette classe implémente l'un et l'autre. Elle sait elle-même de quel type 
- * elle est grâce au paramètre 'zone' du constructeur. S'il est null, alors 
- * c'est un autorisateur temporaire.
+ * Il existe deux types d'autorisateur: - pour les permanents : il en existe un
+ * par zone, responsable de toutes les autorisations de cette zone ; - pour les
+ * temporaires : il en existe un unique, responsable de toutes les autorisations
+ * des temporaires. Cette classe implémente l'un et l'autre. Elle sait elle-même
+ * de quel type elle est grâce au paramètre 'zone' du constructeur. S'il est
+ * null, alors c'est un autorisateur temporaire.
+ *
  * @author matt
  */
 public class AutorisateurImpl implements autorisateurOperations {
@@ -37,11 +39,10 @@ public class AutorisateurImpl implements autorisateurOperations {
   private String zone;
 
   /**
-   * Le type d'autorisateur:
-   *  - true: autorisateur permanent ; une entité par zone, contenant toutes les
-   *    autorisations permanentes de la zone;
-   *  - false: autorisateur temporaire ; une seule entité ne gérant uniquement 
-   *    les autorisations temporaires.
+   * Le type d'autorisateur: - true: autorisateur permanent ; une entité par
+   * zone, contenant toutes les autorisations permanentes de la zone; - false:
+   * autorisateur temporaire ; une seule entité ne gérant uniquement les
+   * autorisations temporaires.
    */
   private boolean permanent;
 
@@ -51,12 +52,13 @@ public class AutorisateurImpl implements autorisateurOperations {
   private ArrayList<Autorisation> autorisations;
 
   /**
-   * Constructeur.
-   * String contient la lettre de zone (A, B, C...), ou bien est null. Dans ce
-   * deuxième cas, il s'agit alors de l'autorisateur pour les personnes
-   * temporaires.
-   * @param serveur référence vers la classe instanciatrice (ou processus serveur).
-   * @param zone 
+   * Constructeur. String contient la lettre de zone (A, B, C...), ou bien est
+   * null. Dans ce deuxième cas, il s'agit alors de l'autorisateur pour les
+   * personnes temporaires.
+   *
+   * @param serveur référence vers la classe instanciatrice (ou processus
+   * serveur).
+   * @param zone
    */
   public AutorisateurImpl(CorbaEntite serveur, String zone) {
 	this.serveur = serveur;
@@ -75,32 +77,60 @@ public class AutorisateurImpl implements autorisateurOperations {
   private void remplirAutorisation() {
 	autorisations = DataExample.extractAutorisationsFromFile(zone);
   }
-  
-  public void afficher(){
+
+  public void afficher() {
 	System.out.println("------------------------");
-	for(Autorisation a : autorisations){
+	for (Autorisation a : autorisations) {
 	  System.out.println(a);
 	}
 	System.out.println("------------------------");
   }
-  
-  private void checkRecouvrement(Autorisation a) throws conflitAutorisationException{
-	
+
+  private void checkRecouvrement(Autorisation a) throws conflitAutorisationException {
+
   }
 
   @Override
-  public void ajouterAutorisationP(long cleIdl, autorisationPIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public void ajouterAutorisation(long cleIdl, autorisationIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
+	serveur.resolveTrousseau().valideSession(cleIdl);
+
+	Autorisation autorisationDemandee = new Autorisation(autorisationIdl);
+
+	for (Autorisation uneAuto : autorisations) {
+	  if (autorisationDemandee.recouvrement(uneAuto)) {
+		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
+	  }
+	}
+	autorisations.add(autorisationDemandee);
   }
 
   @Override
-  public void ajouterAutorisationT(long cleIdl, autorisationTIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public void ajouterAutorisationRestreinte(long cleIdl, autorisationRestreinteIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
+	serveur.resolveTrousseau().valideSession(cleIdl);
+
+	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
+
+	for (Autorisation uneAuto : autorisations) {
+	  if (autorisationDemandee.recouvrement(uneAuto)) {
+		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
+	  }
+	}
+	autorisations.add(autorisationDemandee);
   }
 
   @Override
   public void autoriser(String matriculeIdl) throws autorisationRefuseeException {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	Matricule matricule = new Matricule(matriculeIdl);
+	GregorianCalendar maintenant = new GregorianCalendar();
+
+	for (Autorisation uneAuto : autorisations) {
+	  if (uneAuto.autoriserMatricule(matricule)) {
+		if (uneAuto.autoriserTemps(maintenant)) {
+		  return;
+		}
+	  }
+	}
+	throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + " à " + maintenant, maintenant.getTimeInMillis());
   }
 
 }

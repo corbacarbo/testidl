@@ -106,10 +106,10 @@ public class DataExample {
 		String zone = mot[5];
 		
 		if (zoneParam != null && zone.equals(zoneParam) && matricule.isPermanent()) {
-			res.add(new AutorisationPermanent(matricule, new Horaire(mot[1]), new Horaire(mot[2])));
+			res.add(new Autorisation(matricule, new Horaire(mot[1]), new Horaire(mot[2])));
 		}
 		else if(zoneParam == null && matricule.isTemporaire()){
-		  res.add(new AutorisationTemporaire(new Date(mot[3]), new Date(mot[4]), matricule, new Horaire(mot[1]), new Horaire(mot[2])));
+		  res.add(new AutorisationRestreinte(new Date(mot[3]), new Date(mot[4]), matricule, new Horaire(mot[1]), new Horaire(mot[2])));
 		}
 
 	  }

@@ -80,7 +80,7 @@ public class autorisationRefuseeExceptionHelper
                 _members[0].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[1] = new org.omg.CORBA.StructMember();
                 _members[1].name = "heure";
-                _members[1].type = controleAcces.HeureHelper.type();
+                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong);
                 _tc = orb.create_exception_tc(id(),"autorisationRefuseeException",_members);
                 _working = false;
             }
@@ -111,7 +111,7 @@ public class autorisationRefuseeExceptionHelper
         if (!istream.read_string().equals(id()))
          throw new org.omg.CORBA.MARSHAL();
         new_one.message = istream.read_string();
-        new_one.heure = controleAcces.HeureHelper.read(istream);
+        new_one.heure = istream.read_longlong();
 
         return new_one;
     }
@@ -125,7 +125,7 @@ public class autorisationRefuseeExceptionHelper
     {
         ostream.write_string(id());
         ostream.write_string(value.message);
-        controleAcces.HeureHelper.write(ostream,value.heure);
+        ostream.write_longlong(value.heure);
     }
 
 }
