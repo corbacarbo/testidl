@@ -86,10 +86,6 @@ public class AutorisateurImpl implements autorisateurOperations {
 	System.out.println("------------------------");
   }
 
-  private void checkRecouvrement(Autorisation a) throws conflitAutorisationException {
-
-  }
-
   @Override
   public void ajouterAutorisation(long cleIdl, autorisationIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
 	serveur.resolveTrousseau().valideSession(cleIdl);
@@ -126,6 +122,7 @@ public class AutorisateurImpl implements autorisateurOperations {
 	for (Autorisation uneAuto : autorisations) {
 	  if (uneAuto.autoriserMatricule(matricule)) {
 		if (uneAuto.autoriserTemps(maintenant)) {
+		  
 		  return;
 		}
 	  }
