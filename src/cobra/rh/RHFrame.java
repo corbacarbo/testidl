@@ -35,9 +35,9 @@ public class RHFrame extends javax.swing.JFrame {
   public RHFrame(RH rh) throws HeadlessException {
 	this.rh = rh;
 	initComponents();
-	this.setSize(500, 300);
-	//etat = ETAT.NONCONNECTE;
-	//activateNonConnecte();
+	this.setSize(500, 500);
+	 etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
 	aMessage = false;
   }
 
@@ -73,6 +73,7 @@ public class RHFrame extends javax.swing.JFrame {
 	loginPanelRH1.initState();
 	loginPanelRH1.setVisible(true);
 	addPersonnePanel1.setVisible(false);
+        recapPersonnePanel1.setVisible(false);
   }
 
    private void activateAjoutPermanent() {
@@ -84,7 +85,9 @@ public class RHFrame extends javax.swing.JFrame {
 	updateMessage();
 
 	addPersonnePanel1.initState();
-	addPersonnePanel1.setVisible(true);
+        loginPanelRH1.setVisible(false);
+	addPersonnePanel1.setVisible(true);        
+        recapPersonnePanel1.setVisible(false);
   }
    
    private void activateRecapAjout() {
@@ -95,6 +98,9 @@ public class RHFrame extends javax.swing.JFrame {
 	cancelButton.setText("Terminer");
 	cancelButton.setEnabled(true);
 	updateMessage();
+        loginPanelRH1.setVisible(false);
+	addPersonnePanel1.setVisible(false);        
+        recapPersonnePanel1.setVisible(true);
     }
 
   private void sessionExpiree() {
@@ -162,20 +168,23 @@ public class RHFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginPanelRH1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cancelButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(okButton))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(loginPanelRH1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(cancelButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(okButton)))
+                .addContainerGap(89, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,10 +196,10 @@ public class RHFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(loginPanelRH1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(addPersonnePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +242,7 @@ public class RHFrame extends javax.swing.JFrame {
 		if (! nom.equals("") && ! prenom.equals("") && !photo.equals("")) {
                     try {
                         rh.ajouterPermanent(nom, prenom, photo);
-                        setMessage(ETATM.INFOR, nom+" "+prenom+ "a été ajouté à l'annuaire.");
+                        setMessage(ETATM.INFOR, nom+" "+prenom+ " a été ajouté à l'annuaire.");
 			etat = ETAT.RECAPAJOUT;
  			activateRecapAjout();
                     } catch (sessionInvalidException ex) {
