@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cobra.rh;
+package cobra.accueil;
 
-import cobra.accueil.*;
-import cobra.rh.*;
-import cobra.PersonnePermanent;
+import cobra.PersonneTemporaire;
 
 /**
  *
  * @author matt
  */
-public class RecapPersonnePanel extends javax.swing.JPanel {
+public class RecapPersonneTPanel extends javax.swing.JPanel {
 
   /**
    * Creates new form MdpPanel
    */
-  public RecapPersonnePanel() {
+  public RecapPersonneTPanel() {
     initComponents();
     initState();
   }
@@ -27,15 +25,13 @@ public class RecapPersonnePanel extends javax.swing.JPanel {
     nomLabel.setText("");
     prenomLabel.setText("");
     matLabel.setText("");
-    mdpLabel.setText("");
     photoLabel.setText("");
   }
   
-  public void setRecap(PersonnePermanent p){
+  public void setRecap(PersonneTemporaire p){
     nomLabel.setText(p.getNom());
     prenomLabel.setText(p.getPrenom());
     matLabel.setText(p.getMatricule().getMat());
-    mdpLabel.setText(p.getMdp());
     photoLabel.setText(p.getPhoto());
   }
   
@@ -53,11 +49,9 @@ public class RecapPersonnePanel extends javax.swing.JPanel {
         photoEmpLabel = new javax.swing.JLabel();
         matEmpLabel = new javax.swing.JLabel();
         matLabel = new javax.swing.JLabel();
-        mdpEmpLabel = new javax.swing.JLabel();
         nomLabel = new javax.swing.JLabel();
         prenomLabel = new javax.swing.JLabel();
         photoLabel = new javax.swing.JLabel();
-        mdpLabel = new javax.swing.JLabel();
 
         nomEmpLabel.setText("Nom de l'employé");
 
@@ -69,15 +63,11 @@ public class RecapPersonnePanel extends javax.swing.JPanel {
 
         matLabel.setText("jLabel1");
 
-        mdpEmpLabel.setText("Mot de Passe provisoire :");
-
         nomLabel.setText("jLabel2");
 
         prenomLabel.setText("jLabel2");
 
         photoLabel.setText("jLabel2");
-
-        mdpLabel.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,16 +79,14 @@ public class RecapPersonnePanel extends javax.swing.JPanel {
                     .addComponent(prenomEmpLabel)
                     .addComponent(nomEmpLabel)
                     .addComponent(matEmpLabel)
-                    .addComponent(photoEmpLabel)
-                    .addComponent(mdpEmpLabel))
-                .addGap(43, 43, 43)
+                    .addComponent(photoEmpLabel))
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mdpLabel)
                     .addComponent(photoLabel)
                     .addComponent(prenomLabel)
                     .addComponent(nomLabel)
                     .addComponent(matLabel))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,15 +103,11 @@ public class RecapPersonnePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(prenomEmpLabel)
                     .addComponent(prenomLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(photoEmpLabel)
                     .addComponent(photoLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mdpEmpLabel)
-                    .addComponent(mdpLabel))
-                .addGap(37, 37, 37))
+                .addGap(75, 75, 75))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,8 +115,6 @@ public class RecapPersonnePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel matEmpLabel;
     private javax.swing.JLabel matLabel;
-    private javax.swing.JLabel mdpEmpLabel;
-    private javax.swing.JLabel mdpLabel;
     private javax.swing.JLabel nomEmpLabel;
     private javax.swing.JLabel nomLabel;
     private javax.swing.JLabel photoEmpLabel;

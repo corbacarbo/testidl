@@ -21,4 +21,12 @@ public class PersonneTemporaire extends Personne {
     return new personneIdl(matricule.toIdl(), nom, prenom, photo, "", false);
   }
 
+    public String getNom() {
+        return this.nom;
+    }
+
+    public String getPhoto() {
+        return this.photo;
+    }
+
 }
