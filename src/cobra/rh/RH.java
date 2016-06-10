@@ -64,6 +64,7 @@ public class RH extends CorbaClient implements Runnable {
   }
 
     public PersonnePermanent getPersonneAjout() {
+        System.out.println(personneAjout);
         return this.personneAjout;
     }
     public void reinitPersonnes (){

@@ -209,6 +209,11 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             _output = handler.createExceptionReply();
             controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
         }
+        catch (controleAcces.coffreFortPackage.matriculeInconnuException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
