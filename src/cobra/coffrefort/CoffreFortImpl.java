@@ -7,10 +7,13 @@ import cobra.Empreinte;
 import cobra.Matricule;
 import controleAcces.coffreFortOperations;
 import controleAcces.coffreFortPackage.empreinteInconnueException;
+import controleAcces.coffreFortPackage.matriculeErroneException;
 import controleAcces.coffreFortPackage.matriculeInconnuException;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CoffreFortImpl implements coffreFortOperations {
 
@@ -81,8 +84,12 @@ public class CoffreFortImpl implements coffreFortOperations {
 	Empreinte newEmpreinte = new Empreinte(empreinteIdl);
 	
 	// Empreinte à supprimer
-	Empreinte oldEmpreinte = getEmpreinte(matricule);
-	empreintes.remove(oldEmpreinte);
+        try {
+          Empreinte oldEmpreinte = getEmpreinte(matricule);
+            empreintes.remove(oldEmpreinte);
+      } catch (Exception e) {
+      }
+	
 	
 	// Ajout nouvelle empreinte
 	empreintes.put(newEmpreinte, matricule);
@@ -91,28 +98,43 @@ public class CoffreFortImpl implements coffreFortOperations {
   }
 
   @Override
-  public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl) throws sessionInvalidException, sessionExpireeException {
+  public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl) throws sessionInvalidException, sessionExpireeException, matriculeErroneException {
 	serveur.resolveTrousseau().valideSession(cleIdl);
 	
 	Matricule matricule = new Matricule(matriculeIdl);
 	Empreinte empreinte = new Empreinte(empreinteIdl);
-	
-	empreintes.put(empreinte, matricule);
-	
+	if (matricule.getMat().startsWith("t")){
+            empreintes.put(empreinte, matricule);
+        }
+        else {
+            matriculeErroneException exception = new matriculeErroneException();
+              throw exception;
+        }
 	System.out.println("++ Empreinte ajoutée " + empreinte + "  " + matricule + "     " + new Cle(cleIdl));
   }
 
-  @Override
-  public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl) throws matriculeInconnuException, sessionInvalidException, sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
-	
-	Matricule matricule = new Matricule(matriculeIdl);
-	Empreinte empreinte = getEmpreinte(matricule);
-	
-	empreintes.remove(empreinte);
-	
-	System.out.println("-- Empreinte supprimée " + empreinte + "  " + matricule + "     " + new Cle(cleIdl));
-  }
+    @Override
+    public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl) throws matriculeErroneException, sessionInvalidException, sessionExpireeException {
+      try {
+          serveur.resolveTrousseau().valideSession(cleIdl);
+          
+          Matricule matricule = new Matricule(matriculeIdl);
+          Empreinte empreinte = getEmpreinte(matricule);
+          if (matricule.getMat().startsWith("t")){
+              empreintes.remove(empreinte);
+          }
+          else {
+              matriculeErroneException exception = new matriculeErroneException();
+              throw exception;
+          }
+          
+          System.out.println("-- Empreinte supprimée " + empreinte + "  " + matricule + "     " + new Cle(cleIdl));
+      } catch (matriculeInconnuException ex) {
+          Logger.getLogger(CoffreFortImpl.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+
+ 
 
   
 

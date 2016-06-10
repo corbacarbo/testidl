@@ -29,12 +29,12 @@ public interface coffreFortOperations
      * Operation ajouterEmpreinteTemp
      */
     public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
-        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException, controleAcces.coffreFortPackage.matriculeErroneException;
 
     /**
      * Operation supprimerEmpreinteTemp
      */
     public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
-        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
+        throws controleAcces.coffreFortPackage.matriculeErroneException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
 }

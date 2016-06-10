@@ -36,6 +36,7 @@ public class BorneFrame extends javax.swing.JFrame {
 	this.borne = borne;
 	initComponents();
 	this.setSize(500, 300);
+        this.setTitle("Borne");
 	etat = ETAT.NONCONNECTE;
 	activateNonConnecte();
 	aMessage = false;
@@ -320,7 +321,7 @@ public class BorneFrame extends javax.swing.JFrame {
 		  // Empreinte OK
 		  try {
 			Empreinte empreinte = new Empreinte(empreintePanel.getEmpreinte());
-			borne.ajoutempreinte(empreinte);
+			borne.modifEmpreinte(empreinte);
 			setMessage(ETATM.INFOR, "Empreinte enregistrée");
 			etat = ETAT.NONCONNECTE;
 			activateNonConnecte();
@@ -328,7 +329,9 @@ public class BorneFrame extends javax.swing.JFrame {
 			sessionInvalide();
 		  } catch (sessionExpireeException ex) {
 			sessionExpiree();
-		  }
+		  } catch (matriculeInconnuException ex) {
+                Logger.getLogger(BorneFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		}
 		break;
 

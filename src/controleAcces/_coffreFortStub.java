@@ -226,7 +226,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation ajouterEmpreinteTemp
      */
     public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl)
-        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
+        throws controleAcces.sessionInvalidException, controleAcces.sessionExpireeException, controleAcces.coffreFortPackage.matriculeErroneException
     {
         while(true)
         {
@@ -259,6 +259,11 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                         throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
                     }
 
+                    if (_exception_id.equals(controleAcces.coffreFortPackage.matriculeErroneExceptionHelper.id()))
+                    {
+                        throw controleAcces.coffreFortPackage.matriculeErroneExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -289,7 +294,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation supprimerEmpreinteTemp
      */
     public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
-        throws controleAcces.coffreFortPackage.matriculeInconnuException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
+        throws controleAcces.coffreFortPackage.matriculeErroneException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -311,9 +316,9 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                 catch(org.omg.CORBA.portable.ApplicationException _exception)
                 {
                     String _exception_id = _exception.getId();
-                    if (_exception_id.equals(controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.id()))
+                    if (_exception_id.equals(controleAcces.coffreFortPackage.matriculeErroneExceptionHelper.id()))
                     {
-                        throw controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.read(_exception.getInputStream());
+                        throw controleAcces.coffreFortPackage.matriculeErroneExceptionHelper.read(_exception.getInputStream());
                     }
 
                     if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))

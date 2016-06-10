@@ -43,11 +43,6 @@ public class Borne extends CorbaClient implements Runnable {
     annuaire annuaire = resolveAnnuaire();
     annuaire.modificationMdp(cle.toIdl(), personne.getMatricule().toIdl(), mdp);
   }
-
-  public void ajoutempreinte(Empreinte empreinte) throws sessionInvalidException, sessionExpireeException{
-	coffreFort coffreFort = resolveCoffreFort();
-	coffreFort.ajouterEmpreinteTemp(cle.toIdl(), empreinte.toIdl(), personne.getMatricule().toIdl());
-  }
   
   public void modifEmpreinte(Empreinte empreinte) throws sessionInvalidException, sessionExpireeException, matriculeInconnuException {
     coffreFort coffreFort = resolveCoffreFort();

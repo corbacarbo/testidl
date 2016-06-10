@@ -172,6 +172,11 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             _output = handler.createExceptionReply();
             controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
         }
+        catch (controleAcces.coffreFortPackage.matriculeErroneException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.coffreFortPackage.matriculeErroneExceptionHelper.write(_output,_exception);
+        }
         return _output;
     }
 
@@ -189,10 +194,10 @@ public abstract class coffreFortPOA extends org.omg.PortableServer.Servant
             _output = handler.createReply();
 
         }
-        catch (controleAcces.coffreFortPackage.matriculeInconnuException _exception)
+        catch (controleAcces.coffreFortPackage.matriculeErroneException _exception)
         {
             _output = handler.createExceptionReply();
-            controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.write(_output,_exception);
+            controleAcces.coffreFortPackage.matriculeErroneExceptionHelper.write(_output,_exception);
         }
         catch (controleAcces.sessionInvalidException _exception)
         {

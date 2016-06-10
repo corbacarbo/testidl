@@ -15,6 +15,7 @@ import controleAcces.annuaire;
 import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.coffreFort;
+import controleAcces.coffreFortPackage.matriculeErroneException;
 import controleAcces.coffreFortPackage.matriculeInconnuException;
 import controleAcces.personneIdl;
 import controleAcces.sessionExpireeException;
@@ -58,14 +59,14 @@ public class Accueil extends CorbaClient implements Runnable {
         System.out.println("Accueil : Ajout de la personne "+personneAjout.getMatricule() +" "+personneAjout.getPrenom());
     }
     
-    public void ajouterEmpreinte(Empreinte empreinte, Matricule matricule)throws sessionInvalidException, sessionExpireeException, personneInexistanteException{
+    public void ajouterEmpreinte(Empreinte empreinte, Matricule matricule)throws sessionInvalidException, sessionExpireeException, personneInexistanteException, matriculeErroneException{
 	annuaire annuaire = resolveAnnuaire();
         annuaire.validerIdentite(matricule.toIdl());
         coffreFort coffreFort = resolveCoffreFort();
 	coffreFort.ajouterEmpreinteTemp(cle.toIdl(), empreinte.toIdl(), matricule.toIdl());
     }
     
-    public void supprimerEmpreinte(Matricule matricule)throws sessionInvalidException, sessionExpireeException, matriculeInconnuException{
+    public void supprimerEmpreinte(Matricule matricule)throws sessionInvalidException, sessionExpireeException, matriculeInconnuException, matriculeErroneException{
         coffreFort coffreFort = resolveCoffreFort();
 	coffreFort.supprimerEmpreinteTemp(cle.toIdl(), matricule.toIdl());
     }

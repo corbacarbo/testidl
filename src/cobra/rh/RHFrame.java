@@ -33,6 +33,7 @@ public class RHFrame extends javax.swing.JFrame {
 	this.rh = rh;
 	initComponents();
 	this.setSize(700, 400);
+        this.setTitle("RH");
 	etat = ETAT.NONCONNECTE;
 	activateNonConnecte();
 	aMessage = false;

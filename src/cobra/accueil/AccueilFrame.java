@@ -5,6 +5,7 @@ import cobra.Empreinte;
 import cobra.Matricule;
 import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.personneInexistanteException;
+import controleAcces.coffreFortPackage.matriculeErroneException;
 import controleAcces.coffreFortPackage.matriculeInconnuException;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
@@ -36,6 +37,7 @@ public class AccueilFrame extends javax.swing.JFrame {
 	this.accueil = accueil;
 	initComponents();
 	this.setSize(700, 400);
+        this.setTitle("Accueil");
 	etat = ETAT.NONCONNECTE;
 	activateNonConnecte();
 	aMessage = false;
@@ -410,6 +412,10 @@ public class AccueilFrame extends javax.swing.JFrame {
                         setMessage(ETATM.ERROR, "Attention, ce matricule n'existe pas.");
                         etat = ETAT.AJOUTEMPREINTE;
                         activateAjoutEmpreinte();
+                    } catch (matriculeErroneException ex) {
+                        setMessage(ETATM.ERROR, "Attention, ce matricule n'est pas celui d'un employé temporaire.");
+                        etat = ETAT.AJOUTEMPREINTE;
+                        activateAjoutEmpreinte();
                     }
                 } else {
 		  setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
@@ -439,6 +445,10 @@ public class AccueilFrame extends javax.swing.JFrame {
                         sessionExpiree();
                     } catch (matriculeInconnuException ex) {
                         setMessage(ETATM.ERROR, "Attention, aucune empreinte n'est répertoriée pour ce matricule.");
+                        etat = ETAT.SUPPREMPREINTE;
+                        activateSuppressionEmpreinte();
+                    } catch (matriculeErroneException ex) {
+                        setMessage(ETATM.ERROR, "Attention, ce matricule n'est pas celui d'un employé temporaire.");
                         etat = ETAT.SUPPREMPREINTE;
                         activateSuppressionEmpreinte();
                     }

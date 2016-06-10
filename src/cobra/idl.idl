@@ -191,6 +191,9 @@ interface coffreFort{
   exception matriculeInconnuException{
 	  string message;
   };
+  exception matriculeErroneException{
+	  string message;
+  };
 
   /********** Méthodes *****/
 
@@ -217,13 +220,13 @@ interface coffreFort{
    * Permet d'ajouter l'empreinte d'un employé temporaire.
    */
   void ajouterEmpreinteTemp(in Cle cleIdl, in Empreinte empreinteIdl, in Matricule matriculeIdl)
-    raises (sessionInvalidException, sessionExpireeException);
+    raises (sessionInvalidException, sessionExpireeException, matriculeErroneException);
 
   /*
    * Permet de supprimer l'empreinte d'un employé temporaire.
    */
   void supprimerEmpreinteTemp(in Cle cleIdl, in Matricule matriculeIdl)
-    raises (matriculeInconnuException, sessionInvalidException, sessionExpireeException);
+    raises (matriculeErroneException, sessionInvalidException, sessionExpireeException);
 
 };
 

@@ -268,7 +268,7 @@ public class AnnuaireImpl implements annuaireOperations {
     genereMatricule(personne);
 
     annuaire.put(personne.getMatricule(), personne);
-
+    System.out.println(personne);
     return personne.toIdl();
   }
 
