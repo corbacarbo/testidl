@@ -12,8 +12,6 @@ import controleAcces.coffreFortPackage.matriculeInconnuException;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CoffreFortImpl implements coffreFortOperations {
 
@@ -107,15 +105,13 @@ public class CoffreFortImpl implements coffreFortOperations {
             empreintes.put(empreinte, matricule);
         }
         else {
-            matriculeErroneException exception = new matriculeErroneException();
-              throw exception;
+              throw new matriculeErroneException("Ajout d'empreinte pour permanent impossible");
         }
 	System.out.println("++ Empreinte ajoutée " + empreinte + "  " + matricule + "     " + new Cle(cleIdl));
   }
 
     @Override
-    public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl) throws matriculeErroneException, sessionInvalidException, sessionExpireeException {
-      try {
+    public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl) throws matriculeErroneException, sessionInvalidException, sessionExpireeException, matriculeInconnuException {
           serveur.resolveTrousseau().valideSession(cleIdl);
           
           Matricule matricule = new Matricule(matriculeIdl);
@@ -124,14 +120,11 @@ public class CoffreFortImpl implements coffreFortOperations {
               empreintes.remove(empreinte);
           }
           else {
-              matriculeErroneException exception = new matriculeErroneException();
-              throw exception;
+              throw new matriculeErroneException("Suppression d'empreinte pour permanent impossible");
           }
           
           System.out.println("-- Empreinte supprimée " + empreinte + "  " + matricule + "     " + new Cle(cleIdl));
-      } catch (matriculeInconnuException ex) {
-          Logger.getLogger(CoffreFortImpl.class.getName()).log(Level.SEVERE, null, ex);
-      }
+     
     }
 
  

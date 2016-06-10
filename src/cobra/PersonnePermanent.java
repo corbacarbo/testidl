@@ -16,9 +16,9 @@ public class PersonnePermanent extends Personne {
 
   public PersonnePermanent(personneIdl p) {
     super(p);
-    mdpChange = p.mdpChange;
+    this.mdpChange = p.mdpChange;
     if (p.mdp != null && !p.mdp.isEmpty()) {
-      this.mdp = mdp;
+      this.mdp = p.mdp;
     } else {
       this.mdp = null;
     }

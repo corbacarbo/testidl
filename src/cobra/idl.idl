@@ -226,7 +226,7 @@ interface coffreFort{
    * Permet de supprimer l'empreinte d'un employé temporaire.
    */
   void supprimerEmpreinteTemp(in Cle cleIdl, in Matricule matriculeIdl)
-    raises (matriculeErroneException, sessionInvalidException, sessionExpireeException);
+    raises (matriculeErroneException, sessionInvalidException, sessionExpireeException, matriculeInconnuException);
 
 };
 

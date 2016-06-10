@@ -294,7 +294,7 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
      * Operation supprimerEmpreinteTemp
      */
     public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl)
-        throws controleAcces.coffreFortPackage.matriculeErroneException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
+        throws controleAcces.coffreFortPackage.matriculeErroneException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException, controleAcces.coffreFortPackage.matriculeInconnuException
     {
         while(true)
         {
@@ -329,6 +329,11 @@ public class _coffreFortStub extends org.omg.CORBA.portable.ObjectImpl
                     if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
                     {
                         throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.id()))
+                    {
+                        throw controleAcces.coffreFortPackage.matriculeInconnuExceptionHelper.read(_exception.getInputStream());
                     }
 
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);

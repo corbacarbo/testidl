@@ -7,8 +7,6 @@ import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.awt.Color;
 import java.awt.HeadlessException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RHFrame extends javax.swing.JFrame {
   
@@ -264,6 +262,7 @@ public class RHFrame extends javax.swing.JFrame {
 	  case RECAPAJOUT:
 		etat = ETAT.AJOUTPERMANENT;
                 activateAjoutPermanent();
+                
 		break;
 	  default:
 		throw new RuntimeException("Transition d'état impossible");
