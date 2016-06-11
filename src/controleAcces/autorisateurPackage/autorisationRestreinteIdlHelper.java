@@ -73,7 +73,7 @@ public class autorisationRestreinteIdlHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[11];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[12];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "matricule";
@@ -108,6 +108,9 @@ public class autorisationRestreinteIdlHelper
                 _members[10] = new org.omg.CORBA.StructMember();
                 _members[10].name = "anneeF";
                 _members[10].type = controleAcces.AnneeHelper.type();
+                _members[11] = new org.omg.CORBA.StructMember();
+                _members[11].name = "zone";
+                _members[11].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _tc = orb.create_struct_tc(id(),"autorisationRestreinteIdl",_members);
                 _working = false;
             }
@@ -146,6 +149,7 @@ public class autorisationRestreinteIdlHelper
         new_one.jourF = controleAcces.JourHelper.read(istream);
         new_one.moisF = controleAcces.MoisHelper.read(istream);
         new_one.anneeF = controleAcces.AnneeHelper.read(istream);
+        new_one.zone = istream.read_string();
 
         return new_one;
     }
@@ -168,6 +172,7 @@ public class autorisationRestreinteIdlHelper
         controleAcces.JourHelper.write(ostream,value.jourF);
         controleAcces.MoisHelper.write(ostream,value.moisF);
         controleAcces.AnneeHelper.write(ostream,value.anneeF);
+        ostream.write_string(value.zone);
     }
 
 }

@@ -12,6 +12,11 @@ import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAPackage.AdapterAlreadyExists;
 
+/**
+ * Non utilisée.
+ * 
+ * @author matt
+ */
 public class NamingService{
 
   public static void main(String[] args) throws InvalidName{

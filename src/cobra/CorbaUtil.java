@@ -49,6 +49,7 @@ public class CorbaUtil {
 	annuaire = null;
 	coffreFort = null;
 	journal = null;
+	trousseau = null;
 	autorisateurTemporaire = null;
 	autorisateur = null;
   }
@@ -156,7 +157,10 @@ public class CorbaUtil {
 	  return autorisateur;
 	} else {
 	  try {
-		org.omg.CORBA.Object o = resolve(zone + "/autorisateur");
+		NameComponent[] nameToFind = new NameComponent[2];
+		nameToFind[0] = new NameComponent(zone, "");
+		nameToFind[1] = new NameComponent("autorisateur", "");
+		org.omg.CORBA.Object o = namingService.resolve(nameToFind);
 		autorisateur = autorisateurHelper.narrow(o);
 		return autorisateur;
 	  } catch (NotFound ex) {

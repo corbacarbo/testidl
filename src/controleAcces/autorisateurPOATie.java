@@ -83,10 +83,10 @@ public class autorisateurPOATie extends autorisateurPOA
     /**
      * Operation autoriser
      */
-    public void autoriser(String matriculeIdl)
+    public void autoriser(String matriculeIdl, String zoneIdl)
         throws controleAcces.autorisateurPackage.autorisationRefuseeException
     {
-        _tie.autoriser( matriculeIdl);
+        _tie.autoriser( matriculeIdl,  zoneIdl);
     }
 
 }

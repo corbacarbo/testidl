@@ -63,6 +63,11 @@ public final class autorisationRestreinteIdl implements org.omg.CORBA.portable.I
     public int anneeF;
 
     /**
+     * Struct member zone
+     */
+    public String zone;
+
+    /**
      * Default constructor
      */
     public autorisationRestreinteIdl()
@@ -81,8 +86,9 @@ public final class autorisationRestreinteIdl implements org.omg.CORBA.portable.I
      * @param jourF jourF struct member
      * @param moisF moisF struct member
      * @param anneeF anneeF struct member
+     * @param zone zone struct member
      */
-    public autorisationRestreinteIdl(String matricule, int heureD, int minuteD, int heureF, int minuteF, int jourD, int moisD, int anneeD, int jourF, int moisF, int anneeF)
+    public autorisationRestreinteIdl(String matricule, int heureD, int minuteD, int heureF, int minuteF, int jourD, int moisD, int anneeD, int jourF, int moisF, int anneeF, String zone)
     {
         this.matricule = matricule;
         this.heureD = heureD;
@@ -95,6 +101,7 @@ public final class autorisationRestreinteIdl implements org.omg.CORBA.portable.I
         this.jourF = jourF;
         this.moisF = moisF;
         this.anneeF = anneeF;
+        this.zone = zone;
     }
 
 }

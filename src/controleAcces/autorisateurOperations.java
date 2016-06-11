@@ -22,7 +22,7 @@ public interface autorisateurOperations
     /**
      * Operation autoriser
      */
-    public void autoriser(String matriculeIdl)
+    public void autoriser(String matriculeIdl, String zoneIdl)
         throws controleAcces.autorisateurPackage.autorisationRefuseeException;
 
 }

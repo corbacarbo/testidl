@@ -15,7 +15,7 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 public class EntiteAutorisateur extends CorbaEntite {
 
-  private String zone = "A";
+  private String zone = null;
 
   public EntiteAutorisateur() {
 	super();
@@ -30,15 +30,23 @@ public class EntiteAutorisateur extends CorbaEntite {
 
 	  byte[] autorisateurId = rootPOA.activate_object(autorisateurTie);
 
-	  NameComponent[] contTab = new NameComponent[1];
-	  contTab[0] = new NameComponent(zone, "");
-	  namingService.bind_new_context(contTab);
+	  if (zone != null) {
+		try {
+		  // Création d'un nouveau contexte
+		  NameComponent[] contTab = new NameComponent[1];
+		  contTab[0] = new NameComponent(zone, "");
+		  namingService.bind_new_context(contTab);
+		} catch (AlreadyBound ex) {
+		  System.out.println("Contexte déjà créé.");
+		}
 
-	  rebind(zone, "autorisateur", rootPOA.servant_to_reference(autorisateurTie));
+		rebind(zone, "autorisateur", rootPOA.servant_to_reference(autorisateurTie));
+	  }
+	  else{
+		rebind("autorisateurTemporaire", rootPOA.servant_to_reference(autorisateurTie));
+	  }
 
-	} catch (ServantAlreadyActive | WrongPolicy | NotFound | CannotProceed | InvalidName | ServantNotActive ex) {
-	  Logger.getLogger(EntiteAutorisateur.class.getName()).log(Level.SEVERE, null, ex);
-	} catch (AlreadyBound ex) {
+	} catch (ServantAlreadyActive | WrongPolicy | NotFound | CannotProceed | InvalidName | ServantNotActive | AlreadyBound ex) {
 	  Logger.getLogger(EntiteAutorisateur.class.getName()).log(Level.SEVERE, null, ex);
 	}
 

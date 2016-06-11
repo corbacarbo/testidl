@@ -21,11 +21,12 @@ public class Porte extends CorbaClient{
   public static void main(String[] args){
 	Porte porte = new Porte();
 	autorisateur a = porte.resolveAutorisateur("A");
+	autorisateur t = porte.resolveAutorisateurTemporaire();
 	
 	Matricule matricule = new Matricule("tjean");
 	
 	try {
-	  a.autoriser(matricule.toIdl());
+	  t.autoriser(matricule.toIdl(), "C");
 	  System.out.println("Ok");
 	} catch (autorisationRefuseeException ex) {
 	  System.out.println(ex.message);

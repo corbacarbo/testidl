@@ -143,6 +143,7 @@ interface autorisateur{
 	  Jour jourF;
 	  Mois moisF;
 	  Annee anneeF;
+	  string zone;
   } autorisationRestreinteStruct;
 
   /********** Exceptions *****/
@@ -173,7 +174,7 @@ interface autorisateur{
   /*
    * Vérifie s'il existe une autorisation d'accès à une zone pour un employé.
    */
-  void autoriser(in Matricule matriculeIdl)
+  void autoriser(in Matricule matriculeIdl, in string zoneIdl)
 	  raises (autorisationRefuseeException);
 
 };
