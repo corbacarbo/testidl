@@ -114,10 +114,11 @@ public abstract class autorisateurPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         String arg0_in = controleAcces.MatriculeHelper.read(_is);
+        String arg1_in = _is.read_string();
 
         try
         {
-            autoriser(arg0_in);
+            autoriser(arg0_in, arg1_in);
 
             _output = handler.createReply();
 

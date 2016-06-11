@@ -67,7 +67,7 @@ public class AutorisateurImpl implements autorisateurOperations {
 	  // Autorisateur pour temporaires
 	  permanent = false;
 	} else {
-	  // Autorisateur pour permanent
+	  // Autorisateur pour permanents
 	  permanent = true;
 	}
 	remplirAutorisation();
@@ -87,7 +87,9 @@ public class AutorisateurImpl implements autorisateurOperations {
   }
 
   @Override
-  public void ajouterAutorisation(long cleIdl, autorisationIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
+  public void ajouterAutorisation(long cleIdl, autorisationIdl autorisationIdl)
+		  throws conflitAutorisationException, sessionInvalidException,
+		  sessionExpireeException {
 	serveur.resolveTrousseau().valideSession(cleIdl);
 
 	Autorisation autorisationDemandee = new Autorisation(autorisationIdl);
@@ -101,7 +103,10 @@ public class AutorisateurImpl implements autorisateurOperations {
   }
 
   @Override
-  public void ajouterAutorisationRestreinte(long cleIdl, autorisationRestreinteIdl autorisationIdl) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
+  public void ajouterAutorisationRestreinte(long cleIdl,
+		  autorisationRestreinteIdl autorisationIdl)
+		  throws conflitAutorisationException, sessionInvalidException,
+		  sessionExpireeException {
 	serveur.resolveTrousseau().valideSession(cleIdl);
 
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
@@ -115,19 +120,33 @@ public class AutorisateurImpl implements autorisateurOperations {
   }
 
   @Override
-  public void autoriser(String matriculeIdl) throws autorisationRefuseeException {
+  public void autoriser(String matriculeIdl, String zoneIdl)
+		  throws autorisationRefuseeException {
 	Matricule matricule = new Matricule(matriculeIdl);
 	GregorianCalendar maintenant = new GregorianCalendar();
 
 	for (Autorisation uneAuto : autorisations) {
 	  if (uneAuto.autoriserMatricule(matricule)) {
 		if (uneAuto.autoriserTemps(maintenant)) {
-		  
-		  return;
+
+		  //Vérifie Zone si autorisateur temporaire
+		  if (!permanent) {
+			AutorisationRestreinte ar = (AutorisationRestreinte) uneAuto;
+			if (ar.autoriserZone(zoneIdl)) {
+			  return;
+			}
+			// Si autorisateur permanent, pas besoin de vérifier zone.
+		  } else {
+			return;
+		  }
 		}
 	  }
 	}
-	throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + " à " + maintenant, maintenant.getTimeInMillis());
+	if (permanent) {
+	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + " à " + maintenant, maintenant.getTimeInMillis());
+	} else {
+	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + ", zone " + zoneIdl + ", à " + maintenant, maintenant.getTimeInMillis());
+	}
   }
 
 }

@@ -157,7 +157,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation autoriser
      */
-    public void autoriser(String matriculeIdl)
+    public void autoriser(String matriculeIdl, String zoneIdl)
         throws controleAcces.autorisateurPackage.autorisationRefuseeException
     {
         while(true)
@@ -169,6 +169,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("autoriser",true);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
+                    _output.write_string(zoneIdl);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -199,7 +200,7 @@ public class _autorisateurStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.autorisateurOperations _self = (controleAcces.autorisateurOperations) _so.servant;
                 try
                 {
-                    _self.autoriser( matriculeIdl);
+                    _self.autoriser( matriculeIdl,  zoneIdl);
                     return;
                 }
                 finally
