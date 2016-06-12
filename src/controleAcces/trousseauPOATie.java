@@ -65,9 +65,9 @@ public class trousseauPOATie extends trousseauPOA
     /**
      * Operation startSession
      */
-    public long startSession()
+    public long startSession(String c)
     {
-        return _tie.startSession();
+        return _tie.startSession( c);
     }
 
     /**

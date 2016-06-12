@@ -39,7 +39,7 @@ interface trousseau{
 
   /********** Méthodes *****/
 
-  Cle startSession();
+  Cle startSession(in string c);
 
   void valideSession(in Cle cleIdl)
     raises (sessionInvalidException, sessionExpireeException);

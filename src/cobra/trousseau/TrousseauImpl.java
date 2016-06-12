@@ -55,10 +55,13 @@ public class TrousseauImpl implements trousseauOperations {
    * Démarrage d'une nouvelle session.
    * Génère et souvegarde une nouvelle clé de session et réglage de l'expiration
    * de cette clé (à partir de l'attribut tempsSession).
+   * @param c
    * @return une nouvelle clé de session.
    */
   @Override
-  public long startSession() {
+  public long startSession(String c) {
+	if(!c.equals("ABCDE"))
+	  return 0;
     Cle cle = new Cle();
     Date date = new Date(System.currentTimeMillis() + tempsSessionMilliSecondes());
     sessions.put(cle, date);
