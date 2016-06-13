@@ -10,7 +10,7 @@ public interface trousseauOperations
     /**
      * Operation startSession
      */
-    public long startSession();
+    public long startSession(String c);
 
     /**
      * Operation valideSession

@@ -13,7 +13,7 @@ import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAPackage.AdapterAlreadyExists;
 
 /**
- * Non utilisée.
+ * Non utilisée, A SUPPRIMER.
  * 
  * @author matt
  */

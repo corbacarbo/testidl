@@ -182,7 +182,7 @@ public class AnnuaireImpl implements annuaireOperations {
     // Cherche gestionnaire de clé de session
     trousseau t = serveur.resolveTrousseau();
     // Récupération d'une nouvelle clé
-    cle = new Cle(t.startSession());
+    cle = new Cle(t.startSession("ABCDE"));
 
     System.out.println("++Authentification réussie - " + matricule
             + "::" + mdp + " - " + cle);
@@ -240,6 +240,7 @@ public class AnnuaireImpl implements annuaireOperations {
     Matricule matricule = new Matricule(matriculeIdl);
     if (annuaire.containsKey(matricule)) {
       Personne personne = annuaire.get(matricule);
+	  System.out.println("ValiderIdentite: " + personne);
       return personne.toIdl();
     } else {
       throw new personneInexistanteException("Matricule non trouvé.");

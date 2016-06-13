@@ -33,6 +33,10 @@ public class Personne {
     return prenom;
   }
 
+  public String getPhoto() {
+	return photo;
+  }
+
   public void genereMatricule(){
 	this.matricule = new Matricule(prenom);
   }
@@ -52,6 +56,10 @@ public class Personne {
   @Override
   public String toString() {
     return "Personne{" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", photo=" + photo + '}';
+  }
+
+  public String getPrenomNom() {
+	return prenom + " " + nom.toUpperCase();
   }
 
 }

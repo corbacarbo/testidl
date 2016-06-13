@@ -13,12 +13,13 @@ import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-public class EntiteAutorisateur extends CorbaEntite {
+public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 
-  private String zone = null;
+  private String zone;
 
-  public EntiteAutorisateur() {
+  public EntiteAutorisateur(String zone) {
 	super();
+	this.zone = zone;
   }
 
   @Override
@@ -37,12 +38,11 @@ public class EntiteAutorisateur extends CorbaEntite {
 		  contTab[0] = new NameComponent(zone, "");
 		  namingService.bind_new_context(contTab);
 		} catch (AlreadyBound ex) {
-		  System.out.println("Contexte déjà créé.");
+		  System.out.println("Contexte " + zone + " déjà créé.");
 		}
 
 		rebind(zone, "autorisateur", rootPOA.servant_to_reference(autorisateurTie));
-	  }
-	  else{
+	  } else {
 		rebind("autorisateurTemporaire", rootPOA.servant_to_reference(autorisateurTie));
 	  }
 
@@ -52,10 +52,30 @@ public class EntiteAutorisateur extends CorbaEntite {
 
   }
 
-  public static void main(String[] args) {
-	EntiteAutorisateur e = new EntiteAutorisateur();
-	e.startEntite();
-	e.startOrb();
+  @Override
+  public void run() {
+	startEntite();
+	startOrb();
+  }
+
+  public static void main(String[] args) throws InterruptedException {
+	String zones = "ABCT";
+
+	for (int i = 0; i < zones.length(); i++) {
+	  String zo = zones.substring(i, i + 1);
+
+	  if (zo.equals("T")) {
+		EntiteAutorisateur e = new EntiteAutorisateur(null);
+		Thread t = new Thread(e);
+		t.start();
+		Thread.sleep(1000);
+	  } else {
+		EntiteAutorisateur e = new EntiteAutorisateur(zo);
+		Thread t = new Thread(e);
+		t.start();
+		Thread.sleep(1000);
+	  }
+	}
   }
 
 }

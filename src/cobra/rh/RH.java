@@ -57,6 +57,7 @@ public class RH extends CorbaClient implements Runnable {
         rhFrame = new RHFrame (this);
         rhFrame.setVisible(true);
     }
+	
     public static void main(String[] args) {
         RH rh = new RH();
         Thread tRH = new Thread(rh);
@@ -67,7 +68,8 @@ public class RH extends CorbaClient implements Runnable {
         System.out.println(personneAjout);
         return this.personneAjout;
     }
-    public void reinitPersonnes (){
+    
+	public void reinitPersonnes (){
         this.personneAjout=null;
         this.rhConnecte=null;
     }

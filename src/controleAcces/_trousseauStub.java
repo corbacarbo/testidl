@@ -23,7 +23,7 @@ public class _trousseauStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation startSession
      */
-    public long startSession()
+    public long startSession(String c)
     {
         while(true)
         {
@@ -33,6 +33,7 @@ public class _trousseauStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("startSession",true);
+                    _output.write_string(c);
                     _input = this._invoke(_output);
                     long _arg_ret = controleAcces.CleHelper.read(_input);
                     return _arg_ret;
@@ -59,7 +60,7 @@ public class _trousseauStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.trousseauOperations _self = (controleAcces.trousseauOperations) _so.servant;
                 try
                 {
-                    return _self.startSession();
+                    return _self.startSession( c);
                 }
                 finally
                 {

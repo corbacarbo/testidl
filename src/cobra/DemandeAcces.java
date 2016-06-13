@@ -60,6 +60,7 @@ public class DemandeAcces implements Comparable{
             this.matricule = new Matricule(d.matricule);
             this.empreinteInconnu = new Empreinte("");
         }
+		this.dateHeure = new GregorianCalendar();
         this.dateHeure.setTimeInMillis(d.dateHeure);
         this.idPorte=d.idPorte;
         this.idZone=d.idZone;

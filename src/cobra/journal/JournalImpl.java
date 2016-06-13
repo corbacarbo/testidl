@@ -6,11 +6,10 @@ import cobra.DemandeAcces;
 import cobra.Matricule;
 import controleAcces.journalOperations;
 import controleAcces.journalPackage.demandeIdl;
-import java.awt.List;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import javafx.collections.ObservableList;
+import java.util.TreeSet;
 import javafx.collections.transformation.SortedList;
 
 /*
@@ -27,25 +26,28 @@ public class JournalImpl implements journalOperations {
     /**
      * Liste des logs de connexions et tentatives de connexions
      */
-    private SortedList<DemandeAcces> journalLog;
+    private TreeSet<DemandeAcces> journalLog;
     
     private CorbaEntite serveur;
     
     public JournalImpl (CorbaEntite s) {
         super();
         serveur = s;
+		journalLog = new TreeSet<>();
     }
 
     @Override
     public void loguer(demandeIdl demandeIdl) {
         DemandeAcces demAcc = new DemandeAcces(demandeIdl);
         journalLog.add(demAcc);
+		System.out.println(demAcc);
     }
 
     @Override
     public void loguerInconnu(demandeIdl demandeIdl) {
         DemandeAcces demAcc = new DemandeAcces(demandeIdl);
         journalLog.add(demAcc);
+		System.out.println(demAcc);
     }
 
     @Override

@@ -47,8 +47,9 @@ public abstract class trousseauPOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
+        String arg0_in = _is.read_string();
 
-        long _arg_result = startSession();
+        long _arg_result = startSession(arg0_in);
 
         _output = handler.createReply();
         controleAcces.CleHelper.write(_output,_arg_result);
