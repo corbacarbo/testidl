@@ -83,7 +83,6 @@ public class AutorisateurImpl implements autorisateurOperations {
 	for (Autorisation a : autorisations) {
 	  System.out.println(a);
 	}
-	System.out.println("------------------------");
   }
 
   @Override

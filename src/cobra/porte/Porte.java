@@ -18,6 +18,7 @@ import controleAcces.autorisateur;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
 import controleAcces.coffreFort;
 import controleAcces.coffreFortPackage.empreinteInconnueException;
+import controleAcces.journalPackage.demandeIdl;
 import controleAcces.personneIdl;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
@@ -46,7 +47,7 @@ public class Porte extends CorbaClient implements Runnable {
 
   public void renewCle() {
 	if (cle == null) {
-	  cle = new Cle(resolveTrousseau().startSession("ABCDEF"));
+	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
 	  lastRenew = System.currentTimeMillis();
 	} else {
 	  try {
@@ -70,7 +71,7 @@ public class Porte extends CorbaClient implements Runnable {
 	return zone;
   }
 
-  public Personne entrer(Empreinte e, String photo)
+  public Personne entrer(Empreinte e, String photo, demandeIdl demande)
 		  throws empreinteInconnueException,
 		  sessionInvalidException,
 		  sessionExpireeException,
@@ -161,7 +162,7 @@ public class Porte extends CorbaClient implements Runnable {
   }
 
   public static void main(String[] args) {
-	String zones = "AABBC";
+	String zones = "ABC";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  Thread tPorte = new Thread(new Porte(zones.substring(i, i+1)));

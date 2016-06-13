@@ -240,6 +240,7 @@ public class AnnuaireImpl implements annuaireOperations {
     Matricule matricule = new Matricule(matriculeIdl);
     if (annuaire.containsKey(matricule)) {
       Personne personne = annuaire.get(matricule);
+	  System.out.println("ValiderIdentite: " + personne);
       return personne.toIdl();
     } else {
       throw new personneInexistanteException("Matricule non trouvé.");

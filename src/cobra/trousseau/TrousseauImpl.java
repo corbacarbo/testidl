@@ -60,8 +60,10 @@ public class TrousseauImpl implements trousseauOperations {
    */
   @Override
   public long startSession(String c) {
-	if(!c.equals("ABCDE"))
+	if(!c.equals("ABCDE")){
+	  System.out.println("Mauvaise clé (en dur).");
 	  return 0;
+	}
     Cle cle = new Cle();
     Date date = new Date(System.currentTimeMillis() + tempsSessionMilliSecondes());
     sessions.put(cle, date);
