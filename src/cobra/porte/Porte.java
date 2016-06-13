@@ -28,16 +28,19 @@ import java.util.logging.Logger;
  *
  * @author matt
  */
-public class Porte extends CorbaClient {
+public class Porte extends CorbaClient implements Runnable {
 
   private String zone;
+
+  private PorteFrame porteFrame;
 
   private Cle cle;
 
   private long lastRenew;
 
-  public Porte() {
+  public Porte(String zone) {
 	cle = null;
+	this.zone = zone;
 	renewCle();
   }
 
@@ -92,10 +95,10 @@ public class Porte extends CorbaClient {
 	} else {
 	  personne = new PersonneTemporaire(pers);
 	}
-	
+
 	// 3-Comparaison des photos
-	if(!photo.equals(personne.getPhoto())){
-	  throw new PhotoErroneeException("Photos différentes: " + photo + "<>"+ personne.getPhoto());
+	if (!photo.equals(personne.getPhoto())) {
+	  throw new PhotoErroneeException("Photos différentes: " + photo + "<>" + personne.getPhoto());
 	}
 
 	// 4-Vérification de l'autorisation
@@ -109,18 +112,61 @@ public class Porte extends CorbaClient {
 	return personne;
   }
 
+  public Personne sortir(Empreinte e, String photo)
+		  throws empreinteInconnueException,
+		  sessionInvalidException,
+		  sessionExpireeException,
+		  personneInexistanteException,
+		  autorisationRefuseeException,
+		  PhotoErroneeException {
+	Personne personne;
+	Matricule matricule;
+	checkCle();
+
+	// 1-Récupération du matricule à partir de l'empreinte
+	coffreFort cf = resolveCoffreFort();
+	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
+	matricule = new Matricule(mat);
+
+	// 2-Récupération de la personne à partir du matricule
+	annuaire an = resolveAnnuaire();
+	personneIdl pers = an.validerIdentite(matricule.toIdl());
+
+	if (matricule.isPermanent()) {
+	  personne = new PersonnePermanent(pers);
+	} else {
+	  personne = new PersonneTemporaire(pers);
+	}
+
+	// 3-Comparaison des photos
+	if (!photo.equals(personne.getPhoto())) {
+	  throw new PhotoErroneeException("Photos différentes: " + photo + "<>" + personne.getPhoto());
+	}
+
+	// 4-Vérification de l'autorisation
+	if (matricule.isPermanent()) {
+	  autorisateur au = resolveAutorisateur(zone);
+	  au.autoriser(matricule.toIdl(), zone);
+	} else {
+	  autorisateur at = resolveAutorisateurTemporaire();
+	  at.autoriser(matricule.toIdl(), zone);
+	}
+	return personne;
+  }
+
+  @Override
+  public void run() {
+	porteFrame = new PorteFrame(this);
+	porteFrame.setVisible(true);
+  }
+
   public static void main(String[] args) {
-	Porte porte = new Porte();
-	autorisateur a = porte.resolveAutorisateur("A");
-	autorisateur t = porte.resolveAutorisateurTemporaire();
+	String zones = "AABBC";
 
-	Matricule matricule = new Matricule("tjean");
-
-	try {
-	  t.autoriser(matricule.toIdl(), "C");
-	  System.out.println("Ok");
-	} catch (autorisationRefuseeException ex) {
-	  System.out.println(ex.message);
+	for (int i = 0; i < zones.length(); i++) {
+	  Thread tPorte = new Thread(new Porte(zones.substring(i, i+1)));
+	  tPorte.start();
 	}
   }
+
 }

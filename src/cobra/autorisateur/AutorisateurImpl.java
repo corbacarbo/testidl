@@ -79,7 +79,7 @@ public class AutorisateurImpl implements autorisateurOperations {
   }
 
   public void afficher() {
-	System.out.println("------------------------");
+	System.out.println(zone + "------------------------");
 	for (Autorisation a : autorisations) {
 	  System.out.println(a);
 	}
@@ -133,18 +133,22 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  if (!permanent) {
 			AutorisationRestreinte ar = (AutorisationRestreinte) uneAuto;
 			if (ar.autoriserZone(zoneIdl)) {
+			  System.out.println("== TEMP: autorisation accordée " + uneAuto);
 			  return;
 			}
 			// Si autorisateur permanent, pas besoin de vérifier zone.
 		  } else {
+			System.out.println("== " + zone + ": autorisation accordée " + uneAuto);
 			return;
 		  }
 		}
 	  }
 	}
 	if (permanent) {
+	  System.out.println("!! " + zone + ": autorisation refusée " + matricule);
 	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + " à " + maintenant, maintenant.getTimeInMillis());
 	} else {
+	  System.out.println("!! TEMP: autorisation refusée " + matricule);
 	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + ", zone " + zoneIdl + ", à " + maintenant, maintenant.getTimeInMillis());
 	}
   }
