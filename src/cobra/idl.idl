@@ -19,6 +19,7 @@ typedef struct personneIdl{
   string photo;
   string mdp;
   boolean mdpChange;
+  string responsabilite;
 } personneStruct;
 
 /********** Exceptions *****/

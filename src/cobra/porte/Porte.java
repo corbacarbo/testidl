@@ -50,19 +50,17 @@ public class Porte extends CorbaClient implements Runnable {
 	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
 	  lastRenew = System.currentTimeMillis();
 	} else {
-	  try {
-		resolveTrousseau().valideSession(cle.toIdl());
-	  } catch (sessionInvalidException ex) {
-		Logger.getLogger(Porte.class.getName()).log(Level.SEVERE, null, ex);
-	  } catch (sessionExpireeException ex) {
-		cle = new Cle(resolveTrousseau().startSession("ABCDE"));
-		lastRenew = System.currentTimeMillis();
-	  }
+
+	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
+
 	}
   }
 
   public void checkCle() {
-	if (System.currentTimeMillis() - lastRenew > 480000) {
+	try {
+	  resolveTrousseau().valideSession(cle.toIdl());
+
+	} catch (sessionInvalidException | sessionExpireeException ex) {
 	  renewCle();
 	}
   }
@@ -165,7 +163,7 @@ public class Porte extends CorbaClient implements Runnable {
 	String zones = "ABC";
 
 	for (int i = 0; i < zones.length(); i++) {
-	  Thread tPorte = new Thread(new Porte(zones.substring(i, i+1)));
+	  Thread tPorte = new Thread(new Porte(zones.substring(i, i + 1)));
 	  tPorte.start();
 	}
   }

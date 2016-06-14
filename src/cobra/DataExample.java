@@ -52,10 +52,14 @@ public class DataExample {
 	String nom = mots[2];
 	String photo = mots[4];
 	boolean mdpChange = Boolean.parseBoolean(mots[5]);
+	String responsabilite = "";
+	if (!mots[6].isEmpty()) {
+	  responsabilite = mots[6];
+	}
 
 	if (matricule.isPermanent()) {
 	  String mdp = mots[3];
-	  p = new PersonnePermanent(mdp, mdpChange, matricule, nom, prenom, photo);
+	  p = new PersonnePermanent(mdp, mdpChange, responsabilite, matricule, nom, prenom, photo);
 	} else if (matricule.isTemporaire()) {
 	  p = new PersonneTemporaire(matricule, nom, prenom, photo);
 	} else {
@@ -77,7 +81,7 @@ public class DataExample {
 		String line = scan.nextLine();
 		String[] mots = line.split(";");
 		Matricule matricule = new Matricule(mots[0]);
-		Empreinte empreinte = new Empreinte(mots[6]);
+		Empreinte empreinte = new Empreinte(mots[7]);
 		res.put(empreinte, matricule);
 	  }
 
@@ -104,11 +108,10 @@ public class DataExample {
 
 		Matricule matricule = new Matricule(mot[0]);
 		String zone = mot[5];
-		
+
 		if (zoneParam != null && zone.equals(zoneParam) && matricule.isPermanent()) {
-			res.add(new Autorisation(matricule, new Horaire(mot[1]), new Horaire(mot[2])));
-		}
-		else if(zoneParam == null && matricule.isTemporaire()){
+		  res.add(new Autorisation(matricule, new Horaire(mot[1]), new Horaire(mot[2])));
+		} else if (zoneParam == null && matricule.isTemporaire()) {
 		  res.add(new AutorisationRestreinte(new Date(mot[3]), new Date(mot[4]), zone, matricule, new Horaire(mot[1]), new Horaire(mot[2])));
 		}
 

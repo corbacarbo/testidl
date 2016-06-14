@@ -66,7 +66,7 @@ public class CorbaUtil {
 	}
 
 //	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-//			orb.string_to_object("corbaloc:iiop:1.2@192.168.159.1:2001/NameService"));
+//			orb.string_to_object("corbaloc:iiop:1.2@192.168.43.124:2001/NameService"));
   }
 
   /**

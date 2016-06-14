@@ -38,6 +38,11 @@ public final class personneIdl implements org.omg.CORBA.portable.IDLEntity
     public boolean mdpChange;
 
     /**
+     * Struct member responsabilite
+     */
+    public String responsabilite;
+
+    /**
      * Default constructor
      */
     public personneIdl()
@@ -51,8 +56,9 @@ public final class personneIdl implements org.omg.CORBA.portable.IDLEntity
      * @param photo photo struct member
      * @param mdp mdp struct member
      * @param mdpChange mdpChange struct member
+     * @param responsabilite responsabilite struct member
      */
-    public personneIdl(String matricule, String nom, String prenom, String photo, String mdp, boolean mdpChange)
+    public personneIdl(String matricule, String nom, String prenom, String photo, String mdp, boolean mdpChange, String responsabilite)
     {
         this.matricule = matricule;
         this.nom = nom;
@@ -60,6 +66,7 @@ public final class personneIdl implements org.omg.CORBA.portable.IDLEntity
         this.photo = photo;
         this.mdp = mdp;
         this.mdpChange = mdpChange;
+        this.responsabilite = responsabilite;
     }
 
 }

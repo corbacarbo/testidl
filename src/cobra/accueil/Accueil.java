@@ -47,13 +47,13 @@ public class Accueil extends CorbaClient implements Runnable {
     cle = new Cle(annuaire.authentification(mat, mdp));
     System.out.println("Authentification réussie " + cle + "  " + mat);
 
-    personneIdl personneIdl = annuaire.validerIdentite(mat);
-    accueilConnecte = new PersonnePermanent(personneIdl);
+    //personneIdl personneIdl = annuaire.validerIdentite(mat);
+    //accueilConnecte = new PersonnePermanent(personneIdl);
   }
     
     public void ajouterTemporaire(String nom,String prenom, String photo) throws sessionInvalidException, sessionExpireeException{
         annuaire annuaire = resolveAnnuaire();
-        PersonnePermanent p = new PersonnePermanent("", true, new Matricule(""), nom, prenom, photo);
+        PersonnePermanent p = new PersonnePermanent("", true, "", new Matricule(""), nom, prenom, photo);
         personneIdl persCree = annuaire.ajouterTemporaire(cle.toIdl(),p.toIdl());
         personneAjout=new PersonneTemporaire(persCree);
         System.out.println("Accueil : Ajout de la personne "+personneAjout.getMatricule() +" "+personneAjout.getPrenom());

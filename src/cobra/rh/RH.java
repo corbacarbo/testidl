@@ -42,11 +42,15 @@ public class RH extends CorbaClient implements Runnable {
 
     personneIdl personneIdl = annuaire.validerIdentite(mat);
     rhConnecte = new PersonnePermanent(personneIdl);
+	if(!rhConnecte.isReponsible("R")){
+	  rhConnecte = null;
+	  throw new loginIncorrectException("Vous n'êtes pas RH ");
+	}
   }
     
     public void ajouterPermanent(String nom,String prenom, String photo) throws sessionInvalidException, sessionExpireeException{
         annuaire annuaire = resolveAnnuaire();
-        PersonnePermanent p = new PersonnePermanent("", true, new Matricule(""), nom, prenom, photo);
+        PersonnePermanent p = new PersonnePermanent("", true, "", new Matricule(""), nom, prenom, photo);
         personneIdl persCree = annuaire.ajouterPermanent(cle.toIdl(),p.toIdl());
         personneAjout=new PersonnePermanent(persCree);
         System.out.println("RH : Ajout de la personne "+personneAjout.getMatricule() +" "+personneAjout.getPrenom());

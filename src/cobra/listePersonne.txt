@@ -1,5 +1,5 @@
-MATRICULE PRENOM NOM MDP PHOTO CHANGEMDP EMPREINTE
-pjohn;John;Smith;mdp;photoJohn;false;ejohn
-pjames;James;James;mdp;photoJames;true;ejames
-tjean;Jean;Dupuis;mdp;photoJean;true;ejean
-prh;RH;RH;mdp;pRH;false;eRH
+MATRICULE PRENOM NOM MDP PHOTO CHANGEMDP EMPREINTE RESPONSABILITE
+pjohn;John;Smith;mdp;photoJohn;false;;ejohn;
+pjames;James;James;mdp;photoJames;true;ABCR;ejames;
+tjean;Jean;Dupuis;mdp;photoJean;true;;ejean;
+pjane;Jane;Calamity;mdp;photoJane;false;R;ejane;
