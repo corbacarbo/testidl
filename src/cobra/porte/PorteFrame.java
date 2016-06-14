@@ -5,6 +5,7 @@
  */
 package cobra.porte;
 
+import cobra.DemandeAcces;
 import cobra.Empreinte;
 import cobra.Personne;
 import controleAcces.annuairePackage.personneInexistanteException;
@@ -15,6 +16,7 @@ import controleAcces.journalPackage.demandeIdl;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.awt.Color;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +27,7 @@ import java.util.logging.Logger;
 public class PorteFrame extends javax.swing.JFrame {
 
   private Porte porte;
-  
+
   private demandeIdl lastDemande;
 
   /**
@@ -87,7 +89,7 @@ public class PorteFrame extends javax.swing.JFrame {
 	titreLabel.setText("Porte " + porte.getZone());
 
 	empreinteEntrerField.requestFocus();
-	
+
 	entrerButton.setText("Entrer");
 	entrerButton.setEnabled(true);
 	sortirButton.setText("Sortir");
@@ -144,6 +146,14 @@ public class PorteFrame extends javax.swing.JFrame {
 
   private boolean checkParamSortir() {
 	return !(empreinteSortirField.getText().isEmpty() || photoSortirField.getText().isEmpty());
+  }
+
+  private boolean checkParam(String sens) {
+	if (sens.equals("entrée")) {
+	  return checkParamEntrer();
+	} else {
+	  return checkParamSortir();
+	}
   }
 
   /**
@@ -287,123 +297,86 @@ public class PorteFrame extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void entrerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrerButtonActionPerformed
-	if (checkParamEntrer()) {
-	  Empreinte empreinte = new Empreinte(empreinteEntrerField.getText());
-	  String photo = photoEntrerField.getText();
-	  try {
-		lastDemande = new demandeIdl();
-		lastDemande.empreinteIdl = empreinte.toIdl();
-		lastDemande.idZone = porte.getZone();
-		lastDemande.type = 0;
-		lastDemande.idPorte = 1;
-		lastDemande.dateHeure = System.currentTimeMillis();
-		
-		Personne personne = porte.entrer(empreinte, photo, lastDemande);
-		setMessage(ETATM.INFOR, "Bienvenue " + personne.getPrenomNom());
-		activateReussi();
-		lastDemande.matricule = personne.getMatricule().toIdl();
-
-	  } catch (empreinteInconnueException ex) {
-		setMessage(ETATM.ERROR, "Empreinte inconnue");
-		lastDemande.statut = ex.message;
-		activateEchec();
-	  } catch (sessionInvalidException ex) {
-		setMessage(ETATM.ERROR, "Erreur interne (session invalide)");
-		lastDemande.statut = ex.message;
-		activateEchec();
-	  } catch (sessionExpireeException ex) {
-		setMessage(ETATM.ERROR, "Erreur interne (session expirée)");
-		lastDemande.statut = ex.message;
-		activateEchec();
-	  } catch (personneInexistanteException ex) {
-		setMessage(ETATM.ERROR, "Erreur interne (matricule ?)");
-		lastDemande.statut = ex.message;
-		activateEchec();
-	  } catch (autorisationRefuseeException ex) {
-		setMessage(ETATM.ERROR, "Autorisation refusée.");
-		lastDemande.statut = ex.message;
-		activateReussi();
-	  } catch (PhotoErroneeException ex) {
-		setMessage(ETATM.ERROR, "Photo et empreinte ne correspondent pas.");
-		lastDemande.statut = ex.message;
-		activateEchec();
-	  }
-	  finally{
-		journal j = porte.resolveJournal();
-		if(lastDemande.matricule == null){
-		  j.loguerInconnu(lastDemande);
-		}
-		else{
-		  j.loguer(lastDemande);
-		}
-	  }
-	} else {
-	  setMessage(ETATM.ERROR, "Posez votre doigt et ne bougez pas la tête.");
-	  activateEchec();
-	}
-
+	passerPorte("entrée");
   }//GEN-LAST:event_entrerButtonActionPerformed
 
   private void sortirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortirButtonActionPerformed
-	if (checkParamSortir()) {
-	  Empreinte empreinte = new Empreinte(empreinteSortirField.getText());
-	  String photo = photoSortirField.getText();
+	passerPorte("sortir");
+  }//GEN-LAST:event_sortirButtonActionPerformed
+
+  private void passerPorte(String sens) {
+	if (checkParam(sens)) {
+	  Empreinte empreinte;
+	  String photo;
+
+	  if (sens.equals("entrée")) {
+		empreinte = new Empreinte(empreinteEntrerField.getText());
+		photo = photoEntrerField.getText();
+	  } else {
+		empreinte = new Empreinte(empreinteSortirField.getText());
+		photo = photoSortirField.getText();
+	  }
 
 	  Personne personne;
+	  DemandeAcces demande = new DemandeAcces();
+
 	  try {
-		lastDemande = new demandeIdl();
-		lastDemande.empreinteIdl = empreinte.toIdl();
-		lastDemande.idZone = porte.getZone();
-		lastDemande.type = 0;
-		lastDemande.idPorte = 1;
-		lastDemande.dateHeure = System.currentTimeMillis();
-		
-		personne = porte.sortir(empreinte, photo);
-		setMessage(ETATM.INFOR, "Au revoir " + personne.getPrenomNom());
+		demande.setEmpreinteInconnu(empreinte);
+		demande.setIdZone(porte.getZone());
+		demande.setType(sens);
+		demande.setIdPorte(1);
+		demande.setDateHeure(new GregorianCalendar());
+
+		if (sens.equals("entrée")) {
+		  personne = porte.entrer(empreinte, photo);
+		  setMessage(ETATM.INFOR, "Bienvenue " + personne.getPrenomNom() + ".");
+		}
+		else{
+		  personne = porte.entrer(empreinte, photo);
+		  setMessage(ETATM.INFOR, "Au revoir " + personne.getPrenomNom() + ".");
+		}
 		activateReussi();
-		lastDemande.matricule = personne.getMatricule().toIdl();
+		demande.setMatricule(personne.getMatricule());
 
 	  } catch (empreinteInconnueException ex) {
 		setMessage(ETATM.ERROR, "Empreinte inconnue");
+		demande.setStatut(ex.message);
 		activateEchec();
-		lastDemande.statut = ex.message;
 	  } catch (sessionInvalidException ex) {
 		setMessage(ETATM.ERROR, "Erreur interne (session invalide)");
+		demande.setStatut(ex.message);
 		activateEchec();
-		lastDemande.statut = ex.message;
 	  } catch (sessionExpireeException ex) {
 		setMessage(ETATM.ERROR, "Erreur interne (session expirée)");
+		demande.setStatut(ex.message);
 		activateEchec();
-		lastDemande.statut = ex.message;
 	  } catch (personneInexistanteException ex) {
 		setMessage(ETATM.ERROR, "Erreur interne (matricule ?)");
+		demande.setStatut(ex.message);
 		activateEchec();
-		lastDemande.statut = ex.message;
 	  } catch (autorisationRefuseeException ex) {
 		setMessage(ETATM.ERROR, "Autorisation refusée.");
+		demande.setStatut(ex.message);
 		activateReussi();
-		lastDemande.statut = ex.message;
 	  } catch (PhotoErroneeException ex) {
 		setMessage(ETATM.ERROR, "Photo et empreinte ne correspondent pas.");
+		demande.setStatut(ex.message);
 		activateEchec();
-		lastDemande.statut = ex.message;
-	  }
-	  finally{
+	  } finally {
 		journal j = porte.resolveJournal();
-		if(lastDemande.matricule == null){
-		  j.loguerInconnu(lastDemande);
-		}
-		else{
-		  j.loguer(lastDemande);
+		if (demande.getMatricule() == null) {
+		  j.loguerInconnu(demande.toIdl());
+		} else {
+		  j.loguer(demande.toIdl());
 		}
 	  }
 	} else {
 	  setMessage(ETATM.ERROR, "Posez votre doigt et ne bougez pas la tête.");
 	  activateEchec();
 	}
-  }//GEN-LAST:event_sortirButtonActionPerformed
-  
-  
+
+  }
+
   /**
    * @param args the command line arguments
    */
