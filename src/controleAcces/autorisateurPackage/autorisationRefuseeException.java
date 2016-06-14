@@ -18,6 +18,11 @@ public final class autorisationRefuseeException extends org.omg.CORBA.UserExcept
     public long heure;
 
     /**
+     * Exception member matricule
+     */
+    public String matricule;
+
+    /**
      * Default constructor
      */
     public autorisationRefuseeException()
@@ -29,24 +34,28 @@ public final class autorisationRefuseeException extends org.omg.CORBA.UserExcept
      * Constructor with fields initialization
      * @param message message exception member
      * @param heure heure exception member
+     * @param matricule matricule exception member
      */
-    public autorisationRefuseeException(String message, long heure)
+    public autorisationRefuseeException(String message, long heure, String matricule)
     {
         super(autorisationRefuseeExceptionHelper.id());
         this.message = message;
         this.heure = heure;
+        this.matricule = matricule;
     }
 
     /**
      * Full constructor with fields initialization
      * @param message message exception member
      * @param heure heure exception member
+     * @param matricule matricule exception member
      */
-    public autorisationRefuseeException(String orb_reason, String message, long heure)
+    public autorisationRefuseeException(String orb_reason, String message, long heure, String matricule)
     {
         super(autorisationRefuseeExceptionHelper.id() +" " +  orb_reason);
         this.message = message;
         this.heure = heure;
+        this.matricule = matricule;
     }
 
 }

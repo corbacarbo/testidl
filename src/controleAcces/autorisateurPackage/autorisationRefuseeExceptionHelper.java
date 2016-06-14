@@ -73,7 +73,7 @@ public class autorisationRefuseeExceptionHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[2];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[3];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "message";
@@ -81,6 +81,9 @@ public class autorisationRefuseeExceptionHelper
                 _members[1] = new org.omg.CORBA.StructMember();
                 _members[1].name = "heure";
                 _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_longlong);
+                _members[2] = new org.omg.CORBA.StructMember();
+                _members[2].name = "matricule";
+                _members[2].type = controleAcces.MatriculeHelper.type();
                 _tc = orb.create_exception_tc(id(),"autorisationRefuseeException",_members);
                 _working = false;
             }
@@ -112,6 +115,7 @@ public class autorisationRefuseeExceptionHelper
          throw new org.omg.CORBA.MARSHAL();
         new_one.message = istream.read_string();
         new_one.heure = istream.read_longlong();
+        new_one.matricule = controleAcces.MatriculeHelper.read(istream);
 
         return new_one;
     }
@@ -126,6 +130,7 @@ public class autorisationRefuseeExceptionHelper
         ostream.write_string(id());
         ostream.write_string(value.message);
         ostream.write_longlong(value.heure);
+        controleAcces.MatriculeHelper.write(ostream,value.matricule);
     }
 
 }

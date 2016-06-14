@@ -71,7 +71,7 @@ public class Porte extends CorbaClient implements Runnable {
 	return zone;
   }
 
-  public Personne entrer(Empreinte e, String photo, demandeIdl demande)
+  public Personne entrer(Empreinte e, String photo)
 		  throws empreinteInconnueException,
 		  sessionInvalidException,
 		  sessionExpireeException,
@@ -162,7 +162,7 @@ public class Porte extends CorbaClient implements Runnable {
   }
 
   public static void main(String[] args) {
-	String zones = "ABC";
+	String zones = "AABCA";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  Thread tPorte = new Thread(new Porte(zones.substring(i, i+1)));
