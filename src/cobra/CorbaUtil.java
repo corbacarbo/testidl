@@ -64,9 +64,9 @@ public class CorbaUtil {
 	} catch (InvalidName ex) {
 	  Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
 	}
-//
+
 //	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-//			orb.string_to_object("corbaloc:iiop:1.2@SP3win:2001/NameService"));
+//			orb.string_to_object("corbaloc:iiop:1.2@192.168.159.1:2001/NameService"));
   }
 
   /**

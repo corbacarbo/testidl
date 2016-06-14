@@ -372,6 +372,7 @@ public class PorteFrame extends javax.swing.JFrame {
 		} else {
 		  j.loguer(demande.toIdl());
 		}
+		System.out.println(demande);
 	  }
 	} else {
 	  setMessage(ETATM.ERROR, "Posez votre doigt et ne bougez pas la tête.");

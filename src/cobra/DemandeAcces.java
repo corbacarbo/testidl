@@ -115,7 +115,7 @@ public class DemandeAcces implements Comparable {
   public String toString() {
 	SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY - HH:mm:ss");
 	String versLeFutur = format.format(this.dateHeure.getTime()) + " - ";
-	if (this.matricule.toString().equals("")) {
+	if (this.matricule == null) {
 	  versLeFutur += "Inconnu - Hash de l'empreinte : " + this.empreinteInconnu.toString() + " - ";
 	} else {
 	  versLeFutur += this.matricule.toString() + " - ";
