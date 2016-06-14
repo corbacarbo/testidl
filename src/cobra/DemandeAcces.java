@@ -59,10 +59,10 @@ public class DemandeAcces implements Comparable {
 	this.idZone = d.idZone;
 	this.statut = d.statut;
 	if (d.type == 0) {
-	  this.type = "Entrée";
+	  this.type = "entrée";
 	} else {
 	  if (d.type == 1) {
-		this.type = "Sortie";
+		this.type = "sortie";
 	  }
 	}
   }
@@ -121,7 +121,7 @@ public class DemandeAcces implements Comparable {
 	  versLeFutur += this.matricule.toString() + " - ";
 	}
 	versLeFutur += "Zone " + this.idZone + " - Porte " + this.idPorte + " - ";
-	versLeFutur += "Statut " + this.statut + " - Type " + this.type;
+	versLeFutur += "Statut: " + this.statut + " - Type: " + this.type;
 	return versLeFutur;
   }
 
@@ -132,7 +132,7 @@ public class DemandeAcces implements Comparable {
    */
   public demandeIdl toIdl() {
 	int typeES = 0;
-	if (this.type.equals("Sortie")) {
+	if (this.type.equals("sortie")) {
 	  typeES = 1;
 	}
 	if (matricule == null) {

@@ -155,6 +155,7 @@ interface autorisateur{
   exception autorisationRefuseeException{
 	  string message;
 	  long long heure;
+	  Matricule matricule;
   };
 
   /********** Méthodes *****/

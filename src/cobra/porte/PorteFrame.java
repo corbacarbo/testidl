@@ -7,6 +7,7 @@ package cobra.porte;
 
 import cobra.DemandeAcces;
 import cobra.Empreinte;
+import cobra.Matricule;
 import cobra.Personne;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
@@ -301,7 +302,7 @@ public class PorteFrame extends javax.swing.JFrame {
   }//GEN-LAST:event_entrerButtonActionPerformed
 
   private void sortirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortirButtonActionPerformed
-	passerPorte("sortir");
+	passerPorte("sortie");
   }//GEN-LAST:event_sortirButtonActionPerformed
 
   private void passerPorte(String sens) {
@@ -332,11 +333,12 @@ public class PorteFrame extends javax.swing.JFrame {
 		  setMessage(ETATM.INFOR, "Bienvenue " + personne.getPrenomNom() + ".");
 		}
 		else{
-		  personne = porte.entrer(empreinte, photo);
+		  personne = porte.sortir(empreinte, photo);
 		  setMessage(ETATM.INFOR, "Au revoir " + personne.getPrenomNom() + ".");
 		}
 		activateReussi();
 		demande.setMatricule(personne.getMatricule());
+		demande.setStatut(sens + " autorisée");
 
 	  } catch (empreinteInconnueException ex) {
 		setMessage(ETATM.ERROR, "Empreinte inconnue");
@@ -356,6 +358,7 @@ public class PorteFrame extends javax.swing.JFrame {
 		activateEchec();
 	  } catch (autorisationRefuseeException ex) {
 		setMessage(ETATM.ERROR, "Autorisation refusée.");
+		demande.setMatricule(new Matricule(ex.matricule));
 		demande.setStatut(ex.message);
 		activateReussi();
 	  } catch (PhotoErroneeException ex) {

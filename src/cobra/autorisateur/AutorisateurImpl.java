@@ -145,10 +145,10 @@ public class AutorisateurImpl implements autorisateurOperations {
 	}
 	if (permanent) {
 	  System.out.println("!! " + zone + ": autorisation refusée " + matricule);
-	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + " à " + maintenant, maintenant.getTimeInMillis());
+	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + " à " + maintenant, maintenant.getTimeInMillis(), matricule.toIdl());
 	} else {
 	  System.out.println("!! TEMP: autorisation refusée " + matricule);
-	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + ", zone " + zoneIdl + ", à " + maintenant, maintenant.getTimeInMillis());
+	  throw new autorisationRefuseeException("Autorisation refusée pour " + matricule + ", zone " + zoneIdl + ", à " + maintenant, maintenant.getTimeInMillis(), matricule.toIdl());
 	}
   }
 
