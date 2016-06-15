@@ -14,7 +14,6 @@ import cobra.Horaire;
 import cobra.Matricule;
 import cobra.Personne;
 import cobra.PersonnePermanent;
-import controleAcces.HeureHelper;
 import controleAcces.annuaire;
 import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.personneInexistanteException;
@@ -43,7 +42,6 @@ public class ResponsableZone extends CorbaClient implements Runnable{
   public ResponsableZone (String zone) {
       cle = null;
       this.zone = zone;
-      personnesTrouvees = new HashMap<String,Personne>();
   }
   
   public String getZone() {
