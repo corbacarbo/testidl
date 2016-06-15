@@ -1,6 +1,7 @@
 package cobra;
 
 import controleAcces.personneIdl;
+import java.util.HashMap;
 
 public class Personne {
 
@@ -51,6 +52,20 @@ public class Personne {
 
   public personneIdl toIdl(){
 	return new personneIdl(matricule.toIdl(), nom, prenom, photo, "", false, "");
+  }
+  /**
+   * 
+   * @param personnes
+   * @return le hashmap des personnes en entrée, avec en clé
+   * la concaténation du matricule, du nom et du prénom, et en valeur, la personne associée
+   */
+  public static HashMap<String,Personne> tableToHashMap (personneIdl[] personnes){
+     HashMap<String,Personne> personnesTrouvees = new HashMap<String,Personne>();
+    for (personneIdl p : personnes){
+          Personne pers = new Personne(p);
+          personnesTrouvees.put(p.matricule+" - "+p.nom+" - "+p.prenom, pers);
+      }
+    return personnesTrouvees;
   }
   
   @Override
