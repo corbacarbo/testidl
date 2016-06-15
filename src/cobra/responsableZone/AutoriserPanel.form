@@ -17,10 +17,55 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jFormattedTextField1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" pref="299" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" min="-2" pref="299" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="heureDLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="heureDField" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="heureFLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="heureFField" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="minuteFLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="minuteFField" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="minuteDLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="minuteDField" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jourDLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jourDField" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jourFLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jourFField" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace pref="56" max="32767" attributes="0"/>
           </Group>
@@ -31,9 +76,31 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-              <Component id="jFormattedTextField1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="161" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="heureDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="heureDField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="minuteDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="minuteDField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="heureFLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="heureFField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="minuteFLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="minuteFField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jourDLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jourDField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jourFLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jourFField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,9 +121,64 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+    <Component class="javax.swing.JFormattedTextField" name="heureDField">
       <Properties>
         <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="heureDLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Heure D&#xe9;but"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="minuteDLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Minute D&#xe9;but"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="minuteDField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="heureFLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Heure Fin"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="heureFField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="minuteFLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Minute Fin"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="minuteFField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jourDLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Jour D&#xe9;but"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jourDField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jourFLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Jour Fin"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jourFField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jFormattedTextField2"/>
       </Properties>
     </Component>
   </SubComponents>

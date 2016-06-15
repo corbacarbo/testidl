@@ -27,19 +27,116 @@ public class RecapPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        matLabel = new javax.swing.JLabel();
+        matLabelData = new javax.swing.JLabel();
+        heureDLabel = new javax.swing.JLabel();
+        heureDLabelData = new javax.swing.JLabel();
+        heureFLabel = new javax.swing.JLabel();
+        heureFLabelData = new javax.swing.JLabel();
+        jourDLabel = new javax.swing.JLabel();
+        jourFLabel = new javax.swing.JLabel();
+        jourDLabelData = new javax.swing.JLabel();
+        jourFLabelData = new javax.swing.JLabel();
+        zoneLabel = new javax.swing.JLabel();
+        zoneLabelData = new javax.swing.JLabel();
+
+        matLabel.setText("Matricule");
+
+        matLabelData.setText("jLabel2");
+
+        heureDLabel.setText("Heure Début");
+
+        heureDLabelData.setText("jLabel2");
+
+        heureFLabel.setText("Heure Fin");
+
+        heureFLabelData.setText("jLabel2");
+
+        jourDLabel.setText("Jour Début");
+
+        jourFLabel.setText("Jour Fin");
+
+        jourDLabelData.setText("jLabel2");
+
+        jourFLabelData.setText("jLabel2");
+
+        zoneLabel.setText("Zone");
+
+        zoneLabelData.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(heureDLabel)
+                            .addComponent(matLabel)
+                            .addComponent(heureFLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(heureFLabelData)
+                            .addComponent(matLabelData)
+                            .addComponent(heureDLabelData)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jourDLabel)
+                            .addComponent(jourFLabel)
+                            .addComponent(zoneLabel))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(zoneLabelData)
+                            .addComponent(jourDLabelData)
+                            .addComponent(jourFLabelData))))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(matLabel)
+                    .addComponent(matLabelData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(heureDLabel)
+                    .addComponent(heureDLabelData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(heureFLabel)
+                    .addComponent(heureFLabelData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jourDLabel)
+                    .addComponent(jourDLabelData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jourFLabel)
+                    .addComponent(jourFLabelData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(zoneLabel)
+                    .addComponent(zoneLabelData))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel heureDLabel;
+    private javax.swing.JLabel heureDLabelData;
+    private javax.swing.JLabel heureFLabel;
+    private javax.swing.JLabel heureFLabelData;
+    private javax.swing.JLabel jourDLabel;
+    private javax.swing.JLabel jourDLabelData;
+    private javax.swing.JLabel jourFLabel;
+    private javax.swing.JLabel jourFLabelData;
+    private javax.swing.JLabel matLabel;
+    private javax.swing.JLabel matLabelData;
+    private javax.swing.JLabel zoneLabel;
+    private javax.swing.JLabel zoneLabelData;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,6 +17,25 @@ public class AutoriserPanel extends javax.swing.JPanel {
     public AutoriserPanel() {
         initComponents();
     }
+    
+     public String getHeureD(){
+        return heureDField.getText();
+    }
+     public String getMinuteD(){
+        return minuteDField.getText();
+    }
+      public String getHeureF(){
+        return heureFField.getText();
+    }
+     public String getMinuteF(){
+        return minuteFField.getText();
+    }
+     public String getJourD(){
+        return jourDField.getText();
+    }
+     public String getJourF(){
+        return jourDField.getText();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +47,86 @@ public class AutoriserPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jComboBox1 = new javax.swing.JComboBox<>();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        heureDField = new javax.swing.JFormattedTextField();
+        heureDLabel = new javax.swing.JLabel();
+        minuteDLabel = new javax.swing.JLabel();
+        minuteDField = new javax.swing.JFormattedTextField();
+        heureFLabel = new javax.swing.JLabel();
+        heureFField = new javax.swing.JFormattedTextField();
+        minuteFLabel = new javax.swing.JLabel();
+        minuteFField = new javax.swing.JFormattedTextField();
+        jourDLabel = new javax.swing.JLabel();
+        jourDField = new javax.swing.JFormattedTextField();
+        jourFLabel = new javax.swing.JLabel();
+        jourFField = new javax.swing.JFormattedTextField();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        heureDField.setText("jFormattedTextField1");
+
+        heureDLabel.setText("Heure Début");
+
+        minuteDLabel.setText("Minute Début");
+
+        minuteDField.setText("jFormattedTextField1");
+
+        heureFLabel.setText("Heure Fin");
+
+        heureFField.setText("jFormattedTextField1");
+
+        minuteFLabel.setText("Minute Fin");
+
+        minuteFField.setText("jFormattedTextField1");
+
+        jourDLabel.setText("Jour Début");
+
+        jourDField.setText("jFormattedTextField1");
+
+        jourFLabel.setText("Jour Fin");
+
+        jourFField.setText("jFormattedTextField2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(heureDLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(heureDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(heureFLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(heureFField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(minuteFLabel)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(minuteFField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(minuteDLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jourDLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jourDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jourFLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jourFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -50,15 +134,45 @@ public class AutoriserPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(heureDLabel)
+                    .addComponent(heureDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minuteDLabel)
+                    .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(heureFLabel)
+                    .addComponent(heureFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minuteFLabel)
+                    .addComponent(minuteFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jourDLabel)
+                    .addComponent(jourDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jourFLabel)
+                    .addComponent(jourFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField heureDField;
+    private javax.swing.JLabel heureDLabel;
+    private javax.swing.JFormattedTextField heureFField;
+    private javax.swing.JLabel heureFLabel;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jourDField;
+    private javax.swing.JLabel jourDLabel;
+    private javax.swing.JFormattedTextField jourFField;
+    private javax.swing.JLabel jourFLabel;
+    private javax.swing.JFormattedTextField minuteDField;
+    private javax.swing.JLabel minuteDLabel;
+    private javax.swing.JFormattedTextField minuteFField;
+    private javax.swing.JLabel minuteFLabel;
     // End of variables declaration//GEN-END:variables
 }
