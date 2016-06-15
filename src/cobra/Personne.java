@@ -2,6 +2,7 @@ package cobra;
 
 import controleAcces.personneIdl;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Personne {
 
@@ -36,6 +37,10 @@ public class Personne {
 
   public String getPhoto() {
 	return photo;
+  }
+
+  public String getNom() {
+	return nom;
   }
 
   public void genereMatricule(){
@@ -77,4 +82,13 @@ public class Personne {
 	return prenom + " " + nom.toUpperCase();
   }
 
+  public static personneIdl[] listToTabidl(ArrayList<Personne> personnes){
+	personneIdl[] res = new personneIdl[personnes.size()];
+	int i = 0;
+	for(Personne p : personnes){
+	  res[i++] = p.toIdl();
+	}
+	return res;
+  }
+  
 }
