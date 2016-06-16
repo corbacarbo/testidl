@@ -18,8 +18,6 @@ import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.awt.Color;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -366,7 +364,7 @@ public class PorteFrame extends javax.swing.JFrame {
 		demande.setStatut(ex.message);
 		activateEchec();
 	  } finally {
-		journal j = porte.resolveZoneur(porte.getZone()).resolveJournal();
+		journal j = porte.getNs().resolveJournal();
 		if (demande.getMatricule() == null) {
 		  j.loguerInconnu(demande.toIdl());
 		} else {

@@ -21,14 +21,14 @@ public class EntiteZoneur extends CorbaEntite implements Runnable {
   private String zone;
 
   public EntiteZoneur(String zone) {
-	super();
+	super("globale");
 	this.zone = zone;
   }
 
   @Override
   public void createServant() {
 	try {
-	  ZoneurImpl zoneur = new ZoneurImpl(this, zone);
+	  ZoneurImpl zoneur = new ZoneurImpl(this.ns, zone);
 
 	  zoneurPOATie zoneurTie = new zoneurPOATie(zoneur);
 
@@ -39,7 +39,7 @@ public class EntiteZoneur extends CorbaEntite implements Runnable {
 		  // Création d'un nouveau contexte
 		  NameComponent[] contTab = new NameComponent[1];
 		  contTab[0] = new NameComponent(zone, "");
-		  namingService.bind_new_context(contTab);
+		  ns.getNamingService().bind_new_context(contTab);
 		} catch (AlreadyBound ex) {
 		  System.out.println("Contexte " + zone + " déjà créé.");
 		}

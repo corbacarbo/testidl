@@ -22,15 +22,15 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 
   private String zone;
 
-  public EntiteAutorisateur(String zone) {
-	super();
+  public EntiteAutorisateur(String resolutionType, String zone) {
+	super(resolutionType);
 	this.zone = zone;
   }
 
   @Override
   public void createServant() {
 	try {
-	  AutorisateurImpl autorisateur = new AutorisateurImpl(this, zone);
+	  AutorisateurImpl autorisateur = new AutorisateurImpl(this.ns, zone);
 
 	  autorisateurPOATie autorisateurTie = new autorisateurPOATie(autorisateur);
 
@@ -41,7 +41,7 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 		  // Création d'un nouveau contexte
 		  NameComponent[] contTab = new NameComponent[1];
 		  contTab[0] = new NameComponent(zone, "");
-		  namingService.bind_new_context(contTab);
+		  ns.getNamingService().bind_new_context(contTab);
 		} catch (AlreadyBound ex) {
 		  System.out.println("Contexte " + zone + " déjà créé.");
 		}
@@ -58,33 +58,8 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
   }
 
   @Override
-  public annuaire resolveAnnuaire(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public coffreFort resolveCoffreFort(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public journal resolveJournal(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public autorisateur resolveAutorisateur(String zone){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public autorisateur resolveAutorisateurTemporaire(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public trousseau resolveTrousseau(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  
-  @Override
   public void run() {
-	startEntite();
+	startEntite(zone);
 	startOrb();
   }
 
@@ -95,12 +70,12 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 	  String zo = zones.substring(i, i + 1);
 
 	  if (zo.equals("T")) {
-		EntiteAutorisateur e = new EntiteAutorisateur(null);
+		EntiteAutorisateur e = new EntiteAutorisateur("globale", null);
 		Thread t = new Thread(e);
 		t.start();
 		Thread.sleep(1000);
 	  } else {
-		EntiteAutorisateur e = new EntiteAutorisateur(zo);
+		EntiteAutorisateur e = new EntiteAutorisateur("contexte", zo);
 		Thread t = new Thread(e);
 		t.start();
 		Thread.sleep(1000);

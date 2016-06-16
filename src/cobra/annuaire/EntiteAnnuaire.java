@@ -18,13 +18,13 @@ import cobra.CorbaEntite;
 public class EntiteAnnuaire extends CorbaEntite {
 
   public EntiteAnnuaire() {
-    super();
+    super("globale");
   }
 
   @Override
   public void createServant() {
     try {
-      AnnuaireImpl annuaire = new AnnuaireImpl(this);
+      AnnuaireImpl annuaire = new AnnuaireImpl(this.ns);
 
       annuairePOATie annuaireTie = new annuairePOATie(annuaire);
 

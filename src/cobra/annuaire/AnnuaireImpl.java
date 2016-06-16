@@ -16,6 +16,7 @@ import java.util.HashMap;
 import cobra.CorbaEntite;
 import cobra.Matricule;
 import cobra.PersonneTemporaire;
+import cobra.namingservice.Resolution;
 import java.util.ArrayList;
 
 public class AnnuaireImpl implements annuaireOperations {
@@ -24,7 +25,7 @@ public class AnnuaireImpl implements annuaireOperations {
    * Référence vers la classe qui encapsule pour avoir accès aux méthodes de
    * CorbaEntite : résolution d'entité...
    */
-  private CorbaEntite serveur;
+  private Resolution ns;
 
   /**
    * Ensemble des employés de l'entreprise, permanents et temporaires.
@@ -42,11 +43,12 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Constructeur
    *
+   * @param ns
    * @param s référence vers la classe instanciatrice (ou processus serveur).
    */
-  public AnnuaireImpl(CorbaEntite s) {
+  public AnnuaireImpl(Resolution ns) {
     super();
-    serveur = s;
+    this.ns = ns;
     remplirAnnuaire();
   }
 
@@ -183,7 +185,7 @@ public class AnnuaireImpl implements annuaireOperations {
      * * Création d'une nouvelle session pour la personne authentifiée **
      */
     // Cherche gestionnaire de clé de session
-    trousseau t = serveur.resolveTrousseau();
+    trousseau t = ns.resolveTrousseau();
     // Récupération d'une nouvelle clé
     cle = new Cle(t.startSession("ABCDE"));
 
@@ -212,7 +214,7 @@ public class AnnuaireImpl implements annuaireOperations {
           sessionExpireeException,
           personneInexistanteException {
 
-    trousseau trousseau = serveur.resolveTrousseau();
+    trousseau trousseau = ns.resolveTrousseau();
     trousseau.valideSession(cle);
 
     PersonnePermanent p;
@@ -296,7 +298,7 @@ public class AnnuaireImpl implements annuaireOperations {
   public personneIdl ajouterPermanent(long cle, personneIdl p)
 		  throws sessionInvalidException, sessionExpireeException 
   {
-	serveur.resolveTrousseau().valideSession(cle);
+	ns.resolveTrousseau().valideSession(cle);
 	
     PersonnePermanent personne = new PersonnePermanent(p);
 
@@ -323,7 +325,7 @@ public class AnnuaireImpl implements annuaireOperations {
   public personneIdl ajouterTemporaire(long cle, personneIdl p) 
 		  throws sessionInvalidException, sessionExpireeException {
 	
-	serveur.resolveTrousseau().valideSession(cle);
+	ns.resolveTrousseau().valideSession(cle);
 	
     PersonneTemporaire personne = new PersonneTemporaire(p);
 

@@ -12,17 +12,16 @@ import cobra.Matricule;
 import cobra.Personne;
 import cobra.PersonnePermanent;
 import cobra.PersonneTemporaire;
+import cobra.namingservice.Resolution;
 import controleAcces.annuaire;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.autorisateur;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
 import controleAcces.coffreFort;
 import controleAcces.coffreFortPackage.empreinteInconnueException;
-import controleAcces.journal;
 import controleAcces.personneIdl;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
-import controleAcces.trousseau;
 
 /**
  *
@@ -39,6 +38,7 @@ public class Porte extends CorbaClient implements Runnable {
   private long lastRenew;
 
   public Porte(String zone) {
+	super("contexte", zone);
 	cle = null;
 	this.zone = zone;
 	renewCle();
@@ -46,18 +46,18 @@ public class Porte extends CorbaClient implements Runnable {
 
   public void renewCle() {
 	if (cle == null) {
-	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
+	  cle = new Cle(ns.resolveTrousseau().startSession("ABCDE"));
 	  lastRenew = System.currentTimeMillis();
 	} else {
 
-	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
+	  cle = new Cle(ns.resolveTrousseau().startSession("ABCDE"));
 
 	}
   }
 
   public void checkCle() {
 	try {
-	  resolveTrousseau().valideSession(cle.toIdl());
+	  ns.resolveTrousseau().valideSession(cle.toIdl());
 
 	} catch (sessionInvalidException | sessionExpireeException ex) {
 	  renewCle();
@@ -68,6 +68,10 @@ public class Porte extends CorbaClient implements Runnable {
 	return zone;
   }
 
+  public Resolution getNs(){
+	return ns;
+  }
+  
   public Personne entrer(Empreinte e, String photo)
 		  throws empreinteInconnueException,
 		  sessionInvalidException,
@@ -80,12 +84,12 @@ public class Porte extends CorbaClient implements Runnable {
 	checkCle();
 
 	// 1-Récupération du matricule à partir de l'empreinte
-	coffreFort cf = resolveZoneur(zone).resolveCoffreFort();
+	coffreFort cf = ns.resolveCoffreFort();
 	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
 	matricule = new Matricule(mat);
 
 	// 2-Récupération de la personne à partir du matricule
-	annuaire an = resolveZoneur(zone).resolveAnnuaire();
+	annuaire an = ns.resolveAnnuaire();
 	personneIdl pers = an.validerIdentite(matricule.toIdl());
 
 	if (matricule.isPermanent()) {
@@ -101,10 +105,10 @@ public class Porte extends CorbaClient implements Runnable {
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
-	  autorisateur au = resolveZoneur(zone).resolveAutorisateur();
+	  autorisateur au = ns.resolveAutorisateur(zone);
 	  au.autoriser(matricule.toIdl(), zone);
 	} else {
-	  autorisateur at = resolveZoneur(zone).resolveAutorisateurTemporaire();
+	  autorisateur at = ns.resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 	return personne;
@@ -122,12 +126,12 @@ public class Porte extends CorbaClient implements Runnable {
 	checkCle();
 
 	// 1-Récupération du matricule à partir de l'empreinte
-	coffreFort cf = resolveZoneur(zone).resolveCoffreFort();
+	coffreFort cf = ns.resolveCoffreFort();
 	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
 	matricule = new Matricule(mat);
 
 	// 2-Récupération de la personne à partir du matricule
-	annuaire an = resolveZoneur(zone).resolveAnnuaire();
+	annuaire an = ns.resolveAnnuaire();
 	personneIdl pers = an.validerIdentite(matricule.toIdl());
 
 	if (matricule.isPermanent()) {
@@ -143,38 +147,13 @@ public class Porte extends CorbaClient implements Runnable {
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
-	  autorisateur au = resolveZoneur(zone).resolveAutorisateur();
+	  autorisateur au = ns.resolveAutorisateur(zone);
 	  au.autoriser(matricule.toIdl(), zone);
 	} else {
-	  autorisateur at = resolveZoneur(zone).resolveAutorisateurTemporaire();
+	  autorisateur at = ns.resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 	return personne;
-  }
-
-  @Override
-  public annuaire resolveAnnuaire(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public coffreFort resolveCoffreFort(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public journal resolveJournal(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public autorisateur resolveAutorisateur(String zone){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public autorisateur resolveAutorisateurTemporaire(){
-	throw new RuntimeException("Appel non optimisé.");
-  }
-  @Override
-  public trousseau resolveTrousseau(){
-	throw new RuntimeException("Appel non optimisé.");
   }
   
   @Override

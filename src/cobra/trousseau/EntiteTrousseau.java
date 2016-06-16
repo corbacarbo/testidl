@@ -14,7 +14,7 @@ import cobra.CorbaEntite;
 public class EntiteTrousseau extends CorbaEntite {
 
   public EntiteTrousseau() {
-	super();
+	super("globale");
   }
 
   @Override

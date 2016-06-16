@@ -2,6 +2,7 @@ package cobra.zoneur;
 
 import cobra.CorbaEntite;
 import cobra.Matricule;
+import cobra.namingservice.Resolution;
 import controleAcces.annuaire;
 import controleAcces.autorisateur;
 import controleAcces.coffreFort;
@@ -19,35 +20,42 @@ public class ZoneurImpl implements zoneurOperations {
 
   private CorbaEntite serveur;
 
-  public ZoneurImpl(CorbaEntite serveur, String zone) {
+  private Resolution ns;
+
+  public ZoneurImpl(Resolution ns, String zone) {
 	this.zone = zone;
-	this.serveur = serveur;
+	this.ns = ns;
 	personnes = new ArrayList<>();
   }
 
   @Override
   public annuaire resolveAnnuaire() {
-	return serveur.resolveAnnuaire();
+	return ns.resolveAnnuaire();
   }
 
   @Override
   public coffreFort resolveCoffreFort() {
-	return serveur.resolveCoffreFort();
+	return ns.resolveCoffreFort();
   }
 
   @Override
   public journal resolveJournal() {
-	return serveur.resolveJournal();
+	return ns.resolveJournal();
   }
 
   @Override
   public autorisateur resolveAutorisateur() {
-	return serveur.resolveAutorisateur(zone);
+	return ns.resolveAutorisateur(zone);
   }
 
   @Override
   public autorisateur resolveAutorisateurTemporaire() {
-	return serveur.resolveAutorisateurTemporaire();
+	return ns.resolveAutorisateurTemporaire();
+  }
+
+  @Override
+  public trousseau resolveTrousseau() {
+	return ns.resolveTrousseau();
   }
 
   @Override
@@ -64,7 +72,7 @@ public class ZoneurImpl implements zoneurOperations {
 
 	while (continueParcours) {
 	  String zoneString = new String(zoneChar);
-	  zoneur zoneur = serveur.resolveZoneur(zoneString);
+	  zoneur zoneur = ns.resolveZoneur(zoneString);
 	  if (zoneur != null) {
 		if (!zoneur.isNotInsideZone(matriculeIdl)) {
 		  return false;
@@ -92,11 +100,5 @@ public class ZoneurImpl implements zoneurOperations {
 	Matricule matricule = new Matricule(matriculeIdl);
 	personnes.remove(matricule);
   }
-
-  @Override
-  public trousseau resolveTrousseau() {
-	return serveur.resolveTrousseau();
-  }
-
 
 }

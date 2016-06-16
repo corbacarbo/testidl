@@ -23,6 +23,7 @@ public class Borne extends CorbaClient implements Runnable {
   private BorneFrame borneFrame;
 
   public Borne() {
+	super("globale", null);
     personne = null;
   }
 
@@ -31,7 +32,7 @@ public class Borne extends CorbaClient implements Runnable {
   }
   
   public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
-    annuaire annuaire = resolveAnnuaire();
+    annuaire annuaire = ns.resolveAnnuaire();;
     cle = new Cle(annuaire.authentification(mat, mdp));
     System.out.println("Authentification réussie " + cle + "  " + mat);
 
@@ -40,17 +41,17 @@ public class Borne extends CorbaClient implements Runnable {
   }
 
   public void changeMdp(String mdp) throws mdpIdentiqueException, sessionInvalidException, sessionExpireeException, personneInexistanteException {
-    annuaire annuaire = resolveAnnuaire();
+    annuaire annuaire = ns.resolveAnnuaire();
     annuaire.modificationMdp(cle.toIdl(), personne.getMatricule().toIdl(), mdp);
   }
   
   public void modifEmpreinte(Empreinte empreinte) throws sessionInvalidException, sessionExpireeException, matriculeInconnuException {
-    coffreFort coffreFort = resolveCoffreFort();
+    coffreFort coffreFort = ns.resolveCoffreFort();
     coffreFort.modificationEmpreinte(cle.toIdl(), empreinte.toIdl(), personne.getMatricule().toIdl());
   }
 
   public void aEmpreinte() throws matriculeInconnuException, sessionInvalidException, sessionExpireeException{
-	coffreFort coffreFort = resolveCoffreFort();
+	coffreFort coffreFort = ns.resolveCoffreFort();
     coffreFort.aEmpreinte(cle.toIdl(), personne.getMatricule().toIdl());
   }
   

@@ -26,8 +26,8 @@ public abstract class CorbaEntite extends CorbaUtil {
   /**
    * Constructeur par défaut.
    */
-  public CorbaEntite() {
-	super();
+  public CorbaEntite(String resolutionType) {
+	super(resolutionType);
   }
 
   /**
@@ -53,7 +53,7 @@ public abstract class CorbaEntite extends CorbaUtil {
 
 	NameComponent[] nomTab = new NameComponent[1];
 	nomTab[0] = new NameComponent(nom, "");
-	namingService.rebind(nomTab, o);
+	ns.getNamingService().rebind(nomTab, o);
 	System.out.println("Servant enregistré : " + nom);
   }
   
@@ -65,7 +65,7 @@ public abstract class CorbaEntite extends CorbaUtil {
 	nomTab[0] = new NameComponent(contexte, "");
 	nomTab[1] = new NameComponent(nom, "");
 	
-	namingService.rebind(nomTab, o);
+	ns.getNamingService().rebind(nomTab, o);
 	System.out.println("Servant enregistré : " + contexte + " / "+ nom);
   }
 
@@ -95,6 +95,20 @@ public abstract class CorbaEntite extends CorbaUtil {
 	createServant();
   }
 
+    /**
+   * Réalise les 6 étapes (sur 7) du processus serveur : - initialisation de
+   * l'orb ; - récupération du service de noms ; - récupération du POA racine ;
+   * - activation du POA racine ; - création du servant ; - activation du
+   * servant.
+   * @param zone
+   */
+  public void startEntite(String zone) {
+	initOrb();
+	fetchNamingservice(zone);
+	chercheActivePOA();
+	createServant();
+  }
+  
   /**
    * Réalise la 7ème étape du processus serveur : - lancement de l'orb.
    */
