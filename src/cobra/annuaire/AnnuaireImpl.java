@@ -103,7 +103,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * @param mdp2 un mot de passe,
    * @throws MdpErroneException si les chaînes ne sont pas identiques.
    */
-  private void mdpEgaux(String mdp1, String mdp2) throws MdpErroneException {
+  private void mdpEgaux(String mdp1, String mdp2) 
+		  throws MdpErroneException {
     if (!mdp1.equals(mdp2)) {
       throw new MdpErroneException("Mot de passe erroné");
     }
@@ -142,7 +143,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * @throws loginIncorrectException
    */
   @Override
-  public long authentification(String matriculeIdl, String mdp) throws loginIncorrectException {
+  public long authentification(String matriculeIdl, String mdp) 
+		  throws loginIncorrectException {
     Cle cle;
     PersonnePermanent p;
     Matricule matricule = new Matricule(matriculeIdl);
@@ -265,7 +267,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * @throws personneInexistanteException le matricule fourni n'existe pas
    */
   @Override
-  public personneIdl validerIdentite(String matriculeIdl) throws personneInexistanteException {
+  public personneIdl validerIdentite(String matriculeIdl) 
+		  throws personneInexistanteException {
     Matricule matricule = new Matricule(matriculeIdl);
     if (annuaire.containsKey(matricule)) {
       Personne personne = annuaire.get(matricule);
@@ -290,8 +293,11 @@ public class AnnuaireImpl implements annuaireOperations {
    * @throws controleAcces.sessionExpireeException
    */
   @Override
-  public personneIdl ajouterPermanent(long cle, personneIdl p)throws sessionInvalidException, sessionExpireeException 
+  public personneIdl ajouterPermanent(long cle, personneIdl p)
+		  throws sessionInvalidException, sessionExpireeException 
   {
+	serveur.resolveTrousseau().valideSession(cle);
+	
     PersonnePermanent personne = new PersonnePermanent(p);
 
     genereMdp(personne);
@@ -314,7 +320,11 @@ public class AnnuaireImpl implements annuaireOperations {
      * @throws controleAcces.sessionExpireeException
    */
   @Override
-  public personneIdl ajouterTemporaire(long cle, personneIdl p) throws sessionInvalidException, sessionExpireeException {
+  public personneIdl ajouterTemporaire(long cle, personneIdl p) 
+		  throws sessionInvalidException, sessionExpireeException {
+	
+	serveur.resolveTrousseau().valideSession(cle);
+	
     PersonneTemporaire personne = new PersonneTemporaire(p);
 
     genereMatricule(personne);

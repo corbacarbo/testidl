@@ -81,12 +81,12 @@ public class Porte extends CorbaClient implements Runnable {
 	checkCle();
 
 	// 1-Récupération du matricule à partir de l'empreinte
-	coffreFort cf = resolveCoffreFort();
+	coffreFort cf = resolveZoneur(zone).resolveCoffreFort();
 	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
 	matricule = new Matricule(mat);
 
 	// 2-Récupération de la personne à partir du matricule
-	annuaire an = resolveAnnuaire();
+	annuaire an = resolveZoneur(zone).resolveAnnuaire();
 	personneIdl pers = an.validerIdentite(matricule.toIdl());
 
 	if (matricule.isPermanent()) {
@@ -102,10 +102,10 @@ public class Porte extends CorbaClient implements Runnable {
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
-	  autorisateur au = resolveAutorisateur(zone);
+	  autorisateur au = resolveZoneur(zone).resolveAutorisateur();
 	  au.autoriser(matricule.toIdl(), zone);
 	} else {
-	  autorisateur at = resolveAutorisateurTemporaire();
+	  autorisateur at = resolveZoneur(zone).resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 	return personne;

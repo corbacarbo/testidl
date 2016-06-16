@@ -10,6 +10,8 @@ import controleAcces.journal;
 import controleAcces.journalHelper;
 import controleAcces.trousseau;
 import controleAcces.trousseauHelper;
+import controleAcces.zoneur;
+import controleAcces.zoneurHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.CORBA.ORBPackage.InvalidName;
@@ -34,6 +36,7 @@ public class CorbaUtil {
   protected trousseau trousseau;
   protected autorisateur autorisateurTemporaire;
   protected autorisateur autorisateur;
+  protected zoneur zoneur;
 
   /**
    * Constructeur par défaut.
@@ -206,4 +209,24 @@ public class CorbaUtil {
 	return null;
   }
 
+  public zoneur resolveZoneur(String zone) {
+	if (zoneur != null) {
+	  return zoneur;
+	} else {
+	  try {
+		NameComponent[] nameToFind = new NameComponent[2];
+		nameToFind[0] = new NameComponent(zone, "");
+		nameToFind[1] = new NameComponent("zoneur", "");
+		org.omg.CORBA.Object o = namingService.resolve(nameToFind);
+		zoneur = zoneurHelper.narrow(o);
+		return zoneur;
+	  } catch (NotFound ex) {
+		System.out.println("Entité 'zoneur' non joignable.");
+	  } catch (CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
+		Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
+	  }
+	}
+	return null;
+  }
+  
 }
