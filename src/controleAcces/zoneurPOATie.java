@@ -103,6 +103,14 @@ public class zoneurPOATie extends zoneurPOA
     }
 
     /**
+     * Operation resolveTrousseau
+     */
+    public controleAcces.trousseau resolveTrousseau()
+    {
+        return _tie.resolveTrousseau();
+    }
+
+    /**
      * Operation isNotInsideZone
      */
     public boolean isNotInsideZone(String matriculeIdl)

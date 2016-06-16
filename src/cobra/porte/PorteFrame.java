@@ -366,7 +366,7 @@ public class PorteFrame extends javax.swing.JFrame {
 		demande.setStatut(ex.message);
 		activateEchec();
 	  } finally {
-		journal j = porte.resolveJournal();
+		journal j = porte.resolveZoneur(porte.getZone()).resolveJournal();
 		if (demande.getMatricule() == null) {
 		  j.loguerInconnu(demande.toIdl());
 		} else {

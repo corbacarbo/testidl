@@ -305,6 +305,8 @@ interface zoneur{
 
   autorisateur resolveAutorisateurTemporaire();
 
+  trousseau resolveTrousseau();
+
   boolean isNotInsideZone(in string matriculeIdl);
 
   boolean isNotInsideAllZone(in string matriculeIdl);

@@ -1,7 +1,12 @@
 package cobra.autorisateur;
 
 import cobra.CorbaEntite;
+import controleAcces.annuaire;
+import controleAcces.autorisateur;
 import controleAcces.autorisateurPOATie;
+import controleAcces.coffreFort;
+import controleAcces.journal;
+import controleAcces.trousseau;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.CosNaming.NameComponent;
@@ -52,6 +57,31 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 
   }
 
+  @Override
+  public annuaire resolveAnnuaire(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public coffreFort resolveCoffreFort(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public journal resolveJournal(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public autorisateur resolveAutorisateur(String zone){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public autorisateur resolveAutorisateurTemporaire(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public trousseau resolveTrousseau(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  
   @Override
   public void run() {
 	startEntite();

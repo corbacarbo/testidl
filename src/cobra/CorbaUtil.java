@@ -55,6 +55,7 @@ public class CorbaUtil {
 	trousseau = null;
 	autorisateurTemporaire = null;
 	autorisateur = null;
+	zoneur = null;
   }
 
   /**

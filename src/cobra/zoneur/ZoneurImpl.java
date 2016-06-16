@@ -6,6 +6,7 @@ import controleAcces.annuaire;
 import controleAcces.autorisateur;
 import controleAcces.coffreFort;
 import controleAcces.journal;
+import controleAcces.trousseau;
 import controleAcces.zoneur;
 import controleAcces.zoneurOperations;
 import java.util.ArrayList;
@@ -91,5 +92,11 @@ public class ZoneurImpl implements zoneurOperations {
 	Matricule matricule = new Matricule(matriculeIdl);
 	personnes.remove(matricule);
   }
+
+  @Override
+  public trousseau resolveTrousseau() {
+	return serveur.resolveTrousseau();
+  }
+
 
 }

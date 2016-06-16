@@ -18,12 +18,11 @@ import controleAcces.autorisateur;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
 import controleAcces.coffreFort;
 import controleAcces.coffreFortPackage.empreinteInconnueException;
-import controleAcces.journalPackage.demandeIdl;
+import controleAcces.journal;
 import controleAcces.personneIdl;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controleAcces.trousseau;
 
 /**
  *
@@ -123,12 +122,12 @@ public class Porte extends CorbaClient implements Runnable {
 	checkCle();
 
 	// 1-Récupération du matricule à partir de l'empreinte
-	coffreFort cf = resolveCoffreFort();
+	coffreFort cf = resolveZoneur(zone).resolveCoffreFort();
 	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
 	matricule = new Matricule(mat);
 
 	// 2-Récupération de la personne à partir du matricule
-	annuaire an = resolveAnnuaire();
+	annuaire an = resolveZoneur(zone).resolveAnnuaire();
 	personneIdl pers = an.validerIdentite(matricule.toIdl());
 
 	if (matricule.isPermanent()) {
@@ -144,15 +143,40 @@ public class Porte extends CorbaClient implements Runnable {
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
-	  autorisateur au = resolveAutorisateur(zone);
+	  autorisateur au = resolveZoneur(zone).resolveAutorisateur();
 	  au.autoriser(matricule.toIdl(), zone);
 	} else {
-	  autorisateur at = resolveAutorisateurTemporaire();
+	  autorisateur at = resolveZoneur(zone).resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 	return personne;
   }
 
+  @Override
+  public annuaire resolveAnnuaire(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public coffreFort resolveCoffreFort(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public journal resolveJournal(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public autorisateur resolveAutorisateur(String zone){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public autorisateur resolveAutorisateurTemporaire(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  @Override
+  public trousseau resolveTrousseau(){
+	throw new RuntimeException("Appel non optimisé.");
+  }
+  
   @Override
   public void run() {
 	porteFrame = new PorteFrame(this);

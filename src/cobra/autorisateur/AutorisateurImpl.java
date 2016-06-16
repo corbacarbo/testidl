@@ -89,7 +89,7 @@ public class AutorisateurImpl implements autorisateurOperations {
   public void ajouterAutorisation(long cleIdl, autorisationIdl autorisationIdl)
 		  throws conflitAutorisationException, sessionInvalidException,
 		  sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	serveur.resolveZoneur(zone).resolveTrousseau().valideSession(cleIdl);
 
 	Autorisation autorisationDemandee = new Autorisation(autorisationIdl);
 
@@ -106,7 +106,7 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  autorisationRestreinteIdl autorisationIdl)
 		  throws conflitAutorisationException, sessionInvalidException,
 		  sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	serveur.resolveZoneur(zone).resolveTrousseau().valideSession(cleIdl);
 
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
 

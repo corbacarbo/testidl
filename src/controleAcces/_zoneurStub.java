@@ -266,6 +266,55 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
+     * Operation resolveTrousseau
+     */
+    public controleAcces.trousseau resolveTrousseau()
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("resolveTrousseau",true);
+                    _input = this._invoke(_output);
+                    controleAcces.trousseau _arg_ret = controleAcces.trousseauHelper.read(_input);
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("resolveTrousseau",_opsClass);
+                if (_so == null)
+                   continue;
+                controleAcces.zoneurOperations _self = (controleAcces.zoneurOperations) _so.servant;
+                try
+                {
+                    return _self.resolveTrousseau();
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
      * Operation isNotInsideZone
      */
     public boolean isNotInsideZone(String matriculeIdl)

@@ -33,6 +33,11 @@ public interface zoneurOperations
     public controleAcces.autorisateur resolveAutorisateurTemporaire();
 
     /**
+     * Operation resolveTrousseau
+     */
+    public controleAcces.trousseau resolveTrousseau();
+
+    /**
      * Operation isNotInsideZone
      */
     public boolean isNotInsideZone(String matriculeIdl);

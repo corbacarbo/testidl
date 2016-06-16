@@ -47,6 +47,8 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
                     new Operation_resolveCoffreFort());
             operationMap.put("resolveJournal",
                     new Operation_resolveJournal());
+            operationMap.put("resolveTrousseau",
+                    new Operation_resolveTrousseau());
             operationMap.put("sort",
                     new Operation_sort());
     }
@@ -127,6 +129,19 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
 
         _output = handler.createReply();
         controleAcces.autorisateurHelper.write(_output,_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_resolveTrousseau(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+
+        controleAcces.trousseau _arg_result = resolveTrousseau();
+
+        _output = handler.createReply();
+        controleAcces.trousseauHelper.write(_output,_arg_result);
 
         return _output;
     }
@@ -240,6 +255,16 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_resolveAutorisateurTemporaire(_is, handler);
+        }
+    }
+
+    private static final class Operation_resolveTrousseau extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final zoneurPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_resolveTrousseau(_is, handler);
         }
     }
 
