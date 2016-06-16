@@ -11,8 +11,11 @@ package cobra.responsableZone;
  */
 public class LoginRZPanel extends javax.swing.JPanel {
 
-    static void initState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void initState() {
+        matriculeField.setText("");
+        matriculeField.setFocusable(true);
+        matriculeField.requestFocus();
+        mdpField.setText("");
     }
 
     /**
@@ -20,6 +23,12 @@ public class LoginRZPanel extends javax.swing.JPanel {
      */
     public LoginRZPanel() {
         initComponents();
+    }
+    public String getMatricule(){
+       return matriculeField.getText();
+    }
+    public String getMdp(){
+        return mdpField.getText();
     }
 
     /**

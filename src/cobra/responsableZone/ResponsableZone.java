@@ -100,5 +100,10 @@ public class ResponsableZone extends CorbaClient implements Runnable{
         respZoneFrame = new ResponsableZoneFrame(this);
         respZoneFrame.setVisible(true);
     }
+
+    void reinitPersonnes() {
+        this.respZone=null;
+        this.personnesTrouvees=null;
+    }
     
 }

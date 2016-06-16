@@ -5,19 +5,20 @@
  */
 package cobra.responsableZone;
 
+import controleAcces.annuairePackage.loginIncorrectException;
+import controleAcces.annuairePackage.personneInexistanteException;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author Mélanie
- */
+
 public class ResponsableZoneFrame extends javax.swing.JFrame {
    
     private ResponsableZone respZone;
     
     private enum ETAT {
-	NONCONNECTE, RECHERCHE, AJOUTPERMANENT, RECAPAJOUT
-  };
+	NONCONNECTE, RECHERCHE, AJOUTAUTORISATION, RECAPAJOUT
+    };
    private ETAT etat;
 
   private enum ETATM {
@@ -27,7 +28,7 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
   private ETATM etatMessage;
 
   private String message;
-    
+  
   private boolean aMessage;
     /**
      * Creates new form ResponsableZoneFrame
@@ -45,6 +46,12 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
 	activateNonConnecte();
 	aMessage = false;
     }
+   
+     private void setMessage(ETATM em, String m) {
+	etatMessage = em;
+	message = m;
+	aMessage = true;
+  }
     
       private void updateMessage() {
 	if (aMessage) {
@@ -119,6 +126,17 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
 	recherchePanel1.setVisible(false);
         autoriserPanel1.setVisible(false);
         recapPanel1.setVisible(true);
+  }
+      private void sessionExpiree() {
+	setMessage(ETATM.ERROR, "Session expirée");
+	etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
+  }
+
+  private void sessionInvalide() {
+	setMessage(ETATM.ERROR, "Session invalide");
+	etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
   }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -228,11 +246,95 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
+        switch (etat) {
+	  case NONCONNECTE:
+		this.dispose();
+		break;
+	  case RECHERCHE:
+		setMessage(ETATM.INFOR, "Opération annulée");
+                etat = ETAT.NONCONNECTE;
+                respZone.reinitPersonnes();
+		activateNonConnecte();
+		break;
+          case AJOUTAUTORISATION:
+		setMessage(ETATM.INFOR, "Opération annulée");
+                etat = ETAT.RECHERCHE;
+                activateRecherche();
+		break;
+          case RECAPAJOUT:
+		etat = ETAT.NONCONNECTE;
+                respZone.reinitPersonnes();
+		activateNonConnecte();
+		break;
+	  default:
+		throw new RuntimeException("Transition d'état impossible");
+	}
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        // TODO add your handling code here:
+        switch(etat) {
+            case NONCONNECTE :
+                try {
+                    respZone.authentifier(loginRZPanel1.getMatricule(), loginRZPanel1.getMdp());
+
+                } catch (loginIncorrectException ex) {
+                    setMessage(ETATM.ERROR, ex.message);
+                    etat = ETAT.NONCONNECTE;
+                    activateNonConnecte();
+                } catch (personneInexistanteException ex) {
+                    setMessage(ETATM.ERROR, ex.message);
+                    etat = ETAT.NONCONNECTE;
+                    activateNonConnecte();
+                }
+                break;
+                                    
+             case RECHERCHE :
+                if (null != recherchePanel1.getMatricule() || null != recherchePanel1.getNom() || null != recherchePanel1.getPrenom()){
+                    String mat;
+                    String nom;
+                    String prenom;
+                    
+                    if (null == recherchePanel1.getMatricule()){
+                        mat = "";
+                    }
+                    else {
+                        mat = recherchePanel1.getMatricule();
+                    }
+                    if (null == recherchePanel1.getNom()){
+                        nom = "";
+                    }
+                    else {                        
+                        nom = recherchePanel1.getNom();
+                    }
+                    if (null == recherchePanel1.getPrenom()){
+                        prenom="";
+                    }
+                    else {
+                        prenom = recherchePanel1.getPrenom();
+                    }
+                    if( mat=="" && nom=="" && prenom=="")
+                    {
+                        setMessage(ETATM.ERROR, "Attention, au moins un champ doit être rempli");
+                        etat = ETAT.RECHERCHE;
+                        activateRecherche();
+                    }
+                    else {
+                        try {
+                            respZone.rechercherPersonne(mat, nom, prenom);
+                            setMessage(ETATM.INFOR, "Resultats");
+                            etat = ETAT.AJOUTAUTORISATION;
+                            activateAutoriser();
+                        } catch (personneInexistanteException ex) {
+                            setMessage(ETATM.ERROR, "Attention, aucune personne ne corespond à votre requête");
+                            etat = ETAT.RECHERCHE;
+                            activateRecherche();
+                        }
+                    }
+                }
+            case AJOUTAUTORISATION :
+            case RECAPAJOUT :
+            default:
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     /**
