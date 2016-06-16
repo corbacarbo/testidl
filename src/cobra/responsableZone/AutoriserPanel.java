@@ -175,4 +175,15 @@ public class AutoriserPanel extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField minuteFField;
     private javax.swing.JLabel minuteFLabel;
     // End of variables declaration//GEN-END:variables
+
+    void initState() {
+    heureDField.setText("");
+    heureDField.setFocusable(true);
+    heureDField.requestFocus();
+    minuteDField.setText("");
+    minuteFField.setText("");
+    heureFField.setText("");
+    jourDField.setText("");
+    jourFField.setText("");
+    }
 }

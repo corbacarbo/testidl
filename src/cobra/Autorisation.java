@@ -9,6 +9,18 @@ public class Autorisation {
   protected Horaire horaireD;
   protected Horaire horaireF;
 
+    public Matricule getMatricule() {
+        return matricule;
+    }
+
+    public Horaire getHoraireD() {
+        return horaireD;
+    }
+
+    public Horaire getHoraireF() {
+        return horaireF;
+    }
+
   public Autorisation(Matricule matricule, Horaire horaireD, Horaire horaireF) {
 	this.matricule = matricule;
 	this.horaireD = horaireD;

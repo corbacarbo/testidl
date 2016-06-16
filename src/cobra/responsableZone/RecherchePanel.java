@@ -110,4 +110,8 @@ public class RecherchePanel extends javax.swing.JPanel {
     private javax.swing.JTextField prenomField;
     private javax.swing.JLabel prenomLabel;
     // End of variables declaration//GEN-END:variables
+
+    void initState() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -5,23 +5,121 @@
  */
 package cobra.responsableZone;
 
+import java.awt.Color;
+
 /**
  *
  * @author Mélanie
  */
 public class ResponsableZoneFrame extends javax.swing.JFrame {
+   
+    private ResponsableZone respZone;
+    
+    private enum ETAT {
+	NONCONNECTE, RECHERCHE, AJOUTPERMANENT, RECAPAJOUT
+  };
+   private ETAT etat;
 
+  private enum ETATM {
+
+	ERROR, INFOR
+  };
+  private ETATM etatMessage;
+
+  private String message;
+    
+  private boolean aMessage;
     /**
      * Creates new form ResponsableZoneFrame
      */
-    public ResponsableZoneFrame() {
+   public ResponsableZoneFrame() {
         initComponents();
     }
-
-    ResponsableZoneFrame(ResponsableZone respZone) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+   public ResponsableZoneFrame(ResponsableZone respZone) {
+        this.respZone = respZone;
+        initComponents();
+	this.setSize(700, 400);
+        this.setTitle("Responsable de Zone");
+	etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
+	aMessage = false;
     }
+    
+      private void updateMessage() {
+	if (aMessage) {
+	  infoLabel.setText(message);
+	  if (etatMessage == ETATM.ERROR) {
+		infoLabel.setForeground(Color.red);
+	  }
+	  if (etatMessage == ETATM.INFOR) {
+		infoLabel.setForeground(Color.blue);
+	  }
+	} else {
+	  infoLabel.setText("");
+	}
+	aMessage = false;
+  }
 
+  private void activateNonConnecte() {
+	titreLabel.setText("LOGIN");
+	okButton.setText("Connexion");
+	okButton.setEnabled(true);
+	cancelButton.setText("Fermer");
+	cancelButton.setEnabled(true);
+	updateMessage();
+
+	loginRZPanel1.initState();
+	loginRZPanel1.setVisible(true);
+	recherchePanel1.setVisible(false);
+        autoriserPanel1.setVisible(false);
+        recapPanel1.setVisible(false);
+  }
+  
+  private void activateRecherche() {
+	titreLabel.setText("Rechercher une personne");
+	okButton.setText("Chercher");
+	okButton.setEnabled(true);
+	cancelButton.setText("Annnuler");
+	cancelButton.setEnabled(true);
+	updateMessage();
+
+	recherchePanel1.initState();
+	loginRZPanel1.setVisible(false);
+	recherchePanel1.setVisible(true);
+        autoriserPanel1.setVisible(false);
+        recapPanel1.setVisible(false);
+  }
+  
+    private void activateAutoriser() {
+	titreLabel.setText("Céation de l'autorisation");
+	okButton.setText("Enregistrer");
+	okButton.setEnabled(true);
+	cancelButton.setText("Annnuler");
+	cancelButton.setEnabled(true);
+	updateMessage();
+
+	autoriserPanel1.initState();
+	loginRZPanel1.setVisible(false);
+	recherchePanel1.setVisible(false);
+        autoriserPanel1.setVisible(true);
+        recapPanel1.setVisible(false);
+  }
+    
+     private void activateRecap() {
+	titreLabel.setText("Céation de l'autorisation");
+	okButton.setText("Enregistrer");
+	okButton.setEnabled(true);
+	cancelButton.setText("Annnuler");
+	cancelButton.setEnabled(true);
+	updateMessage();
+
+	recapPanel1.initState();
+	loginRZPanel1.setVisible(false);
+	recherchePanel1.setVisible(false);
+        autoriserPanel1.setVisible(false);
+        recapPanel1.setVisible(true);
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

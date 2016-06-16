@@ -11,6 +11,10 @@ package cobra.responsableZone;
  */
 public class LoginRZPanel extends javax.swing.JPanel {
 
+    static void initState() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * Creates new form LoginRZPanel
      */
