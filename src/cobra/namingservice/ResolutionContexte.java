@@ -2,15 +2,10 @@ package cobra.namingservice;
 
 import cobra.CorbaUtil;
 import controleAcces.annuaire;
-import controleAcces.annuaireHelper;
 import controleAcces.autorisateur;
-import controleAcces.autorisateurHelper;
 import controleAcces.coffreFort;
-import controleAcces.coffreFortHelper;
 import controleAcces.journal;
-import controleAcces.journalHelper;
 import controleAcces.trousseau;
-import controleAcces.trousseauHelper;
 import controleAcces.zoneur;
 import controleAcces.zoneurHelper;
 import java.util.logging.Level;

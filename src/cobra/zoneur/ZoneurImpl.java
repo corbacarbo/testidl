@@ -30,31 +30,37 @@ public class ZoneurImpl implements zoneurOperations {
 
   @Override
   public annuaire resolveAnnuaire() {
+	System.out.println("==" + zone + " résolution annuaire.");
 	return ns.resolveAnnuaire();
   }
 
   @Override
   public coffreFort resolveCoffreFort() {
+	System.out.println("==" + zone + " résolution coffreFort.");
 	return ns.resolveCoffreFort();
   }
 
   @Override
   public journal resolveJournal() {
+	System.out.println("==" + zone + " résolution journal.");
 	return ns.resolveJournal();
   }
 
   @Override
   public autorisateur resolveAutorisateur() {
+	System.out.println("==" + zone + " résolution autorisateur.");
 	return ns.resolveAutorisateur(zone);
   }
 
   @Override
   public autorisateur resolveAutorisateurTemporaire() {
+	System.out.println("==" + zone + " résolution autorisateur temporaire.");
 	return ns.resolveAutorisateurTemporaire();
   }
 
   @Override
   public trousseau resolveTrousseau() {
+	System.out.println("==" + zone + " résolution trousseau.");
 	return ns.resolveTrousseau();
   }
 
@@ -84,21 +90,23 @@ public class ZoneurImpl implements zoneurOperations {
 	}
 	return true;
   }
-
-  public static void main(String[] args) {
-
-  }
-
+  
   @Override
   public void entre(String matriculeIdl) {
 	Matricule matricule = new Matricule(matriculeIdl);
 	personnes.add(matricule);
+	System.out.println("++" + zone + " entrée: " + matricule);
   }
 
   @Override
   public void sort(String matriculeIdl) {
 	Matricule matricule = new Matricule(matriculeIdl);
 	personnes.remove(matricule);
+	System.out.println("--" + zone + " sortie: " + matricule);
+  }
+
+  public static void main(String[] args) {
+
   }
 
 }
