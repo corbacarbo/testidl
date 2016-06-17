@@ -29,123 +29,114 @@ import java.util.HashMap;
  *
  * @author Mélanie
  */
-public class ResponsableZone extends CorbaClient implements Runnable{
-    private String zone;
-    private ResponsableZoneFrame respZoneFrame;
+public class ResponsableZone extends CorbaClient implements Runnable {
 
-    private Cle cle;
+  private String zone;
+  private ResponsableZoneFrame respZoneFrame;
 
-    private PersonnePermanent respZone;
+  private Cle cle;
 
-    private HashMap<String,Personne>personnesTrouvees ;
-    
-    private Autorisation autorisationCourante;
+  private PersonnePermanent respZone;
 
-    private AutorisationRestreinte autorisationCouranteR;
+  private HashMap<String, Personne> personnesTrouvees;
 
-    public ArrayList<String> getPersonnesTrouvees() {
-        ArrayList<String> listePersonnes = new ArrayList<String>();
-        for (String p : personnesTrouvees.keySet()){
-            listePersonnes.add(p);
-        }
-        return listePersonnes;
-    }
-    public Autorisation getAutorisationCourante() {
-            return autorisationCourante;
-    }
-    public AutorisationRestreinte getAutorisationCouranteR() {
-            return autorisationCouranteR;
-    }
- 
-  public ResponsableZone (String zone) {
-	super("contexte", zone);
-      cle = null;
-      this.zone = zone;
+  private Autorisation autorisationCourante;
+
+  private AutorisationRestreinte autorisationCouranteR;
+
+  public ArrayList<String> getPersonnesTrouvees() {
+	ArrayList<String> listePersonnes = new ArrayList<String>();
+	for (String p : personnesTrouvees.keySet()) {
+	  listePersonnes.add(p);
+	}
+	return listePersonnes;
   }
-  
+
+  public Autorisation getAutorisationCourante() {
+	return autorisationCourante;
+  }
+
+  public AutorisationRestreinte getAutorisationCouranteR() {
+	return autorisationCouranteR;
+  }
+
+  public ResponsableZone(String zone) {
+	super("contexte", zone);
+	cle = null;
+	this.zone = zone;
+  }
+
   public String getZone() {
 	return zone;
   }
-  
+
   public static void main(String[] args) {
 	String zones = "ABC";
 
 	for (int i = 0; i < zones.length(); i++) {
-	  Thread tRespZone = new Thread(new ResponsableZone(zones.substring(i, i+1)));
+	  Thread tRespZone = new Thread(new ResponsableZone(zones.substring(i, i + 1)));
 	  tRespZone.start();
 	}
   }
+
   public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
-    annuaire annuaire = ns.resolveAnnuaire();
-    cle = new Cle(annuaire.authentification(mat, mdp));
-    System.out.println("Authentification réussie " + cle + "  " + mat);
+	annuaire annuaire = ns.resolveAnnuaire();
+	cle = new Cle(annuaire.authentification(mat, mdp));
+	System.out.println("Authentification réussie " + cle + "  " + mat);
 
-    public static void main(String[] args) {
-          String zones = "B";
-
-          for (int i = 0; i < zones.length(); i++) {
-            Thread tRespZone = new Thread(new ResponsableZone(zones.substring(i, i+1)));
-            tRespZone.start();
-          }
-    }
-    public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
-      annuaire annuaire = resolveAnnuaire();
-      cle = new Cle(annuaire.authentification(mat, mdp));
-      System.out.println("Authentification réussie " + cle + "  " + mat);
-
-      personneIdl personneIdl = annuaire.validerIdentite(mat);
-      respZone = new PersonnePermanent(personneIdl);
-      if(!respZone.isReponsible(zone)){
+	personneIdl personneIdl = annuaire.validerIdentite(mat);
+	respZone = new PersonnePermanent(personneIdl);
+	if (!respZone.isReponsible(zone)) {
 	  respZone = null;
-	  throw new loginIncorrectException("Vous n'êtes pas responsable de la zone "+zone);
+	  throw new loginIncorrectException("Vous n'êtes pas responsable de la zone " + zone);
 	}
-    }
+  }
 
-    public void rechercherPersonne(String mat,String nom,String prenom) throws personneInexistanteException, sessionInvalidException, sessionExpireeException{
-        annuaire annuaire = resolveAnnuaire();
-        Matricule m = new Matricule(mat);
-        personneIdl[] listePersTrouvees = annuaire.rechercherPersonne( cle.toIdl(), m.toIdl(), nom, prenom);
-        personnesTrouvees = Personne.tableToHashMap(listePersTrouvees);
-    }
+  public void rechercherPersonne(String mat, String nom, String prenom) throws personneInexistanteException, sessionInvalidException, sessionExpireeException {
+	annuaire annuaire = ns.resolveAnnuaire();
+	Matricule m = new Matricule(mat);
+	personneIdl[] listePersTrouvees = annuaire.rechercherPersonne(cle.toIdl(), m.toIdl(), nom, prenom);
+	personnesTrouvees = Personne.tableToHashMap(listePersTrouvees);
+  }
 
-    public void ajouterAutorisationP(String pers, String heureD , String minuteD,String heureF , String minuteF) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException{
-        Personne personneAAutoriser = personnesTrouvees.get(pers);
-        Horaire horaireD = new Horaire(heureD+":"+minuteD);
-        Horaire horaireF = new Horaire(heureF+":"+minuteF);
-        autorisateur autorisateur = resolveAutorisateur(zone);
-        Autorisation auth = new Autorisation(personneAAutoriser.getMatricule(), horaireD, horaireF);
-        autorisationCourante = auth;
-        autorisateur.ajouterAutorisation(cle.toIdl(), auth.toIdl());
-    }
+  public void ajouterAutorisationP(String pers, String heureD, String minuteD, String heureF, String minuteF) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
+	Personne personneAAutoriser = personnesTrouvees.get(pers);
+	Horaire horaireD = new Horaire(heureD + ":" + minuteD);
+	Horaire horaireF = new Horaire(heureF + ":" + minuteF);
+	autorisateur autorisateur = ns.resolveAutorisateur(zone);
+	Autorisation auth = new Autorisation(personneAAutoriser.getMatricule(), horaireD, horaireF);
+	autorisationCourante = auth;
+	autorisateur.ajouterAutorisation(cle.toIdl(), auth.toIdl());
+  }
 
-      public void ajouterAutorisationT(String pers, String heureD , String minuteD,String heureF , String minuteF, String jourD, String jourF) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException{
-        Personne personneAAutoriser = personnesTrouvees.get(pers);
-        Horaire horaireD = new Horaire(heureD+":"+minuteD);
-        Horaire horaireF = new Horaire(heureF+":"+minuteF);
-        Date dateD = new Date(jourD);
-        Date dateF = new Date(jourF);
-        autorisateur autorisateur = resolveAutorisateurTemporaire();
-        AutorisationRestreinte auth = new AutorisationRestreinte(dateD, dateF,zone, personneAAutoriser.getMatricule(), horaireD, horaireF);
-        autorisationCouranteR = auth;
-        autorisateur.ajouterAutorisationRestreinte(cle.toIdl(), auth.toIdlR());
-    }
-    
-  
-    @Override
-    public void run() {
-        respZoneFrame = new ResponsableZoneFrame(this);
-        respZoneFrame.setVisible(true);
-    }
+  public void ajouterAutorisationT(String pers, String heureD, String minuteD, String heureF, String minuteF, String jourD, String jourF) throws conflitAutorisationException, sessionInvalidException, sessionExpireeException {
+	Personne personneAAutoriser = personnesTrouvees.get(pers);
+	Horaire horaireD = new Horaire(heureD + ":" + minuteD);
+	Horaire horaireF = new Horaire(heureF + ":" + minuteF);
+	Date dateD = new Date(jourD);
+	Date dateF = new Date(jourF);
+	autorisateur autorisateur = ns.resolveAutorisateurTemporaire();
+	AutorisationRestreinte auth = new AutorisationRestreinte(dateD, dateF, zone, personneAAutoriser.getMatricule(), horaireD, horaireF);
+	autorisationCouranteR = auth;
+	autorisateur.ajouterAutorisationRestreinte(cle.toIdl(), auth.toIdlR());
+  }
 
-    public void reinitPersonnes() {
-        this.respZone=null;
-    }
-    public void reinitAjoutAutorisation(){
-        if(null != this.personnesTrouvees){
-            this.personnesTrouvees.clear();
-        }
-        this.autorisationCourante=null;
-        this.autorisationCouranteR=null;
-}
-    
+  @Override
+  public void run() {
+	respZoneFrame = new ResponsableZoneFrame(this);
+	respZoneFrame.setVisible(true);
+  }
+
+  public void reinitPersonnes() {
+	this.respZone = null;
+  }
+
+  public void reinitAjoutAutorisation() {
+	if (null != this.personnesTrouvees) {
+	  this.personnesTrouvees.clear();
+	}
+	this.autorisationCourante = null;
+	this.autorisationCouranteR = null;
+  }
+
 }
