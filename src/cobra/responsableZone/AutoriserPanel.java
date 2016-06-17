@@ -165,13 +165,15 @@ public class AutoriserPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void personnesComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_personnesComboBoxItemStateChanged
-        if (getSelectedPersonne().startsWith("t")){
-            jourDField.setEnabled(true);
-            jourFField.setEnabled(true);            
-        }
-        else {
-            jourDField.setEnabled(false);
-            jourFField.setEnabled(false);
+        if( null != getSelectedPersonne()){
+            if (getSelectedPersonne().startsWith("t")){
+                jourDField.setEnabled(true);
+                jourFField.setEnabled(true);            
+            }
+            else {
+                jourDField.setEnabled(false);
+                jourFField.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_personnesComboBoxItemStateChanged
 
