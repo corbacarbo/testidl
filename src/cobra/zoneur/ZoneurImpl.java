@@ -18,9 +18,9 @@ public class ZoneurImpl implements zoneurOperations {
 
   private String zone;
 
-  private CorbaEntite serveur;
-
   private Resolution ns;
+  
+  private int idPorte = 1;
 
   public ZoneurImpl(Resolution ns, String zone) {
 	this.zone = zone;
@@ -138,6 +138,11 @@ public class ZoneurImpl implements zoneurOperations {
 	Matricule matricule = new Matricule(matriculeIdl);
 	personnes.remove(matricule);
 	System.out.println("--" + zone + " sortie: " + matricule);
+  }
+
+  @Override
+  public int getIdPorte() {
+	return idPorte++;
   }
 
   public static void main(String[] args) {

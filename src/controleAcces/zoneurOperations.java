@@ -67,4 +67,9 @@ public interface zoneurOperations
      */
     public void sort(String matriculeIdl);
 
+    /**
+     * Operation getIdPorte
+     */
+    public int getIdPorte();
+
 }

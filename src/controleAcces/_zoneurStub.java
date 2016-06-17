@@ -614,4 +614,53 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
         }
     }
 
+    /**
+     * Operation getIdPorte
+     */
+    public int getIdPorte()
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("getIdPorte",true);
+                    _input = this._invoke(_output);
+                    int _arg_ret = _input.read_long();
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("getIdPorte",_opsClass);
+                if (_so == null)
+                   continue;
+                controleAcces.zoneurOperations _self = (controleAcces.zoneurOperations) _so.servant;
+                try
+                {
+                    return _self.getIdPorte();
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
 }

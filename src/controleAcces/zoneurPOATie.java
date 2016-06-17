@@ -158,4 +158,12 @@ public class zoneurPOATie extends zoneurPOA
         _tie.sort( matriculeIdl);
     }
 
+    /**
+     * Operation getIdPorte
+     */
+    public int getIdPorte()
+    {
+        return _tie.getIdPorte();
+    }
+
 }

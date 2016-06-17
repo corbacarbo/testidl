@@ -49,15 +49,15 @@ public class ResolutionContexte implements Resolution {
    */
   @Override
   public void fetchNamingservice(org.omg.CORBA.ORB orb) {
-	try {
-	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-			  orb.resolve_initial_references("NameService"));
-	} catch (InvalidName ex) {
-	  Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
-	}
+//	try {
+//	  namingService = org.omg.CosNaming.NamingContextHelper.narrow(
+//			  orb.resolve_initial_references("NameService"));
+//	} catch (InvalidName ex) {
+//	  Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
+//	}
 
-//	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-//			orb.string_to_object("corbaloc:iiop:1.2@192.168.43.124:2001/NameService"));
+	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
+			orb.string_to_object("corbaloc:iiop:1.2@192.168.43.101:2001/NameService"));
   }
 
   /**

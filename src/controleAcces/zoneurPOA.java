@@ -33,6 +33,8 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
     static {
             operationMap.put("entre",
                     new Operation_entre());
+            operationMap.put("getIdPorte",
+                    new Operation_getIdPorte());
             operationMap.put("isInsideZone",
                     new Operation_isInsideZone());
             operationMap.put("isNotInsideAllZoneEntree",
@@ -232,6 +234,19 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
         return _output;
     }
 
+    private org.omg.CORBA.portable.OutputStream _invoke_getIdPorte(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+
+        int _arg_result = getIdPorte();
+
+        _output = handler.createReply();
+        _output.write_long(_arg_result);
+
+        return _output;
+    }
+
     // operation classes
     private abstract static class AbstractOperation {
         protected abstract org.omg.CORBA.portable.OutputStream invoke(
@@ -357,6 +372,16 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_sort(_is, handler);
+        }
+    }
+
+    private static final class Operation_getIdPorte extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final zoneurPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_getIdPorte(_is, handler);
         }
     }
 

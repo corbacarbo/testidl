@@ -31,35 +31,32 @@ import controleAcces.zoneur;
 public class Porte extends CorbaClient implements Runnable {
 
   private String zone;
+  
+  private int id;
 
   private PorteFrame porteFrame;
 
   private Cle cle;
-
-  private long lastRenew;
 
   public Porte(String zone) {
 	super("contexte", zone);
 	cle = null;
 	this.zone = zone;
 	renewCle();
+	id = ns.resolveZoneur(zone).getIdPorte();
   }
 
   public void renewCle() {
 	if (cle == null) {
 	  cle = new Cle(ns.resolveTrousseau().startSession("ABCDE"));
-	  lastRenew = System.currentTimeMillis();
 	} else {
-
 	  cle = new Cle(ns.resolveTrousseau().startSession("ABCDE"));
-
 	}
   }
 
   public void checkCle() {
 	try {
 	  ns.resolveTrousseau().valideSession(cle.toIdl());
-
 	} catch (sessionInvalidException | sessionExpireeException ex) {
 	  renewCle();
 	}
@@ -73,6 +70,10 @@ public class Porte extends CorbaClient implements Runnable {
 	return ns;
   }
 
+  public int getId() {
+	return id;
+  }
+  
   public Personne entrer(Empreinte e, String photo)
 		  throws empreinteInconnueException,
 		  sessionInvalidException,
@@ -105,6 +106,11 @@ public class Porte extends CorbaClient implements Runnable {
 	  throw new PhotoErroneeException("Photos différentes: " + photo + "<>" + personne.getPhoto());
 	}
 
+	zoneur zo = ns.resolveZoneur(zone);
+	if (!zo.isNotInsideAllZoneEntree(matricule.toIdl())) {
+	  throw new DejaDansZoneException("Déjà dans une zone " + "  " + matricule, matricule);
+	}
+	
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
 	  autorisateur au = ns.resolveAutorisateur(zone);
@@ -114,10 +120,7 @@ public class Porte extends CorbaClient implements Runnable {
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 
-	zoneur zo = ns.resolveZoneur(zone);
-	if (!zo.isNotInsideAllZoneEntree(matricule.toIdl())) {
-	  throw new DejaDansZoneException("Déjà dans une zone " + "  " + matricule, matricule);
-	}
+	
 
 	zo.entre(matricule.toIdl());
 	
@@ -156,6 +159,14 @@ public class Porte extends CorbaClient implements Runnable {
 	if (!photo.equals(personne.getPhoto())) {
 	  throw new PhotoErroneeException("Photos différentes: " + photo + "<>" + personne.getPhoto());
 	}
+	
+	zoneur zo = ns.resolveZoneur(zone);
+	if (!zo.isNotInsideAllZoneSortie(matricule.toIdl())) {
+	  throw new DejaDansAutreZoneException("Déjà dans une zone " + "  " + matricule, matricule);
+	}
+	if (!zo.isInsideZone(mat)) {
+	  throw new PasDansZoneException("Pas dans zone " + zone + "  " + matricule, matricule);
+	}
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
@@ -166,14 +177,7 @@ public class Porte extends CorbaClient implements Runnable {
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 
-	zoneur zo = ns.resolveZoneur(zone);
-	if (!zo.isNotInsideAllZoneSortie(matricule.toIdl())) {
-	  throw new DejaDansAutreZoneException("Déjà dans une zone " + "  " + matricule, matricule);
-	}
-	if (!zo.isInsideZone(mat)) {
-	  throw new PasDansZoneException("Pas dans zone " + zone + "  " + matricule, matricule);
 	
-	}
 	
 	zo.sort(matricule.toIdl());
 
@@ -187,7 +191,7 @@ public class Porte extends CorbaClient implements Runnable {
   }
 
   public static void main(String[] args) {
-	String zones = "AABC";
+	String zones = "ABC";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  Thread tPorte = new Thread(new Porte(zones.substring(i, i + 1)));

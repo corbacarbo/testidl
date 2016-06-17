@@ -325,7 +325,7 @@ public class PorteFrame extends javax.swing.JFrame {
 		demande.setEmpreinteInconnu(empreinte);
 		demande.setIdZone(porte.getZone());
 		demande.setType(sens);
-		demande.setIdPorte(1);
+		demande.setIdPorte(porte.getId());
 		demande.setDateHeure(new GregorianCalendar());
 
 		if (sens.equals("entrée")) {
