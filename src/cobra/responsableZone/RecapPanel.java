@@ -5,6 +5,9 @@
  */
 package cobra.responsableZone;
 
+import cobra.Autorisation;
+import cobra.AutorisationRestreinte;
+
 /**
  *
  * @author Mélanie
@@ -139,4 +142,26 @@ public class RecapPanel extends javax.swing.JPanel {
     private javax.swing.JLabel zoneLabel;
     private javax.swing.JLabel zoneLabelData;
     // End of variables declaration//GEN-END:variables
+
+  public void setZoneRecap (String z){
+      zoneLabelData.setText(z);
+  }
+  
+  public void setRecap(Autorisation a){
+    matLabelData.setText(a.getMatricule().getMat());
+    heureDLabelData.setText(a.getHoraireD().toString());
+    heureFLabelData.setText(a.getHoraireF().toString());
+    jourDLabelData.setText("/");
+    jourFLabelData.setText("/");
+  }
+  
+    public void setRecap(AutorisationRestreinte a){
+    matLabelData.setText(a.getMatricule().getMat());
+    heureDLabelData.setText(a.getHoraireD().toString());
+    heureFLabelData.setText(a.getHoraireF().toString());
+    jourDLabelData.setText(a.getDateD().toString());
+    heureDLabelData.setText(a.getDateF().toString());
+    heureFLabelData.setText(a.getZone());
+  }
+  
 }

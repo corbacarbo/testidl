@@ -88,8 +88,8 @@ interface annuaire{
    * Recherche d'un employé par matricule et/ou nom et/ou prenom.
    * Peut retourner plusieurs personnes.
    */
-  listePersonne rechercherPersonne(in Matricule matriculeIdl, in string nom, in string prenom)
-	  raises (personneInexistanteException);
+  listePersonne rechercherPersonne(in Cle cleIdl, in Matricule matriculeIdl, in string nom, in string prenom)
+	  raises (personneInexistanteException, sessionInvalidException, sessionExpireeException);
 
   /*
    * Permet de chercher un employé à partir de son matricule.

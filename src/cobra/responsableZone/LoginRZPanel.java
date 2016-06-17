@@ -11,11 +11,24 @@ package cobra.responsableZone;
  */
 public class LoginRZPanel extends javax.swing.JPanel {
 
+    public void initState() {
+        matriculeField.setText("");
+        matriculeField.setFocusable(true);
+        matriculeField.requestFocus();
+        mdpField.setText("");
+    }
+
     /**
      * Creates new form LoginRZPanel
      */
     public LoginRZPanel() {
         initComponents();
+    }
+    public String getMatricule(){
+       return matriculeField.getText();
+    }
+    public String getMdp(){
+        return mdpField.getText();
     }
 
     /**

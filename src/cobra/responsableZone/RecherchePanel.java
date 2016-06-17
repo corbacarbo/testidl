@@ -73,10 +73,10 @@ public class RecherchePanel extends javax.swing.JPanel {
                             .addComponent(nomLabel)
                             .addComponent(prenomLabel))
                         .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prenomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(matriculeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(matriculeField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(nomField)
+                            .addComponent(prenomField))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,4 +110,13 @@ public class RecherchePanel extends javax.swing.JPanel {
     private javax.swing.JTextField prenomField;
     private javax.swing.JLabel prenomLabel;
     // End of variables declaration//GEN-END:variables
+
+    public void initState() {
+        matriculeField.setText("");
+        matriculeField.setFocusable(true);
+        matriculeField.requestFocus();
+        nomField.setText("");
+        matriculeField.setText("");
+        prenomField.setText("");
+    }
 }

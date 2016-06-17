@@ -5,23 +5,148 @@
  */
 package cobra.responsableZone;
 
-/**
- *
- * @author Mélanie
- */
-public class ResponsableZoneFrame extends javax.swing.JFrame {
+import controleAcces.annuairePackage.loginIncorrectException;
+import controleAcces.annuairePackage.personneInexistanteException;
+import controleAcces.autorisateurPackage.conflitAutorisationException;
+import controleAcces.sessionExpireeException;
+import controleAcces.sessionInvalidException;
+import java.awt.Color;
 
+
+public class ResponsableZoneFrame extends javax.swing.JFrame {
+   
+    private ResponsableZone respZone;
+    
+    private enum ETAT {
+	NONCONNECTE, RECHERCHE, AJOUTAUTORISATION, RECAPAJOUT
+    };
+   private ETAT etat;
+
+  private enum ETATM {
+
+	ERROR, INFOR
+  };
+  private ETATM etatMessage;
+
+  private String message;
+  
+  private boolean aMessage;
     /**
      * Creates new form ResponsableZoneFrame
      */
-    public ResponsableZoneFrame() {
+   public ResponsableZoneFrame() {
         initComponents();
     }
-
-    ResponsableZoneFrame(ResponsableZone respZone) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+   public ResponsableZoneFrame(ResponsableZone respZone) {
+        this.respZone = respZone;
+        initComponents();
+	this.setSize(700, 400);
+        this.setTitle("Responsable de Zone "+respZone.getZone());
+	etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
+	aMessage = false;
     }
+   
+     private void setMessage(ETATM em, String m) {
+	etatMessage = em;
+	message = m;
+	aMessage = true;
+  }
+    
+      private void updateMessage() {
+	if (aMessage) {
+	  infoLabel.setText(message);
+	  if (etatMessage == ETATM.ERROR) {
+		infoLabel.setForeground(Color.red);
+	  }
+	  if (etatMessage == ETATM.INFOR) {
+		infoLabel.setForeground(Color.blue);
+	  }
+	} else {
+	  infoLabel.setText("");
+	}
+	aMessage = false;
+  }
 
+  private void activateNonConnecte() {
+	titreLabel.setText("LOGIN");
+	okButton.setText("Connexion");
+	okButton.setEnabled(true);
+	cancelButton.setText("Fermer");
+	cancelButton.setEnabled(true);
+	updateMessage();
+        respZone.reinitAjoutAutorisation();
+        respZone.reinitPersonnes();
+	loginRZPanel1.initState();
+	loginRZPanel1.setVisible(true);
+	recherchePanel1.setVisible(false);
+        autoriserPanel2.setVisible(false);
+        recapPanel1.setVisible(false);
+  }
+  
+  private void activateRecherche() {
+	titreLabel.setText("Rechercher une personne");
+	okButton.setText("Chercher");
+	okButton.setEnabled(true);
+	cancelButton.setText("Annnuler");
+	cancelButton.setEnabled(true);
+	updateMessage();
+
+	recherchePanel1.initState();
+	loginRZPanel1.setVisible(false);
+	recherchePanel1.setVisible(true);
+        autoriserPanel2.setVisible(false);
+        recapPanel1.setVisible(false);
+  }
+  
+    private void activateAutoriser() {
+	titreLabel.setText("Céation de l'autorisation");
+	okButton.setText("Enregistrer");
+	okButton.setEnabled(true);
+	cancelButton.setText("Annnuler");
+	cancelButton.setEnabled(true);
+	updateMessage();
+
+	autoriserPanel2.initState(respZone.getPersonnesTrouvees());
+	loginRZPanel1.setVisible(false);
+	recherchePanel1.setVisible(false);
+        autoriserPanel2.setVisible(true);
+        recapPanel1.setVisible(false);
+  }
+    
+     private void activateRecap() {
+	titreLabel.setText("Récapitulatif de l'autorisation");
+	okButton.setText("Ajouter une nouvelle autorisation");
+	okButton.setEnabled(true);
+	cancelButton.setText("Quitter");
+	cancelButton.setEnabled(true);
+	updateMessage();
+        
+        if (null == respZone.getAutorisationCourante()){
+            recapPanel1.setRecap(respZone.getAutorisationCouranteR());
+        }
+        else {
+            recapPanel1.setRecap(respZone.getAutorisationCourante());
+            recapPanel1.setZoneRecap(respZone.getZone());
+        }
+	
+	loginRZPanel1.setVisible(false);
+	recherchePanel1.setVisible(false);
+        autoriserPanel2.setVisible(false);
+        recapPanel1.setVisible(true);
+  }
+      private void sessionExpiree() {
+	setMessage(ETATM.ERROR, "Session expirée");
+	etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
+  }
+
+  private void sessionInvalide() {
+	setMessage(ETATM.ERROR, "Session invalide");
+	etat = ETAT.NONCONNECTE;
+	activateNonConnecte();
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,15 +156,14 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        autoriserPanel1 = new cobra.responsableZone.AutoriserPanel();
         loginRZPanel1 = new cobra.responsableZone.LoginRZPanel();
         recherchePanel1 = new cobra.responsableZone.RecherchePanel();
-        autoriserPanel2 = new cobra.responsableZone.AutoriserPanel();
         recapPanel1 = new cobra.responsableZone.RecapPanel();
         cancelButton = new javax.swing.JButton();
         okButton = new javax.swing.JButton();
         titreLabel = new javax.swing.JLabel();
         infoLabel = new javax.swing.JLabel();
+        autoriserPanel2 = new cobra.responsableZone.AutoriserPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,32 +197,33 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(recherchePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(loginRZPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(autoriserPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(recapPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(358, 358, 358)
-                                .addComponent(cancelButton)))
-                        .addGap(0, 140, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(175, 175, 175)
+                                .addComponent(loginRZPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(141, 141, 141)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(autoriserPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(recherchePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(358, 358, 358)
+                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 122, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(recapPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(610, Short.MAX_VALUE)
-                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(647, Short.MAX_VALUE)
+                    .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(33, 33, 33)))
         );
         layout.setVerticalGroup(
@@ -108,20 +233,20 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(infoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addComponent(loginRZPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(recherchePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(loginRZPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(recherchePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(autoriserPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(recapPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(cancelButton)
                 .addGap(41, 41, 41))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(1094, Short.MAX_VALUE)
+                    .addContainerGap(975, Short.MAX_VALUE)
                     .addComponent(okButton)
                     .addGap(42, 42, 42)))
         );
@@ -130,11 +255,187 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
+        switch (etat) {
+	  case NONCONNECTE:
+		this.dispose();
+		break;
+	  case RECHERCHE:
+		setMessage(ETATM.INFOR, "Opération annulée");
+                etat = ETAT.NONCONNECTE;
+                respZone.reinitPersonnes();
+		activateNonConnecte();
+		break;
+          case AJOUTAUTORISATION:
+		setMessage(ETATM.INFOR, "Opération annulée");
+                respZone.reinitAjoutAutorisation();
+                etat = ETAT.RECHERCHE;
+                activateRecherche();
+		break;
+          case RECAPAJOUT:
+		etat = ETAT.NONCONNECTE;
+                respZone.reinitPersonnes();
+		activateNonConnecte();
+		break;
+	  default:
+		throw new RuntimeException("Transition d'état impossible");
+	}
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        // TODO add your handling code here:
+        switch(etat) {
+            case NONCONNECTE :
+                try {
+                    respZone.authentifier(loginRZPanel1.getMatricule(), loginRZPanel1.getMdp());
+                    etat = ETAT.RECHERCHE;
+                        activateRecherche();
+                } catch (loginIncorrectException ex) {
+                    setMessage(ETATM.ERROR, ex.message);
+                    etat = ETAT.NONCONNECTE;
+                    activateNonConnecte();
+                } catch (personneInexistanteException ex) {
+                    setMessage(ETATM.ERROR, ex.message);
+                    etat = ETAT.NONCONNECTE;
+                    activateNonConnecte();
+                }
+                break;
+                                    
+             case RECHERCHE :
+                if (null != recherchePanel1.getMatricule() || null != recherchePanel1.getNom() || null != recherchePanel1.getPrenom()){
+                    String mat;
+                    String nom;
+                    String prenom;
+                    
+                    if (null == recherchePanel1.getMatricule()){
+                        mat = "";
+                    }
+                    else {
+                        mat = recherchePanel1.getMatricule();
+                    }
+                    if (null == recherchePanel1.getNom()){
+                        nom = "";
+                    }
+                    else {                        
+                        nom = recherchePanel1.getNom();
+                    }
+                    if (null == recherchePanel1.getPrenom()){
+                        prenom="";
+                    }
+                    else {
+                        prenom = recherchePanel1.getPrenom();
+                    }
+                    if( mat.isEmpty() && nom.isEmpty() && prenom.isEmpty())
+                    {
+                        setMessage(ETATM.ERROR, "Attention, au moins un champ doit être rempli");
+                        etat = ETAT.RECHERCHE;
+                        activateRecherche();
+                    }
+                    else {
+                        try {
+                            respZone.rechercherPersonne(mat, nom, prenom);
+                            setMessage(ETATM.INFOR, "Resultats");
+                            etat = ETAT.AJOUTAUTORISATION;
+                            activateAutoriser();
+                        } catch (personneInexistanteException ex) {
+                            setMessage(ETATM.ERROR, "Aucune personne ne correspond à votre requête");
+                            etat = ETAT.RECHERCHE;
+                            activateRecherche();
+                        } catch (sessionInvalidException ex) {
+                            sessionInvalide();
+                        } catch (sessionExpireeException ex) {
+                            sessionExpiree();
+                        }
+                    }
+                }
+                else {
+                    setMessage(ETATM.ERROR, "ERREUR");
+                            etat = ETAT.RECHERCHE;
+                            activateRecherche();
+                }
+                break;
+            case AJOUTAUTORISATION :
+                if (null != autoriserPanel2.getSelectedPersonne()){
+                    String selectedPersonne = autoriserPanel2.getSelectedPersonne();
+                    if (selectedPersonne.startsWith("t")){
+                        if(null != autoriserPanel2.getHeureD()&& null != autoriserPanel2.getHeureF() 
+                                && null != autoriserPanel2.getMinuteD() && null != autoriserPanel2.getMinuteF()
+                                && null != autoriserPanel2.getJourD() && null!= autoriserPanel2.getJourF()) {
+                            if(! autoriserPanel2.getHeureD().isEmpty()&& ! autoriserPanel2.getHeureF().isEmpty()
+                                && ! autoriserPanel2.getMinuteD().isEmpty() && ! autoriserPanel2.getMinuteF().isEmpty()
+                                && ! autoriserPanel2.getJourD().isEmpty() && ! autoriserPanel2.getJourF().isEmpty()){
+                                try {
+                                    respZone.ajouterAutorisationT(selectedPersonne, autoriserPanel2.getHeureD(),
+                                            autoriserPanel2.getMinuteD() , autoriserPanel2.getHeureF(),
+                                            autoriserPanel2.getMinuteF(), autoriserPanel2.getJourD(), autoriserPanel2.getJourF());
+                                    etat = ETAT.RECAPAJOUT;
+                                    activateRecap();
+                                } catch (conflitAutorisationException ex) {
+                                    setMessage(ETATM.ERROR, ex.message);
+                                    etat = ETAT.AJOUTAUTORISATION;
+                                    updateMessage();
+                                } catch (sessionInvalidException ex) {
+                                    sessionInvalide();
+                                } catch (sessionExpireeException ex) {
+                                    sessionExpiree();
+                                }
+                            }
+                            else {
+                                setMessage(ETATM.ERROR, "Tous les champs doivent être remplis");
+                                etat = ETAT.AJOUTAUTORISATION;
+                                updateMessage();
+                            }
+                        }
+                        else {
+                            setMessage(ETATM.ERROR, "Tous les champs doivent être remplis");
+                            etat = ETAT.AJOUTAUTORISATION;
+                            updateMessage();
+                        }
+                    }
+                    else{
+                        if(null != autoriserPanel2.getHeureD()&& null != autoriserPanel2.getHeureF() 
+                                && null != autoriserPanel2.getMinuteD() && null != autoriserPanel2.getMinuteF()){
+                            if(! autoriserPanel2.getHeureD().isEmpty()&& ! autoriserPanel2.getHeureF().isEmpty()
+                                && ! autoriserPanel2.getMinuteD().isEmpty() && ! autoriserPanel2.getMinuteF().isEmpty()){
+                                try {
+                                    respZone.ajouterAutorisationP(selectedPersonne, autoriserPanel2.getHeureD(),
+                                            autoriserPanel2.getMinuteD(), autoriserPanel2.getHeureF(), autoriserPanel2.getMinuteF());
+                                    etat = ETAT.RECAPAJOUT;
+                                        activateRecap();
+                                } catch (conflitAutorisationException ex) {
+                                    setMessage(ETATM.ERROR, ex.message);
+                                    etat = ETAT.AJOUTAUTORISATION;
+                                    updateMessage();
+                                } catch (sessionInvalidException ex) {
+                                    sessionInvalide();
+                                } catch (sessionExpireeException ex) {
+                                    sessionExpiree();
+                                }
+                            }
+                            else {
+                                setMessage(ETATM.ERROR, "Tous les champs doivent être remplis");
+                                etat = ETAT.AJOUTAUTORISATION;
+                                updateMessage();
+                            }
+                        }
+                        else {
+                            setMessage(ETATM.ERROR, "Tous les champs doivent être remplis");
+                            etat = ETAT.AJOUTAUTORISATION;
+                            updateMessage();
+                        }
+                    }
+                }
+                else {
+                    setMessage(ETATM.ERROR, "Tous les champs doivent être remplis");
+                    etat = ETAT.AJOUTAUTORISATION;
+                    updateMessage();
+                }
+                break;
+            case RECAPAJOUT :
+                etat = ETAT.RECHERCHE;
+                activateRecherche();
+                break;
+            default:
+                throw new RuntimeException("Transition d'état impossible");
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     /**
@@ -173,7 +474,6 @@ public class ResponsableZoneFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private cobra.responsableZone.AutoriserPanel autoriserPanel1;
     private cobra.responsableZone.AutoriserPanel autoriserPanel2;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel infoLabel;

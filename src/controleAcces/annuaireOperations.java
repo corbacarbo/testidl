@@ -22,8 +22,8 @@ public interface annuaireOperations
     /**
      * Peut retourner plusieurs personnes.
      */
-    public controleAcces.personneIdl[] rechercherPersonne(String matriculeIdl, String nom, String prenom)
-        throws controleAcces.annuairePackage.personneInexistanteException;
+    public controleAcces.personneIdl[] rechercherPersonne(long cleIdl, String matriculeIdl, String nom, String prenom)
+        throws controleAcces.annuairePackage.personneInexistanteException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException;
 
     /**
      * 

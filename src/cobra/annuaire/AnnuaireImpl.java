@@ -229,38 +229,7 @@ public class AnnuaireImpl implements annuaireOperations {
     }
   }
 
-  @Override
-  public personneIdl[] rechercherPersonne(String matriculeIdl, String nom, String prenom) throws personneInexistanteException {
-	ArrayList<Personne> res = new ArrayList<>();
-    Matricule matricule;
-	// On met les paramètres à null s'ils ont des valeurs sans importance,
-	// pour faciliter les tests.
-	if(matriculeIdl == null || matriculeIdl.isEmpty()){
-	  matricule = null;
-	}
-	else{
-	  matricule = new Matricule(matriculeIdl);
-	}
-	if(nom.isEmpty()){
-	  nom = null;
-	}
-	if(prenom.isEmpty()){
-	  prenom = null;
-	}
-	
-	for(Personne p : annuaire.values()){
-	  if(matricule != null && p.getMatricule().equals(matricule)){
-		res.add(p);
-	  }
-	  else if(prenom != null && p.getPrenom().equals(prenom)){
-		res.add(p);
-	  }
-	  else if(nom != null && p.getNom().equals(nom)){
-		res.add(p);
-	  }
-	}
-	return Personne.listToTabidl(res);
-  }
+
 
   /**
    * Cherche et retourne une personne à partir de son matricule.
@@ -330,10 +299,49 @@ public class AnnuaireImpl implements annuaireOperations {
     PersonneTemporaire personne = new PersonneTemporaire(p);
 
     genereMatricule(personne);
-
+ 
     annuaire.put(personne.getMatricule(), personne);
 
     return personne.toIdl();
   }
+
+    @Override
+    public personneIdl[] rechercherPersonne(long cleIdl, String matriculeIdl, String nom, String prenom) throws personneInexistanteException, sessionInvalidException, sessionExpireeException {
+        serveur.resolveTrousseau().valideSession(cleIdl);
+        
+        
+        ArrayList<Personne> res = new ArrayList<>();
+         Matricule matricule;
+	// On met les paramètres à null s'ils ont des valeurs sans importance,
+	// pour faciliter les tests.
+	if(matriculeIdl == null || matriculeIdl.isEmpty()){
+	  matricule = null;
+	}
+	else{
+	  matricule = new Matricule(matriculeIdl);
+	}
+	if(nom.isEmpty()){
+	  nom = null;
+	}
+	if(prenom.isEmpty()){
+	  prenom = null;
+	}
+	
+	for(Personne p : annuaire.values()){
+	  if(matricule != null && p.getMatricule().equals(matricule)){
+		res.add(p);
+	  }
+	  else if(prenom != null && p.getPrenom().equals(prenom)){
+		res.add(p);
+	  }
+	  else if(nom != null && p.getNom().equals(nom)){
+		res.add(p);
+	  }
+	}
+        if (res.isEmpty()){
+            throw new personneInexistanteException("Aucune personne trouvée  " + matriculeIdl + ", nom:" + nom + ", prenom:" + prenom);
+        }
+	return Personne.listToTabidl(res);
+    }
 
 }

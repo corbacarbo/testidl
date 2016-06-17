@@ -83,10 +83,10 @@ public class annuairePOATie extends annuairePOA
     /**
      * Operation rechercherPersonne
      */
-    public controleAcces.personneIdl[] rechercherPersonne(String matriculeIdl, String nom, String prenom)
-        throws controleAcces.annuairePackage.personneInexistanteException
+    public controleAcces.personneIdl[] rechercherPersonne(long cleIdl, String matriculeIdl, String nom, String prenom)
+        throws controleAcces.annuairePackage.personneInexistanteException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
-        return _tie.rechercherPersonne( matriculeIdl,  nom,  prenom);
+        return _tie.rechercherPersonne( cleIdl,  matriculeIdl,  nom,  prenom);
     }
 
     /**

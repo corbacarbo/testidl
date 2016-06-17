@@ -95,10 +95,12 @@ public class AutorisateurImpl implements autorisateurOperations {
 	Autorisation autorisationDemandee = new Autorisation(autorisationIdl);
 
 	for (Autorisation uneAuto : autorisations) {
-	  if (autorisationDemandee.recouvrement(uneAuto)) {
+	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule()) 
+                  && autorisationDemandee.recouvrement(uneAuto)) {
 		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
 	  }
 	}
+        System.out.println("++" + zone + "  autorisation permanente ajoutée " + autorisationDemandee);
 	autorisations.add(autorisationDemandee);
   }
 
@@ -112,10 +114,14 @@ public class AutorisateurImpl implements autorisateurOperations {
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
 
 	for (Autorisation uneAuto : autorisations) {
-	  if (autorisationDemandee.recouvrement(uneAuto)) {
+            AutorisationRestreinte uneAutoRest = (AutorisationRestreinte) uneAuto;
+	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule())
+                  && uneAutoRest.getZone().equals(autorisationDemandee.getZone())
+                  && autorisationDemandee.recouvrement(uneAuto)) {
 		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
 	  }
 	}
+        System.out.println("++" + zone + "  autorisation temporaire ajoutée " + autorisationDemandee);
 	autorisations.add(autorisationDemandee);
   }
 

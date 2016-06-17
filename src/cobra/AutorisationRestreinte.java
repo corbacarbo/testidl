@@ -8,6 +8,19 @@ public class AutorisationRestreinte extends Autorisation {
   protected Date dateD;
   protected Date dateF;
   private String zone;
+  
+  public Date getDateD() {
+        return dateD;
+    }
+
+    public Date getDateF() {
+        return dateF;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
 
   public AutorisationRestreinte(Date dateD, Date dateF, String zone, Matricule matricule, Horaire heureD, Horaire heureF) {
 	super(matricule, heureD, heureF);
