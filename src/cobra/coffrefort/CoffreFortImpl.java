@@ -5,6 +5,7 @@ import cobra.CorbaEntite;
 import cobra.DataExample;
 import cobra.Empreinte;
 import cobra.Matricule;
+import cobra.namingservice.Resolution;
 import controleAcces.coffreFortOperations;
 import controleAcces.coffreFortPackage.empreinteInconnueException;
 import controleAcces.coffreFortPackage.matriculeErroneException;
@@ -15,12 +16,12 @@ import java.util.HashMap;
 
 public class CoffreFortImpl implements coffreFortOperations {
 
-  private CorbaEntite serveur;
+  private Resolution ns;
 
   private HashMap<Empreinte, Matricule> empreintes;
 
-  public CoffreFortImpl(CorbaEntite serveur) {
-	this.serveur = serveur;
+  public CoffreFortImpl(Resolution ns) {
+	this.ns = ns;
 	remplirCoffreFort();
   }
 
@@ -50,7 +51,7 @@ public class CoffreFortImpl implements coffreFortOperations {
 
   @Override
   public void aEmpreinte(long cleIdl, String matriculeIdl) throws matriculeInconnuException, sessionInvalidException, sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	ns.resolveTrousseau().valideSession(cleIdl);
 	
 	Matricule matricule = new Matricule(matriculeIdl);
 	Empreinte empreinte = getEmpreinte(matricule);
@@ -61,7 +62,7 @@ public class CoffreFortImpl implements coffreFortOperations {
   
   @Override
   public String validerEmpreinte(long cleIdl, long empreinteIdl) throws empreinteInconnueException, sessionInvalidException, sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	ns.resolveTrousseau().valideSession(cleIdl);
 
 	Matricule matricule;
 	Empreinte empreinte = new Empreinte(empreinteIdl);
@@ -76,7 +77,7 @@ public class CoffreFortImpl implements coffreFortOperations {
 
   @Override
   public void modificationEmpreinte(long cleIdl, long empreinteIdl, String matriculeIdl) throws matriculeInconnuException, sessionInvalidException, sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	ns.resolveTrousseau().valideSession(cleIdl);
 
 	Matricule matricule = new Matricule(matriculeIdl);
 	Empreinte newEmpreinte = new Empreinte(empreinteIdl);
@@ -97,7 +98,7 @@ public class CoffreFortImpl implements coffreFortOperations {
 
   @Override
   public void ajouterEmpreinteTemp(long cleIdl, long empreinteIdl, String matriculeIdl) throws sessionInvalidException, sessionExpireeException, matriculeErroneException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	ns.resolveTrousseau().valideSession(cleIdl);
 	
 	Matricule matricule = new Matricule(matriculeIdl);
 	Empreinte empreinte = new Empreinte(empreinteIdl);
@@ -112,7 +113,7 @@ public class CoffreFortImpl implements coffreFortOperations {
 
     @Override
     public void supprimerEmpreinteTemp(long cleIdl, String matriculeIdl) throws matriculeErroneException, sessionInvalidException, sessionExpireeException, matriculeInconnuException {
-          serveur.resolveTrousseau().valideSession(cleIdl);
+          ns.resolveTrousseau().valideSession(cleIdl);
           
           Matricule matricule = new Matricule(matriculeIdl);
           Empreinte empreinte = getEmpreinte(matricule);

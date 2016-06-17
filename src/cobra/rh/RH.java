@@ -31,12 +31,13 @@ public class RH extends CorbaClient implements Runnable {
     private RHFrame rhFrame;
     
     public RH(){
+	  super("globale", null);
         personneAjout=null;
         rhConnecte=null;
     }
     
     public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
-    annuaire annuaire = resolveAnnuaire();
+    annuaire annuaire = ns.resolveAnnuaire();
     cle = new Cle(annuaire.authentification(mat, mdp));
     System.out.println("Authentification réussie " + cle + "  " + mat);
 
@@ -49,7 +50,7 @@ public class RH extends CorbaClient implements Runnable {
   }
     
     public void ajouterPermanent(String nom,String prenom, String photo) throws sessionInvalidException, sessionExpireeException{
-        annuaire annuaire = resolveAnnuaire();
+        annuaire annuaire = ns.resolveAnnuaire();
         PersonnePermanent p = new PersonnePermanent("", true, "", new Matricule(""), nom, prenom, photo);
         personneIdl persCree = annuaire.ajouterPermanent(cle.toIdl(),p.toIdl());
         personneAjout=new PersonnePermanent(persCree);

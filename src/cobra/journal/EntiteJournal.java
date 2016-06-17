@@ -23,7 +23,7 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 public class EntiteJournal extends CorbaEntite {
 
   public EntiteJournal() {
-    super();
+    super("globale");
   }
 
   @Override

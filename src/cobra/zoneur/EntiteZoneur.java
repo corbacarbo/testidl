@@ -1,7 +1,8 @@
-package cobra.autorisateur;
+package cobra.zoneur;
 
 import cobra.CorbaEntite;
-import controleAcces.autorisateurPOATie;
+import cobra.autorisateur.EntiteAutorisateur;
+import controleAcces.zoneurPOATie;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.CosNaming.NameComponent;
@@ -13,23 +14,23 @@ import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-public class EntiteAutorisateur extends CorbaEntite implements Runnable {
+public class EntiteZoneur extends CorbaEntite implements Runnable {
 
   private String zone;
 
-  public EntiteAutorisateur(String resolutionType, String zone) {
-	super(resolutionType);
+  public EntiteZoneur(String zone) {
+	super("globale");
 	this.zone = zone;
   }
 
   @Override
   public void createServant() {
 	try {
-	  AutorisateurImpl autorisateur = new AutorisateurImpl(this.ns, zone);
+	  ZoneurImpl zoneur = new ZoneurImpl(this.ns, zone);
 
-	  autorisateurPOATie autorisateurTie = new autorisateurPOATie(autorisateur);
+	  zoneurPOATie zoneurTie = new zoneurPOATie(zoneur);
 
-	  byte[] autorisateurId = rootPOA.activate_object(autorisateurTie);
+	  byte[] zoneurId = rootPOA.activate_object(zoneurTie);
 
 	  if (zone != null) {
 		try {
@@ -41,11 +42,8 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 		  System.out.println("Contexte " + zone + " déjà créé.");
 		}
 
-		rebind(zone, "autorisateur", rootPOA.servant_to_reference(autorisateurTie));
-	  } else {
-		rebind("autorisateurTemporaire", rootPOA.servant_to_reference(autorisateurTie));
+		rebind(zone, "zoneur", rootPOA.servant_to_reference(zoneurTie));
 	  }
-
 	} catch (ServantAlreadyActive | WrongPolicy | NotFound | CannotProceed | InvalidName | ServantNotActive | AlreadyBound ex) {
 	  Logger.getLogger(EntiteAutorisateur.class.getName()).log(Level.SEVERE, null, ex);
 	}
@@ -54,27 +52,21 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 
   @Override
   public void run() {
-	startEntite(zone);
+	startEntite();
 	startOrb();
   }
 
   public static void main(String[] args) throws InterruptedException {
-	String zones = "ABCT";
+	String zones = "ABC";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  String zo = zones.substring(i, i + 1);
 
-	  if (zo.equals("T")) {
-		EntiteAutorisateur e = new EntiteAutorisateur("globale", null);
-		Thread t = new Thread(e);
-		t.start();
-		Thread.sleep(1000);
-	  } else {
-		EntiteAutorisateur e = new EntiteAutorisateur("contexte", zo);
-		Thread t = new Thread(e);
-		t.start();
-		Thread.sleep(1000);
-	  }
+	  EntiteZoneur e = new EntiteZoneur(zo);
+	  Thread t = new Thread(e);
+	  t.start();
+	  Thread.sleep(1000);
+
 	}
   }
 

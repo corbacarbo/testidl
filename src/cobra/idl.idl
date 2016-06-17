@@ -281,4 +281,44 @@ interface journal{
 
 };
 
+/******************** ZONEUR ********************/
+
+interface zoneur{
+
+  /********** Types *****/
+
+
+
+  /********** Exceptions *****/
+
+
+
+  /********** Méthodes *****/
+
+  annuaire resolveAnnuaire();
+
+  coffreFort resolveCoffreFort();
+
+  journal resolveJournal();
+
+  autorisateur resolveAutorisateur();
+
+  autorisateur resolveAutorisateurTemporaire();
+
+  trousseau resolveTrousseau();
+
+  boolean isNotInsideZone(in string matriculeIdl);
+
+  boolean isNotInsideAllZoneEntree(in string matriculeIdl);
+
+  boolean isNotInsideAllZoneSortie(in string matriculeIdl);
+
+  boolean isInsideZone(in string matriculeIdl);
+
+  void entre(in string matriculeIdl);
+
+  void sort(in string matriculeIdl);
+
+};
+
 };

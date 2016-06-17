@@ -16,6 +16,7 @@ import java.util.HashMap;
 import cobra.CorbaEntite;
 import cobra.Matricule;
 import cobra.PersonneTemporaire;
+import cobra.namingservice.Resolution;
 import java.util.ArrayList;
 
 public class AnnuaireImpl implements annuaireOperations {
@@ -24,7 +25,7 @@ public class AnnuaireImpl implements annuaireOperations {
    * Référence vers la classe qui encapsule pour avoir accès aux méthodes de
    * CorbaEntite : résolution d'entité...
    */
-  private CorbaEntite serveur;
+  private Resolution ns;
 
   /**
    * Ensemble des employés de l'entreprise, permanents et temporaires.
@@ -42,11 +43,12 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Constructeur
    *
+   * @param ns
    * @param s référence vers la classe instanciatrice (ou processus serveur).
    */
-  public AnnuaireImpl(CorbaEntite s) {
+  public AnnuaireImpl(Resolution ns) {
     super();
-    serveur = s;
+    this.ns = ns;
     remplirAnnuaire();
   }
 
@@ -103,7 +105,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * @param mdp2 un mot de passe,
    * @throws MdpErroneException si les chaînes ne sont pas identiques.
    */
-  private void mdpEgaux(String mdp1, String mdp2) throws MdpErroneException {
+  private void mdpEgaux(String mdp1, String mdp2) 
+		  throws MdpErroneException {
     if (!mdp1.equals(mdp2)) {
       throw new MdpErroneException("Mot de passe erroné");
     }
@@ -142,7 +145,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * @throws loginIncorrectException
    */
   @Override
-  public long authentification(String matriculeIdl, String mdp) throws loginIncorrectException {
+  public long authentification(String matriculeIdl, String mdp) 
+		  throws loginIncorrectException {
     Cle cle;
     PersonnePermanent p;
     Matricule matricule = new Matricule(matriculeIdl);
@@ -181,7 +185,7 @@ public class AnnuaireImpl implements annuaireOperations {
      * * Création d'une nouvelle session pour la personne authentifiée **
      */
     // Cherche gestionnaire de clé de session
-    trousseau t = serveur.resolveTrousseau();
+    trousseau t = ns.resolveTrousseau();
     // Récupération d'une nouvelle clé
     cle = new Cle(t.startSession("ABCDE"));
 
@@ -210,7 +214,7 @@ public class AnnuaireImpl implements annuaireOperations {
           sessionExpireeException,
           personneInexistanteException {
 
-    trousseau trousseau = serveur.resolveTrousseau();
+    trousseau trousseau = ns.resolveTrousseau();
     trousseau.valideSession(cle);
 
     PersonnePermanent p;
@@ -265,7 +269,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * @throws personneInexistanteException le matricule fourni n'existe pas
    */
   @Override
-  public personneIdl validerIdentite(String matriculeIdl) throws personneInexistanteException {
+  public personneIdl validerIdentite(String matriculeIdl) 
+		  throws personneInexistanteException {
     Matricule matricule = new Matricule(matriculeIdl);
     if (annuaire.containsKey(matricule)) {
       Personne personne = annuaire.get(matricule);
@@ -290,8 +295,11 @@ public class AnnuaireImpl implements annuaireOperations {
    * @throws controleAcces.sessionExpireeException
    */
   @Override
-  public personneIdl ajouterPermanent(long cle, personneIdl p)throws sessionInvalidException, sessionExpireeException 
+  public personneIdl ajouterPermanent(long cle, personneIdl p)
+		  throws sessionInvalidException, sessionExpireeException 
   {
+	ns.resolveTrousseau().valideSession(cle);
+	
     PersonnePermanent personne = new PersonnePermanent(p);
 
     genereMdp(personne);
@@ -314,7 +322,11 @@ public class AnnuaireImpl implements annuaireOperations {
      * @throws controleAcces.sessionExpireeException
    */
   @Override
-  public personneIdl ajouterTemporaire(long cle, personneIdl p) throws sessionInvalidException, sessionExpireeException {
+  public personneIdl ajouterTemporaire(long cle, personneIdl p) 
+		  throws sessionInvalidException, sessionExpireeException {
+	
+	ns.resolveTrousseau().valideSession(cle);
+	
     PersonneTemporaire personne = new PersonneTemporaire(p);
 
     genereMatricule(personne);

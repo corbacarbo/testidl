@@ -365,8 +365,23 @@ public class PorteFrame extends javax.swing.JFrame {
 		setMessage(ETATM.ERROR, "Photo et empreinte ne correspondent pas.");
 		demande.setStatut(ex.message);
 		activateEchec();
+	  } catch (DejaDansZoneException ex) {
+		setMessage(ETATM.ERROR, "Entrée impossible.");
+		demande.setMatricule(new Matricule(ex.matricule.toIdl()));
+		demande.setStatut(ex.message);
+		activateReussi();
+	  } catch (DejaDansAutreZoneException ex) {
+		setMessage(ETATM.ERROR, "Sortie impossible.");
+		demande.setMatricule(new Matricule(ex.matricule.toIdl()));
+		demande.setStatut(ex.message);
+		activateReussi();
+	  } catch (PasDansZoneException ex) {
+		setMessage(ETATM.ERROR, "Vous n'êtes pas entré.");
+		demande.setMatricule(new Matricule(ex.matricule.toIdl()));
+		demande.setStatut(ex.message);
+		activateReussi();
 	  } finally {
-		journal j = porte.resolveJournal();
+		journal j = porte.getNs().resolveJournal();
 		if (demande.getMatricule() == null) {
 		  j.loguerInconnu(demande.toIdl());
 		} else {

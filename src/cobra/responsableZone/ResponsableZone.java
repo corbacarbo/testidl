@@ -40,6 +40,7 @@ public class ResponsableZone extends CorbaClient implements Runnable{
   private HashMap<String,Personne> personnesTrouvees;
  
   public ResponsableZone (String zone) {
+	super("contexte", zone);
       cle = null;
       this.zone = zone;
   }
@@ -57,7 +58,7 @@ public class ResponsableZone extends CorbaClient implements Runnable{
 	}
   }
   public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
-    annuaire annuaire = resolveAnnuaire();
+    annuaire annuaire = ns.resolveAnnuaire();
     cle = new Cle(annuaire.authentification(mat, mdp));
     System.out.println("Authentification réussie " + cle + "  " + mat);
 
@@ -68,7 +69,7 @@ public class ResponsableZone extends CorbaClient implements Runnable{
   }
   
   public void rechercherPersonne(String mat,String nom,String prenom) throws personneInexistanteException{
-      annuaire annuaire = resolveAnnuaire();
+      annuaire annuaire = ns.resolveAnnuaire();
       Matricule m = new Matricule(mat);
       personneIdl[] listePersTrouvees = annuaire.rechercherPersonne(m.toIdl(), nom, prenom);
       personnesTrouvees = Personne.tableToHashMap(listePersTrouvees);
@@ -78,7 +79,7 @@ public class ResponsableZone extends CorbaClient implements Runnable{
       Personne personneAAutoriser = personnesTrouvees.get(pers);
       Horaire horaireD = new Horaire(heureD+":"+minuteD);
       Horaire horaireF = new Horaire(heureF+":"+minuteF);
-      autorisateur autorisateur = resolveAutorisateur(zone);
+      autorisateur autorisateur = ns.resolveAutorisateur(zone);
       Autorisation auth = new Autorisation(personneAAutoriser.getMatricule(), horaireD, horaireF);
       autorisateur.ajouterAutorisation(cle.toIdl(), auth.toIdl());
   }
@@ -89,7 +90,7 @@ public class ResponsableZone extends CorbaClient implements Runnable{
       Horaire horaireF = new Horaire(heureF+":"+minuteF);
       Date dateD = new Date(jourD);
       Date dateF = new Date(jourF);
-      autorisateur autorisateur = resolveAutorisateur(temporaire);
+      autorisateur autorisateur = ns.resolveAutorisateur(temporaire);
       AutorisationRestreinte auth = new AutorisationRestreinte(dateD, dateF,zone, personneAAutoriser.getMatricule(), horaireD, horaireF);
       autorisateur.ajouterAutorisationRestreinte(cle.toIdl(), auth.toIdlR());
   }

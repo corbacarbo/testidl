@@ -12,18 +12,17 @@ import cobra.Matricule;
 import cobra.Personne;
 import cobra.PersonnePermanent;
 import cobra.PersonneTemporaire;
+import cobra.namingservice.Resolution;
 import controleAcces.annuaire;
 import controleAcces.annuairePackage.personneInexistanteException;
 import controleAcces.autorisateur;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
 import controleAcces.coffreFort;
 import controleAcces.coffreFortPackage.empreinteInconnueException;
-import controleAcces.journalPackage.demandeIdl;
 import controleAcces.personneIdl;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controleAcces.zoneur;
 
 /**
  *
@@ -40,6 +39,7 @@ public class Porte extends CorbaClient implements Runnable {
   private long lastRenew;
 
   public Porte(String zone) {
+	super("contexte", zone);
 	cle = null;
 	this.zone = zone;
 	renewCle();
@@ -47,18 +47,18 @@ public class Porte extends CorbaClient implements Runnable {
 
   public void renewCle() {
 	if (cle == null) {
-	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
+	  cle = new Cle(ns.resolveTrousseau().startSession("ABCDE"));
 	  lastRenew = System.currentTimeMillis();
 	} else {
 
-	  cle = new Cle(resolveTrousseau().startSession("ABCDE"));
+	  cle = new Cle(ns.resolveTrousseau().startSession("ABCDE"));
 
 	}
   }
 
   public void checkCle() {
 	try {
-	  resolveTrousseau().valideSession(cle.toIdl());
+	  ns.resolveTrousseau().valideSession(cle.toIdl());
 
 	} catch (sessionInvalidException | sessionExpireeException ex) {
 	  renewCle();
@@ -69,24 +69,29 @@ public class Porte extends CorbaClient implements Runnable {
 	return zone;
   }
 
+  public Resolution getNs() {
+	return ns;
+  }
+
   public Personne entrer(Empreinte e, String photo)
 		  throws empreinteInconnueException,
 		  sessionInvalidException,
 		  sessionExpireeException,
 		  personneInexistanteException,
 		  autorisationRefuseeException,
-		  PhotoErroneeException {
+		  PhotoErroneeException,
+		  DejaDansZoneException {
 	Personne personne;
 	Matricule matricule;
 	checkCle();
 
 	// 1-Récupération du matricule à partir de l'empreinte
-	coffreFort cf = resolveCoffreFort();
+	coffreFort cf = ns.resolveCoffreFort();
 	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
 	matricule = new Matricule(mat);
 
 	// 2-Récupération de la personne à partir du matricule
-	annuaire an = resolveAnnuaire();
+	annuaire an = ns.resolveAnnuaire();
 	personneIdl pers = an.validerIdentite(matricule.toIdl());
 
 	if (matricule.isPermanent()) {
@@ -102,12 +107,20 @@ public class Porte extends CorbaClient implements Runnable {
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
-	  autorisateur au = resolveAutorisateur(zone);
+	  autorisateur au = ns.resolveAutorisateur(zone);
 	  au.autoriser(matricule.toIdl(), zone);
 	} else {
-	  autorisateur at = resolveAutorisateurTemporaire();
+	  autorisateur at = ns.resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
+
+	zoneur zo = ns.resolveZoneur(zone);
+	if (!zo.isNotInsideAllZoneEntree(matricule.toIdl())) {
+	  throw new DejaDansZoneException("Déjà dans une zone " + "  " + matricule, matricule);
+	}
+
+	zo.entre(matricule.toIdl());
+	
 	return personne;
   }
 
@@ -117,18 +130,20 @@ public class Porte extends CorbaClient implements Runnable {
 		  sessionExpireeException,
 		  personneInexistanteException,
 		  autorisationRefuseeException,
-		  PhotoErroneeException {
+		  PhotoErroneeException,
+		  DejaDansAutreZoneException,
+		  PasDansZoneException {
 	Personne personne;
 	Matricule matricule;
 	checkCle();
 
 	// 1-Récupération du matricule à partir de l'empreinte
-	coffreFort cf = resolveCoffreFort();
+	coffreFort cf = ns.resolveCoffreFort();
 	String mat = cf.validerEmpreinte(cle.toIdl(), e.toIdl());
 	matricule = new Matricule(mat);
 
 	// 2-Récupération de la personne à partir du matricule
-	annuaire an = resolveAnnuaire();
+	annuaire an = ns.resolveAnnuaire();
 	personneIdl pers = an.validerIdentite(matricule.toIdl());
 
 	if (matricule.isPermanent()) {
@@ -144,12 +159,24 @@ public class Porte extends CorbaClient implements Runnable {
 
 	// 4-Vérification de l'autorisation
 	if (matricule.isPermanent()) {
-	  autorisateur au = resolveAutorisateur(zone);
+	  autorisateur au = ns.resolveAutorisateur(zone);
 	  au.autoriser(matricule.toIdl(), zone);
 	} else {
-	  autorisateur at = resolveAutorisateurTemporaire();
+	  autorisateur at = ns.resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
+
+	zoneur zo = ns.resolveZoneur(zone);
+	if (!zo.isNotInsideAllZoneSortie(matricule.toIdl())) {
+	  throw new DejaDansAutreZoneException("Déjà dans une zone " + "  " + matricule, matricule);
+	}
+	if (!zo.isInsideZone(mat)) {
+	  throw new PasDansZoneException("Pas dans zone " + zone + "  " + matricule, matricule);
+	
+	}
+	
+	zo.sort(matricule.toIdl());
+
 	return personne;
   }
 
@@ -160,7 +187,7 @@ public class Porte extends CorbaClient implements Runnable {
   }
 
   public static void main(String[] args) {
-	String zones = "ABC";
+	String zones = "AABC";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  Thread tPorte = new Thread(new Porte(zones.substring(i, i + 1)));

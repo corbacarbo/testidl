@@ -5,6 +5,7 @@ import cobra.AutorisationRestreinte;
 import cobra.CorbaEntite;
 import cobra.DataExample;
 import cobra.Matricule;
+import cobra.namingservice.Resolution;
 import controleAcces.autorisateurOperations;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
 import controleAcces.autorisateurPackage.autorisationIdl;
@@ -31,7 +32,7 @@ public class AutorisateurImpl implements autorisateurOperations {
    * Référence vers la classe qui encapsule pour avoir accès aux méthodes de
    * CorbaEntite : résolution d'entité...
    */
-  private CorbaEntite serveur;
+  private Resolution ns;
 
   /**
    * La zone de responsabilité de cet autorisateur (seulement si permanent).
@@ -60,8 +61,8 @@ public class AutorisateurImpl implements autorisateurOperations {
    * serveur).
    * @param zone
    */
-  public AutorisateurImpl(CorbaEntite serveur, String zone) {
-	this.serveur = serveur;
+  public AutorisateurImpl(Resolution ns, String zone) {
+	this.ns = ns;
 	this.zone = zone;
 	if (zone == null) {
 	  // Autorisateur pour temporaires
@@ -89,7 +90,7 @@ public class AutorisateurImpl implements autorisateurOperations {
   public void ajouterAutorisation(long cleIdl, autorisationIdl autorisationIdl)
 		  throws conflitAutorisationException, sessionInvalidException,
 		  sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	ns.resolveZoneur(zone).resolveTrousseau().valideSession(cleIdl);
 
 	Autorisation autorisationDemandee = new Autorisation(autorisationIdl);
 
@@ -106,7 +107,7 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  autorisationRestreinteIdl autorisationIdl)
 		  throws conflitAutorisationException, sessionInvalidException,
 		  sessionExpireeException {
-	serveur.resolveTrousseau().valideSession(cleIdl);
+	ns.resolveZoneur(zone).resolveTrousseau().valideSession(cleIdl);
 
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
 

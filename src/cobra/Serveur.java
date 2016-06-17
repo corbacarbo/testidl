@@ -14,6 +14,10 @@ import org.omg.PortableServer.Servant;
 
 public class Serveur extends CorbaEntite{
 
+  public Serveur(String resolutionType) {
+	super(resolutionType);
+  }
+
   @Override
   public void createServant() {
     

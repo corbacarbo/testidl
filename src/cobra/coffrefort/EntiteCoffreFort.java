@@ -15,13 +15,13 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
 public class EntiteCoffreFort extends CorbaEntite{
 
   public EntiteCoffreFort() {
-	super();
+	super("globale");
   }
   
   @Override
   public void createServant() {
 	try {
-      CoffreFortImpl coffreFort = new CoffreFortImpl(this);
+      CoffreFortImpl coffreFort = new CoffreFortImpl(this.ns);
 
       coffreFortPOATie coffreFortTie = new coffreFortPOATie(coffreFort);
 
