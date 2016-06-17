@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<root>
+  <uneempreinte>
+	<matricule>pjohn</matricule>
+	<empreinte>ejohn</empreinte>
+  </uneempreinte>
+  <uneempreinte>
+	<matricule>pjames</matricule>
+	<empreinte>ejames</empreinte>
+  </uneempreinte>
+  <uneempreinte>
+	<matricule>tjean</matricule>
+	<empreinte>ejean</empreinte>
+  </uneempreinte>
+  <uneempreinte>
+	<matricule>pjane</matricule>
+	<empreinte>ejane</empreinte>
+  </uneempreinte>
+    
+</root>

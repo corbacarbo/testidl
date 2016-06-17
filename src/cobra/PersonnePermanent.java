@@ -78,6 +78,12 @@ public class PersonnePermanent extends Personne {
 	return this.photo;
   }
 
+  public String getResponsabilite() {
+	return responsabilite;
+  }
+
+  
+  
   public boolean isReponsible(String s){
 	return responsabilite.contains(s);
   }

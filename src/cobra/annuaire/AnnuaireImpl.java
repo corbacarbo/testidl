@@ -13,7 +13,6 @@ import controleAcces.trousseau;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.util.HashMap;
-import cobra.CorbaEntite;
 import cobra.Matricule;
 import cobra.PersonneTemporaire;
 import cobra.namingservice.Resolution;
@@ -55,7 +54,14 @@ public class AnnuaireImpl implements annuaireOperations {
   /**
    * Remplit l'annuaire avec des données d'exemple.
    */
-  private void remplirAnnuaire() {
+  private void remplirAnnuaireOld() {
+	annuaire = DataExample.extractPersonnesFromFile();
+	afficher();
+	loginInfo = new HashMap<>();
+	loginInfo.put("accueil", "accueil");
+  }
+  
+    private void remplirAnnuaire() {
 	annuaire = DataExample.extractPersonnesFromFile();
 	afficher();
 	loginInfo = new HashMap<>();
