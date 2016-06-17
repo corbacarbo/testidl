@@ -57,7 +57,7 @@ public class ResolutionContexte implements Resolution {
 //	}
 
 	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-			orb.string_to_object("corbaloc:iiop:1.2@192.168.43.101:2001/NameService"));
+			orb.string_to_object("corbaloc:iiop:1.2@192.168.43.158:2001/NameService"));
   }
 
   /**

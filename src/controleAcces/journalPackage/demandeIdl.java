@@ -43,6 +43,11 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
     public int type;
 
     /**
+     * Struct member importance
+     */
+    public boolean importance;
+
+    /**
      * Default constructor
      */
     public demandeIdl()
@@ -57,8 +62,9 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
      * @param idPorte idPorte struct member
      * @param statut statut struct member
      * @param type type struct member
+     * @param importance importance struct member
      */
-    public demandeIdl(String matricule, long empreinteIdl, long dateHeure, String idZone, int idPorte, String statut, int type)
+    public demandeIdl(String matricule, long empreinteIdl, long dateHeure, String idZone, int idPorte, String statut, int type, boolean importance)
     {
         this.matricule = matricule;
         this.empreinteIdl = empreinteIdl;
@@ -67,6 +73,7 @@ public final class demandeIdl implements org.omg.CORBA.portable.IDLEntity
         this.idPorte = idPorte;
         this.statut = statut;
         this.type = type;
+        this.importance = importance;
     }
 
 }

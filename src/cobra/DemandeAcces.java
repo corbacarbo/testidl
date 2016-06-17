@@ -39,6 +39,8 @@ public class DemandeAcces implements Comparable {
    * type de tentative : Entrée ou Sortie
    */
   private String type;
+  
+  private boolean important;
 
   /**
    * empreinte de la personne si elle n'a pas pu être authentifiée
@@ -58,6 +60,7 @@ public class DemandeAcces implements Comparable {
 	this.idPorte = d.idPorte;
 	this.idZone = d.idZone;
 	this.statut = d.statut;
+	this.important = d.importance;
 	if (d.type == 0) {
 	  this.type = "entrée";
 	} else {
@@ -76,6 +79,10 @@ public class DemandeAcces implements Comparable {
 
   public GregorianCalendar getDateHeure() {
 	return dateHeure;
+  }
+
+  public boolean isImportance() {
+	return important;
   }
 
   public void setMatricule(Matricule matricule) {
@@ -100,6 +107,10 @@ public class DemandeAcces implements Comparable {
 
   public void setType(String type) {
 	this.type = type;
+  }
+
+  public void setImportant(boolean importance) {
+	this.important = importance;
   }
 
   public void setEmpreinteInconnu(Empreinte empreinteInconnu) {
@@ -136,9 +147,9 @@ public class DemandeAcces implements Comparable {
 	  typeES = 1;
 	}
 	if (matricule == null) {
-	  return new demandeIdl("", this.empreinteInconnu.toIdl(), this.dateHeure.getTimeInMillis(), this.idZone, this.idPorte, this.statut, typeES);
+	  return new demandeIdl("", this.empreinteInconnu.toIdl(), this.dateHeure.getTimeInMillis(), this.idZone, this.idPorte, this.statut, typeES, important);
 	} else {
-	  return new demandeIdl(this.matricule.toIdl(), this.empreinteInconnu.toIdl(), this.dateHeure.getTimeInMillis(), this.idZone, this.idPorte, this.statut, typeES);
+	  return new demandeIdl(this.matricule.toIdl(), this.empreinteInconnu.toIdl(), this.dateHeure.getTimeInMillis(), this.idZone, this.idPorte, this.statut, typeES, important);
 	}
   }
 

@@ -327,58 +327,72 @@ public class PorteFrame extends javax.swing.JFrame {
 		demande.setType(sens);
 		demande.setIdPorte(porte.getId());
 		demande.setDateHeure(new GregorianCalendar());
+		demande.setImportant(false);
 
 		if (sens.equals("entrée")) {
 		  personne = porte.entrer(empreinte, photo);
 		  setMessage(ETATM.INFOR, "Bienvenue " + personne.getPrenomNom() + ".");
-		}
-		else{
+		} else {
 		  personne = porte.sortir(empreinte, photo);
 		  setMessage(ETATM.INFOR, "Au revoir " + personne.getPrenomNom() + ".");
 		}
 		activateReussi();
 		demande.setMatricule(personne.getMatricule());
 		demande.setStatut(sens + " autorisée");
+		demande.setImportant(false);
 
 	  } catch (empreinteInconnueException ex) {
 		setMessage(ETATM.ERROR, "Empreinte inconnue");
 		demande.setStatut(ex.message);
+		demande.setImportant(true);
 		activateEchec();
 	  } catch (sessionInvalidException ex) {
 		setMessage(ETATM.ERROR, "Erreur interne (session invalide)");
 		demande.setStatut(ex.message);
+		demande.setImportant(false);
 		activateEchec();
 	  } catch (sessionExpireeException ex) {
 		setMessage(ETATM.ERROR, "Erreur interne (session expirée)");
 		demande.setStatut(ex.message);
+		demande.setImportant(false);
 		activateEchec();
 	  } catch (personneInexistanteException ex) {
 		setMessage(ETATM.ERROR, "Erreur interne (matricule ?)");
 		demande.setStatut(ex.message);
+		demande.setImportant(false);
 		activateEchec();
 	  } catch (autorisationRefuseeException ex) {
-		setMessage(ETATM.ERROR, "Autorisation refusée.");
+		if (sens.equals("entrée")) {
+		  setMessage(ETATM.ERROR, "Autorisation refusée.");
+		} else {
+		  setMessage(ETATM.ERROR, "Autorisation refusée, appelez la sécurité.");
+		}
 		demande.setMatricule(new Matricule(ex.matricule));
 		demande.setStatut(ex.message);
+		demande.setImportant(true);
 		activateReussi();
 	  } catch (PhotoErroneeException ex) {
 		setMessage(ETATM.ERROR, "Photo et empreinte ne correspondent pas.");
 		demande.setStatut(ex.message);
+		demande.setImportant(false);
 		activateEchec();
 	  } catch (DejaDansZoneException ex) {
 		setMessage(ETATM.ERROR, "Entrée impossible.");
 		demande.setMatricule(new Matricule(ex.matricule.toIdl()));
 		demande.setStatut(ex.message);
+		demande.setImportant(true);
 		activateReussi();
 	  } catch (DejaDansAutreZoneException ex) {
 		setMessage(ETATM.ERROR, "Sortie impossible.");
 		demande.setMatricule(new Matricule(ex.matricule.toIdl()));
 		demande.setStatut(ex.message);
+		demande.setImportant(true);
 		activateReussi();
 	  } catch (PasDansZoneException ex) {
 		setMessage(ETATM.ERROR, "Vous n'êtes pas entré.");
 		demande.setMatricule(new Matricule(ex.matricule.toIdl()));
 		demande.setStatut(ex.message);
+		demande.setImportant(true);
 		activateReussi();
 	  } finally {
 		journal j = porte.getNs().resolveJournal();

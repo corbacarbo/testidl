@@ -73,7 +73,7 @@ public class demandeIdlHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[7];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[8];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "matricule";
@@ -96,6 +96,9 @@ public class demandeIdlHelper
                 _members[6] = new org.omg.CORBA.StructMember();
                 _members[6].name = "type";
                 _members[6].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[7] = new org.omg.CORBA.StructMember();
+                _members[7].name = "importance";
+                _members[7].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_boolean);
                 _tc = orb.create_struct_tc(id(),"demandeIdl",_members);
                 _working = false;
             }
@@ -130,6 +133,7 @@ public class demandeIdlHelper
         new_one.idPorte = istream.read_long();
         new_one.statut = istream.read_string();
         new_one.type = istream.read_long();
+        new_one.importance = istream.read_boolean();
 
         return new_one;
     }
@@ -148,6 +152,7 @@ public class demandeIdlHelper
         ostream.write_long(value.idPorte);
         ostream.write_string(value.statut);
         ostream.write_long(value.type);
+        ostream.write_boolean(value.importance);
     }
 
 }

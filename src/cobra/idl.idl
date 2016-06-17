@@ -253,6 +253,7 @@ interface journal{
     long idPorte;
     string statut;
     long type;
+	boolean importance;
   } demandeStruct;
 
   typedef sequence<demandeStruct> listeDemande;

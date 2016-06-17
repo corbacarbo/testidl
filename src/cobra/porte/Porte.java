@@ -120,7 +120,6 @@ public class Porte extends CorbaClient implements Runnable {
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 
-	
 
 	zo.entre(matricule.toIdl());
 	

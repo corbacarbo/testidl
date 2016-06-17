@@ -59,7 +59,7 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
   }
 
   public static void main(String[] args) throws InterruptedException {
-	String zones = "CT";
+	String zones = "ABCT";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  String zo = zones.substring(i, i + 1);
