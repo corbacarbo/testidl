@@ -5,6 +5,8 @@
  */
 package cobra.responsableZone;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Mélanie
@@ -46,106 +48,110 @@ public class AutoriserPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        heureDField = new javax.swing.JFormattedTextField();
+        personnesComboBox = new javax.swing.JComboBox<>();
         heureDLabel = new javax.swing.JLabel();
         minuteDLabel = new javax.swing.JLabel();
-        minuteDField = new javax.swing.JFormattedTextField();
         heureFLabel = new javax.swing.JLabel();
-        heureFField = new javax.swing.JFormattedTextField();
         minuteFLabel = new javax.swing.JLabel();
-        minuteFField = new javax.swing.JFormattedTextField();
         jourDLabel = new javax.swing.JLabel();
-        jourDField = new javax.swing.JFormattedTextField();
         jourFLabel = new javax.swing.JLabel();
-        jourFField = new javax.swing.JFormattedTextField();
+        heureDField = new javax.swing.JTextField();
+        heureFField = new javax.swing.JTextField();
+        minuteDField = new javax.swing.JTextField();
+        minuteFField = new javax.swing.JTextField();
+        jourDField = new javax.swing.JTextField();
+        jourFField = new javax.swing.JTextField();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        heureDField.setText("jFormattedTextField1");
+        personnesComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                personnesComboBoxItemStateChanged(evt);
+            }
+        });
 
         heureDLabel.setText("Heure Début");
 
         minuteDLabel.setText("Minute Début");
 
-        minuteDField.setText("jFormattedTextField1");
-
         heureFLabel.setText("Heure Fin");
-
-        heureFField.setText("jFormattedTextField1");
 
         minuteFLabel.setText("Minute Fin");
 
-        minuteFField.setText("jFormattedTextField1");
-
         jourDLabel.setText("Jour Début");
-
-        jourDField.setText("jFormattedTextField1");
 
         jourFLabel.setText("Jour Fin");
 
-        jourFField.setText("jFormattedTextField2");
+        heureDField.setText("jTextField1");
+
+        heureFField.setText("jTextField1");
+
+        minuteDField.setText("jTextField1");
+
+        minuteFField.setText("jTextField1");
+
+        jourDField.setText("jTextField1");
+
+        jourFField.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jourFLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jourDLabel)
+                            .addGap(318, 318, 318)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jourFField, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(107, 107, 107)
+                                    .addComponent(jourDField, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(heureDLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(18, 18, 18)
                                         .addComponent(heureDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(heureFLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(heureFField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
+                                .addGap(60, 60, 60)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(minuteDLabel)
+                                    .addComponent(minuteFLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(minuteFLabel)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(minuteFField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(minuteDLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jourDLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jourDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jourFLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jourFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                                    .addComponent(minuteFField, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                                    .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(personnesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(personnesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(heureDLabel)
-                    .addComponent(heureDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(minuteDLabel)
+                    .addComponent(heureDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(heureFLabel)
-                    .addComponent(heureFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(minuteFLabel)
-                    .addComponent(minuteFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(heureFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minuteFField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heureFLabel))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jourDLabel)
@@ -158,32 +164,62 @@ public class AutoriserPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void personnesComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_personnesComboBoxItemStateChanged
+        if (getSelectedPersonne().startsWith("t")){
+            jourDField.setEnabled(true);
+            jourFField.setEnabled(true);            
+        }
+        else {
+            jourDField.setEnabled(false);
+            jourFField.setEnabled(false);
+        }
+    }//GEN-LAST:event_personnesComboBoxItemStateChanged
+
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFormattedTextField heureDField;
+    private javax.swing.JTextField heureDField;
     private javax.swing.JLabel heureDLabel;
-    private javax.swing.JFormattedTextField heureFField;
+    private javax.swing.JTextField heureFField;
     private javax.swing.JLabel heureFLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JFormattedTextField jourDField;
+    private javax.swing.JTextField jourDField;
     private javax.swing.JLabel jourDLabel;
-    private javax.swing.JFormattedTextField jourFField;
+    private javax.swing.JTextField jourFField;
     private javax.swing.JLabel jourFLabel;
-    private javax.swing.JFormattedTextField minuteDField;
+    private javax.swing.JTextField minuteDField;
     private javax.swing.JLabel minuteDLabel;
-    private javax.swing.JFormattedTextField minuteFField;
+    private javax.swing.JTextField minuteFField;
     private javax.swing.JLabel minuteFLabel;
+    private javax.swing.JComboBox<String> personnesComboBox;
     // End of variables declaration//GEN-END:variables
 
-    void initState() {
-    heureDField.setText("");
-    heureDField.setFocusable(true);
-    heureDField.requestFocus();
-    minuteDField.setText("");
-    minuteFField.setText("");
-    heureFField.setText("");
-    jourDField.setText("");
-    jourFField.setText("");
+    public void initState(ArrayList<String> listePersonnes) {
+        heureDField.setText("");
+        heureDField.setFocusable(true);
+        heureDField.requestFocus();
+        minuteDField.setText("");
+        minuteFField.setText("");
+        heureFField.setText("");
+        jourDField.setText("");
+        jourFField.setText("");
+        
+        personnesComboBox.removeAllItems();
+        for (String p : listePersonnes){
+            personnesComboBox.addItem(p);
+        }
+        if (null != personnesComboBox.getSelectedItem()){
+            if (getSelectedPersonne().startsWith("t")){
+                jourDField.setEnabled(true);
+                jourFField.setEnabled(true);            
+            }
+            else {
+                jourDField.setEnabled(false);
+                jourFField.setEnabled(false);
+            }
+        }
+    }
+    
+    public String getSelectedPersonne(){
+         return(String)personnesComboBox.getSelectedItem();
     }
 }

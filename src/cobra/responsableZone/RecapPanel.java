@@ -143,19 +143,16 @@ public class RecapPanel extends javax.swing.JPanel {
     private javax.swing.JLabel zoneLabelData;
     // End of variables declaration//GEN-END:variables
 
-    public void initState() {
-    matLabelData.setText("");
-    heureDLabelData.setText("");
-    heureFLabelData.setText("");
-    jourDLabelData.setText("");
-    jourFLabelData.setText("");
-    zoneLabelData.setText("");
+  public void setZoneRecap (String z){
+      zoneLabelData.setText(z);
   }
   
   public void setRecap(Autorisation a){
     matLabelData.setText(a.getMatricule().getMat());
     heureDLabelData.setText(a.getHoraireD().toString());
     heureFLabelData.setText(a.getHoraireF().toString());
+    jourDLabelData.setText("/");
+    jourFLabelData.setText("/");
   }
   
     public void setRecap(AutorisationRestreinte a){

@@ -153,8 +153,8 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation rechercherPersonne
      */
-    public controleAcces.personneIdl[] rechercherPersonne(String matriculeIdl, String nom, String prenom)
-        throws controleAcces.annuairePackage.personneInexistanteException
+    public controleAcces.personneIdl[] rechercherPersonne(long cleIdl, String matriculeIdl, String nom, String prenom)
+        throws controleAcces.annuairePackage.personneInexistanteException, controleAcces.sessionInvalidException, controleAcces.sessionExpireeException
     {
         while(true)
         {
@@ -164,6 +164,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("rechercherPersonne",true);
+                    controleAcces.CleHelper.write(_output,cleIdl);
                     controleAcces.MatriculeHelper.write(_output,matriculeIdl);
                     _output.write_string(nom);
                     _output.write_string(prenom);
@@ -183,6 +184,16 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                         throw controleAcces.annuairePackage.personneInexistanteExceptionHelper.read(_exception.getInputStream());
                     }
 
+                    if (_exception_id.equals(controleAcces.sessionInvalidExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionInvalidExceptionHelper.read(_exception.getInputStream());
+                    }
+
+                    if (_exception_id.equals(controleAcces.sessionExpireeExceptionHelper.id()))
+                    {
+                        throw controleAcces.sessionExpireeExceptionHelper.read(_exception.getInputStream());
+                    }
+
                     throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
                 }
                 finally
@@ -198,7 +209,7 @@ public class _annuaireStub extends org.omg.CORBA.portable.ObjectImpl
                 controleAcces.annuaireOperations _self = (controleAcces.annuaireOperations) _so.servant;
                 try
                 {
-                    return _self.rechercherPersonne( matriculeIdl,  nom,  prenom);
+                    return _self.rechercherPersonne( cleIdl,  matriculeIdl,  nom,  prenom);
                 }
                 finally
                 {

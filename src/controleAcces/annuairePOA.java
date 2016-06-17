@@ -116,13 +116,14 @@ public abstract class annuairePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = controleAcces.MatriculeHelper.read(_is);
-        String arg1_in = _is.read_string();
+        long arg0_in = controleAcces.CleHelper.read(_is);
+        String arg1_in = controleAcces.MatriculeHelper.read(_is);
         String arg2_in = _is.read_string();
+        String arg3_in = _is.read_string();
 
         try
         {
-            controleAcces.personneIdl[] _arg_result = rechercherPersonne(arg0_in, arg1_in, arg2_in);
+            controleAcces.personneIdl[] _arg_result = rechercherPersonne(arg0_in, arg1_in, arg2_in, arg3_in);
 
             _output = handler.createReply();
             controleAcces.annuairePackage.listePersonneHelper.write(_output,_arg_result);
@@ -132,6 +133,16 @@ public abstract class annuairePOA extends org.omg.PortableServer.Servant
         {
             _output = handler.createExceptionReply();
             controleAcces.annuairePackage.personneInexistanteExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionInvalidException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionInvalidExceptionHelper.write(_output,_exception);
+        }
+        catch (controleAcces.sessionExpireeException _exception)
+        {
+            _output = handler.createExceptionReply();
+            controleAcces.sessionExpireeExceptionHelper.write(_output,_exception);
         }
         return _output;
     }
