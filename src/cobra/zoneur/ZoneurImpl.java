@@ -71,7 +71,34 @@ public class ZoneurImpl implements zoneurOperations {
   }
 
   @Override
-  public boolean isNotInsideAllZone(String matriculeIdl) {
+  public boolean isNotInsideAllZoneEntree(String matriculeIdl) {
+	char[] zoneChar = new char[1];
+	zoneChar[0] = 'A';
+	boolean continueParcours = true;
+
+	if (isInsideZone(matriculeIdl)) {
+	  return false;
+	}
+
+	while (continueParcours) {
+	  String zoneString = new String(zoneChar);
+	  zoneur zoneur = ns.resolveZoneur(zoneString);
+	  if (!zoneString.equals(zone)) {
+		if (zoneur != null) {
+		  if (!zoneur.isNotInsideZone(matriculeIdl)) {
+			return false;
+		  }
+		} else {
+		  continueParcours = false;
+		}
+	  }
+	  zoneChar[0]++;
+	}
+	return true;
+  }
+
+  @Override
+  public boolean isNotInsideAllZoneSortie(String matriculeIdl) {
 	char[] zoneChar = new char[1];
 	zoneChar[0] = 'A';
 	boolean continueParcours = true;
@@ -79,18 +106,26 @@ public class ZoneurImpl implements zoneurOperations {
 	while (continueParcours) {
 	  String zoneString = new String(zoneChar);
 	  zoneur zoneur = ns.resolveZoneur(zoneString);
-	  if (zoneur != null) {
-		if (!zoneur.isNotInsideZone(matriculeIdl)) {
-		  return false;
+	  if (!zoneString.equals(zone)) {
+		if (zoneur != null) {
+		  if (!zoneur.isNotInsideZone(matriculeIdl)) {
+			return false;
+		  }
+		} else {
+		  continueParcours = false;
 		}
-	  } else {
-		continueParcours = false;
 	  }
 	  zoneChar[0]++;
 	}
 	return true;
   }
-  
+
+  @Override
+  public boolean isInsideZone(String matriculeIdl) {
+	Matricule matricule = new Matricule(matriculeIdl);
+	return personnes.contains(matricule);
+  }
+
   @Override
   public void entre(String matriculeIdl) {
 	Matricule matricule = new Matricule(matriculeIdl);

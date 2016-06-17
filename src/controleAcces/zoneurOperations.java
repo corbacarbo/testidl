@@ -43,9 +43,19 @@ public interface zoneurOperations
     public boolean isNotInsideZone(String matriculeIdl);
 
     /**
-     * Operation isNotInsideAllZone
+     * Operation isNotInsideAllZoneEntree
      */
-    public boolean isNotInsideAllZone(String matriculeIdl);
+    public boolean isNotInsideAllZoneEntree(String matriculeIdl);
+
+    /**
+     * Operation isNotInsideAllZoneSortie
+     */
+    public boolean isNotInsideAllZoneSortie(String matriculeIdl);
+
+    /**
+     * Operation isInsideZone
+     */
+    public boolean isInsideZone(String matriculeIdl);
 
     /**
      * Operation entre

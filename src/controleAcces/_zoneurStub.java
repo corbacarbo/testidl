@@ -365,9 +365,9 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation isNotInsideAllZone
+     * Operation isNotInsideAllZoneEntree
      */
-    public boolean isNotInsideAllZone(String matriculeIdl)
+    public boolean isNotInsideAllZoneEntree(String matriculeIdl)
     {
         while(true)
         {
@@ -376,7 +376,7 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("isNotInsideAllZone",true);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("isNotInsideAllZoneEntree",true);
                     _output.write_string(matriculeIdl);
                     _input = this._invoke(_output);
                     boolean _arg_ret = _input.read_boolean();
@@ -398,13 +398,113 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("isNotInsideAllZone",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("isNotInsideAllZoneEntree",_opsClass);
                 if (_so == null)
                    continue;
                 controleAcces.zoneurOperations _self = (controleAcces.zoneurOperations) _so.servant;
                 try
                 {
-                    return _self.isNotInsideAllZone( matriculeIdl);
+                    return _self.isNotInsideAllZoneEntree( matriculeIdl);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation isNotInsideAllZoneSortie
+     */
+    public boolean isNotInsideAllZoneSortie(String matriculeIdl)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("isNotInsideAllZoneSortie",true);
+                    _output.write_string(matriculeIdl);
+                    _input = this._invoke(_output);
+                    boolean _arg_ret = _input.read_boolean();
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("isNotInsideAllZoneSortie",_opsClass);
+                if (_so == null)
+                   continue;
+                controleAcces.zoneurOperations _self = (controleAcces.zoneurOperations) _so.servant;
+                try
+                {
+                    return _self.isNotInsideAllZoneSortie( matriculeIdl);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation isInsideZone
+     */
+    public boolean isInsideZone(String matriculeIdl)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("isInsideZone",true);
+                    _output.write_string(matriculeIdl);
+                    _input = this._invoke(_output);
+                    boolean _arg_ret = _input.read_boolean();
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("isInsideZone",_opsClass);
+                if (_so == null)
+                   continue;
+                controleAcces.zoneurOperations _self = (controleAcces.zoneurOperations) _so.servant;
+                try
+                {
+                    return _self.isInsideZone( matriculeIdl);
                 }
                 finally
                 {

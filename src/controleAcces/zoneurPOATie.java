@@ -119,11 +119,27 @@ public class zoneurPOATie extends zoneurPOA
     }
 
     /**
-     * Operation isNotInsideAllZone
+     * Operation isNotInsideAllZoneEntree
      */
-    public boolean isNotInsideAllZone(String matriculeIdl)
+    public boolean isNotInsideAllZoneEntree(String matriculeIdl)
     {
-        return _tie.isNotInsideAllZone( matriculeIdl);
+        return _tie.isNotInsideAllZoneEntree( matriculeIdl);
+    }
+
+    /**
+     * Operation isNotInsideAllZoneSortie
+     */
+    public boolean isNotInsideAllZoneSortie(String matriculeIdl)
+    {
+        return _tie.isNotInsideAllZoneSortie( matriculeIdl);
+    }
+
+    /**
+     * Operation isInsideZone
+     */
+    public boolean isInsideZone(String matriculeIdl)
+    {
+        return _tie.isInsideZone( matriculeIdl);
     }
 
     /**

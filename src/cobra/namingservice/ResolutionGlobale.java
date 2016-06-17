@@ -33,6 +33,8 @@ public class ResolutionGlobale implements Resolution{
   protected autorisateur autorisateurTemporaire;
   protected autorisateur autorisateur;
   protected zoneur zoneur;
+  
+  protected String zoneZoneur;
 
   public ResolutionGlobale(ORB orb) {
 	fetchNamingservice(orb);
@@ -208,7 +210,7 @@ public class ResolutionGlobale implements Resolution{
 
   @Override
   public zoneur resolveZoneur(String zone) {
-	if (zoneur != null) {
+	if (zoneur != null && zone.equals(zoneZoneur)) {
 	  return zoneur;
 	} else {
 	  try {
@@ -217,9 +219,10 @@ public class ResolutionGlobale implements Resolution{
 		nameToFind[1] = new NameComponent("zoneur", "");
 		org.omg.CORBA.Object o = namingService.resolve(nameToFind);
 		zoneur = zoneurHelper.narrow(o);
+		zoneZoneur = zone;
 		return zoneur;
 	  } catch (NotFound ex) {
-		System.out.println("Entité 'zoneur' non joignable.");
+		System.out.println("Entité 'zoneur" + zone + "' non joignable.");
 	  } catch (CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName ex) {
 		Logger.getLogger(CorbaUtil.class.getName()).log(Level.SEVERE, null, ex);
 	  }

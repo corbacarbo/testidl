@@ -1,9 +1,7 @@
 package cobra.zoneur;
 
 import cobra.CorbaEntite;
-import cobra.autorisateur.AutorisateurImpl;
 import cobra.autorisateur.EntiteAutorisateur;
-import controleAcces.autorisateurPOATie;
 import controleAcces.zoneurPOATie;
 import java.util.logging.Level;
 import java.util.logging.Logger;

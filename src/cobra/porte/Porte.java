@@ -22,6 +22,7 @@ import controleAcces.coffreFortPackage.empreinteInconnueException;
 import controleAcces.personneIdl;
 import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
+import controleAcces.zoneur;
 
 /**
  *
@@ -68,17 +69,18 @@ public class Porte extends CorbaClient implements Runnable {
 	return zone;
   }
 
-  public Resolution getNs(){
+  public Resolution getNs() {
 	return ns;
   }
-  
+
   public Personne entrer(Empreinte e, String photo)
 		  throws empreinteInconnueException,
 		  sessionInvalidException,
 		  sessionExpireeException,
 		  personneInexistanteException,
 		  autorisationRefuseeException,
-		  PhotoErroneeException {
+		  PhotoErroneeException,
+		  DejaDansZoneException {
 	Personne personne;
 	Matricule matricule;
 	checkCle();
@@ -111,6 +113,14 @@ public class Porte extends CorbaClient implements Runnable {
 	  autorisateur at = ns.resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
+
+	zoneur zo = ns.resolveZoneur(zone);
+	if (!zo.isNotInsideAllZoneEntree(matricule.toIdl())) {
+	  throw new DejaDansZoneException("Déjà dans une zone " + "  " + matricule, matricule);
+	}
+
+	zo.entre(matricule.toIdl());
+	
 	return personne;
   }
 
@@ -120,7 +130,9 @@ public class Porte extends CorbaClient implements Runnable {
 		  sessionExpireeException,
 		  personneInexistanteException,
 		  autorisationRefuseeException,
-		  PhotoErroneeException {
+		  PhotoErroneeException,
+		  DejaDansAutreZoneException,
+		  PasDansZoneException {
 	Personne personne;
 	Matricule matricule;
 	checkCle();
@@ -153,9 +165,21 @@ public class Porte extends CorbaClient implements Runnable {
 	  autorisateur at = ns.resolveAutorisateurTemporaire();
 	  at.autoriser(matricule.toIdl(), zone);
 	}
+
+	zoneur zo = ns.resolveZoneur(zone);
+	if (!zo.isNotInsideAllZoneSortie(matricule.toIdl())) {
+	  throw new DejaDansAutreZoneException("Déjà dans une zone " + "  " + matricule, matricule);
+	}
+	if (!zo.isInsideZone(mat)) {
+	  throw new PasDansZoneException("Pas dans zone " + zone + "  " + matricule, matricule);
+	
+	}
+	
+	zo.sort(matricule.toIdl());
+
 	return personne;
   }
-  
+
   @Override
   public void run() {
 	porteFrame = new PorteFrame(this);
@@ -163,7 +187,7 @@ public class Porte extends CorbaClient implements Runnable {
   }
 
   public static void main(String[] args) {
-	String zones = "ABC";
+	String zones = "AABC";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  Thread tPorte = new Thread(new Porte(zones.substring(i, i + 1)));

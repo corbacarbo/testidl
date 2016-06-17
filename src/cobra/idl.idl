@@ -309,7 +309,11 @@ interface zoneur{
 
   boolean isNotInsideZone(in string matriculeIdl);
 
-  boolean isNotInsideAllZone(in string matriculeIdl);
+  boolean isNotInsideAllZoneEntree(in string matriculeIdl);
+
+  boolean isNotInsideAllZoneSortie(in string matriculeIdl);
+
+  boolean isInsideZone(in string matriculeIdl);
 
   void entre(in string matriculeIdl);
 

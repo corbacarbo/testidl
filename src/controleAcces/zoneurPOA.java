@@ -33,8 +33,12 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
     static {
             operationMap.put("entre",
                     new Operation_entre());
-            operationMap.put("isNotInsideAllZone",
-                    new Operation_isNotInsideAllZone());
+            operationMap.put("isInsideZone",
+                    new Operation_isInsideZone());
+            operationMap.put("isNotInsideAllZoneEntree",
+                    new Operation_isNotInsideAllZoneEntree());
+            operationMap.put("isNotInsideAllZoneSortie",
+                    new Operation_isNotInsideAllZoneSortie());
             operationMap.put("isNotInsideZone",
                     new Operation_isNotInsideZone());
             operationMap.put("resolveAnnuaire",
@@ -160,13 +164,41 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_isNotInsideAllZone(
+    private org.omg.CORBA.portable.OutputStream _invoke_isNotInsideAllZoneEntree(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         String arg0_in = _is.read_string();
 
-        boolean _arg_result = isNotInsideAllZone(arg0_in);
+        boolean _arg_result = isNotInsideAllZoneEntree(arg0_in);
+
+        _output = handler.createReply();
+        _output.write_boolean(_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_isNotInsideAllZoneSortie(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        String arg0_in = _is.read_string();
+
+        boolean _arg_result = isNotInsideAllZoneSortie(arg0_in);
+
+        _output = handler.createReply();
+        _output.write_boolean(_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_isInsideZone(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        String arg0_in = _is.read_string();
+
+        boolean _arg_result = isInsideZone(arg0_in);
 
         _output = handler.createReply();
         _output.write_boolean(_arg_result);
@@ -278,13 +310,33 @@ public abstract class zoneurPOA extends org.omg.PortableServer.Servant
         }
     }
 
-    private static final class Operation_isNotInsideAllZone extends AbstractOperation
+    private static final class Operation_isNotInsideAllZoneEntree extends AbstractOperation
     {
         protected org.omg.CORBA.portable.OutputStream invoke(
                 final zoneurPOA target,
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
-            return target._invoke_isNotInsideAllZone(_is, handler);
+            return target._invoke_isNotInsideAllZoneEntree(_is, handler);
+        }
+    }
+
+    private static final class Operation_isNotInsideAllZoneSortie extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final zoneurPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_isNotInsideAllZoneSortie(_is, handler);
+        }
+    }
+
+    private static final class Operation_isInsideZone extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final zoneurPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_isInsideZone(_is, handler);
         }
     }
 
