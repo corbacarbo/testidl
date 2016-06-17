@@ -70,15 +70,7 @@ public class ResponsableZone extends CorbaClient implements Runnable {
 	return zone;
   }
 
-  public static void main(String[] args) {
-	String zones = "ABC";
-
-	for (int i = 0; i < zones.length(); i++) {
-	  Thread tRespZone = new Thread(new ResponsableZone(zones.substring(i, i + 1)));
-	  tRespZone.start();
-	}
-  }
-
+  
   public void authentifier(String mat, String mdp) throws loginIncorrectException, personneInexistanteException {
 	annuaire annuaire = ns.resolveAnnuaire();
 	cle = new Cle(annuaire.authentification(mat, mdp));
@@ -137,6 +129,15 @@ public class ResponsableZone extends CorbaClient implements Runnable {
 	}
 	this.autorisationCourante = null;
 	this.autorisationCouranteR = null;
+  }
+
+  public static void main(String[] args) {
+	String zones = "ABC";
+
+	for (int i = 0; i < zones.length(); i++) {
+	  Thread tRespZone = new Thread(new ResponsableZone(zones.substring(i, i + 1)));
+	  tRespZone.start();
+	}
   }
 
 }

@@ -36,7 +36,7 @@ public class AutoriserPanel extends javax.swing.JPanel {
         return jourDField.getText();
     }
      public String getJourF(){
-        return jourDField.getText();
+        return jourFField.getText();
     }
 
     /**
