@@ -127,7 +127,9 @@ public class ResponsableZone extends CorbaClient implements Runnable{
         this.respZone=null;
     }
     public void reinitAjoutAutorisation(){
-        this.personnesTrouvees=null;
+        if(null != this.personnesTrouvees){
+            this.personnesTrouvees.clear();
+        }
         this.autorisationCourante=null;
         this.autorisationCouranteR=null;
 }
