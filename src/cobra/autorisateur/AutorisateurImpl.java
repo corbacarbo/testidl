@@ -33,7 +33,7 @@ public class AutorisateurImpl implements autorisateurOperations {
    * CorbaEntite : résolution d'entité...
    */
   private Resolution ns;
-  
+
   private Bdd bdd;
 
   /**
@@ -81,7 +81,7 @@ public class AutorisateurImpl implements autorisateurOperations {
   private void remplirAutorisationOld() {
 	autorisations = DataExample.extractAutorisationsFromFile(zone);
   }
-  
+
   private void remplirAutorisation() {
 	autorisations = bdd.loadAutorisations(zone);
   }
@@ -102,13 +102,14 @@ public class AutorisateurImpl implements autorisateurOperations {
 	Autorisation autorisationDemandee = new Autorisation(autorisationIdl);
 
 	for (Autorisation uneAuto : autorisations) {
-	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule()) 
-                  && autorisationDemandee.recouvrement(uneAuto)) {
+	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule())
+			  && autorisationDemandee.recouvrement(uneAuto)) {
 		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
 	  }
 	}
-        System.out.println("++" + zone + "  autorisation permanente ajoutée " + autorisationDemandee);
+	System.out.println("++" + zone + "  autorisation permanente ajoutée " + autorisationDemandee);
 	autorisations.add(autorisationDemandee);
+	bdd.addAutorisation(autorisationDemandee, zone);
   }
 
   @Override
@@ -121,15 +122,16 @@ public class AutorisateurImpl implements autorisateurOperations {
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
 
 	for (Autorisation uneAuto : autorisations) {
-            AutorisationRestreinte uneAutoRest = (AutorisationRestreinte) uneAuto;
+	  AutorisationRestreinte uneAutoRest = (AutorisationRestreinte) uneAuto;
 	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule())
-                  && uneAutoRest.getZone().equals(autorisationDemandee.getZone())
-                  && autorisationDemandee.recouvrement(uneAuto)) {
+			  && uneAutoRest.getZone().equals(autorisationDemandee.getZone())
+			  && autorisationDemandee.recouvrement(uneAuto)) {
 		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
 	  }
 	}
-        System.out.println("++" + zone + "  autorisation temporaire ajoutée " + autorisationDemandee);
+	System.out.println("++" + zone + "  autorisation temporaire ajoutée " + autorisationDemandee);
 	autorisations.add(autorisationDemandee);
+	bdd.addAutorisationRestreinte(autorisationDemandee);
   }
 
   @Override
