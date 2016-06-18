@@ -1,6 +1,5 @@
 package cobra.accueil;
 
-
 import cobra.Empreinte;
 import cobra.Matricule;
 import controleAcces.annuairePackage.loginIncorrectException;
@@ -15,10 +14,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AccueilFrame extends javax.swing.JFrame {
-  
+
   private Accueil accueil;
 
   private enum ETAT {
+
 	NONCONNECTE, AJOUTTEMPORAIRE, AJOUTEMPREINTE, RECAPAJOUT, MENU, SUPPREMPREINTE
   };
   private ETAT etat;
@@ -37,7 +37,7 @@ public class AccueilFrame extends javax.swing.JFrame {
 	this.accueil = accueil;
 	initComponents();
 	this.setSize(700, 400);
-        this.setTitle("Accueil");
+	this.setTitle("Accueil");
 	etat = ETAT.NONCONNECTE;
 	activateNonConnecte();
 	aMessage = false;
@@ -74,14 +74,14 @@ public class AccueilFrame extends javax.swing.JFrame {
 	loginPanelAccueil2.initState();
 	loginPanelAccueil2.setVisible(true);
 	addPersonneTPanel2.setVisible(false);
-        recapPersonneTPanel1.setVisible(false);
-        empreinteAccueilPanel1.setVisible(false);
-        menuPanel.setVisible(false);
-        supprEmpreinteAccueilPanel1.setVisible(false);
-        
+	recapPersonneTPanel1.setVisible(false);
+	empreinteAccueilPanel1.setVisible(false);
+	menuPanel.setVisible(false);
+	supprEmpreinteAccueilPanel1.setVisible(false);
+
   }
 
-   private void activateAjoutTemporaire() {
+  private void activateAjoutTemporaire() {
 	titreLabel.setText("Ajout d'un employé temporaire");
 	okButton.setText("Enregistrer");
 	okButton.setEnabled(true);
@@ -90,73 +90,76 @@ public class AccueilFrame extends javax.swing.JFrame {
 	updateMessage();
 
 	addPersonneTPanel2.initState();
-        loginPanelAccueil2.setVisible(false);
-	addPersonneTPanel2.setVisible(true);        
-        recapPersonneTPanel1.setVisible(false);  
-        empreinteAccueilPanel1.setVisible(false);        
-        menuPanel.setVisible(false);
-        supprEmpreinteAccueilPanel1.setVisible(false);
+	loginPanelAccueil2.setVisible(false);
+	addPersonneTPanel2.setVisible(true);
+	recapPersonneTPanel1.setVisible(false);
+	empreinteAccueilPanel1.setVisible(false);
+	menuPanel.setVisible(false);
+	supprEmpreinteAccueilPanel1.setVisible(false);
   }
-    private void activateAjoutEmpreinte() {
-        titreLabel.setText("Ajout de l'empreinte");
+
+  private void activateAjoutEmpreinte() {
+	titreLabel.setText("Ajout de l'empreinte");
 	okButton.setText("Ajouter l'empreinte");
 	okButton.setEnabled(true);
 	cancelButton.setText("Annuler");
 	cancelButton.setEnabled(true);
 	updateMessage();
-        empreinteAccueilPanel1.initState();
-        loginPanelAccueil2.setVisible(false);
-	addPersonneTPanel2.setVisible(false);        
-        recapPersonneTPanel1.setVisible(false);
-        empreinteAccueilPanel1.setVisible(true);
-        menuPanel.setVisible(false);
-        supprEmpreinteAccueilPanel1.setVisible(false);
-    }
-   
-   private void activateRecapAjout() {
-        recapPersonneTPanel1.setRecap(accueil.getPersonneAjout());
-        titreLabel.setText("Informations de l'employé ajouté");
+	empreinteAccueilPanel1.initState();
+	loginPanelAccueil2.setVisible(false);
+	addPersonneTPanel2.setVisible(false);
+	recapPersonneTPanel1.setVisible(false);
+	empreinteAccueilPanel1.setVisible(true);
+	menuPanel.setVisible(false);
+	supprEmpreinteAccueilPanel1.setVisible(false);
+  }
+
+  private void activateRecapAjout() {
+	recapPersonneTPanel1.setRecap(accueil.getPersonneAjout());
+	titreLabel.setText("Informations de l'employé ajouté");
 	okButton.setText("Retour au menu");
 	okButton.setEnabled(true);
 	cancelButton.setText("Annuler");
 	cancelButton.setEnabled(false);
 	updateMessage();
-        loginPanelAccueil2.setVisible(false);
-	addPersonneTPanel2.setVisible(false);        
-        recapPersonneTPanel1.setVisible(true);
-        empreinteAccueilPanel1.setVisible(false);
-        menuPanel.setVisible(false);
-        supprEmpreinteAccueilPanel1.setVisible(false);
-    }
-      private void activateMenu() {
-        titreLabel.setText("Menu");
-        okButton.setText("Ok");
+	loginPanelAccueil2.setVisible(false);
+	addPersonneTPanel2.setVisible(false);
+	recapPersonneTPanel1.setVisible(true);
+	empreinteAccueilPanel1.setVisible(false);
+	menuPanel.setVisible(false);
+	supprEmpreinteAccueilPanel1.setVisible(false);
+  }
+
+  private void activateMenu() {
+	titreLabel.setText("Menu");
+	okButton.setText("Ok");
 	okButton.setEnabled(false);
-        cancelButton.setText("Quitter");
+	cancelButton.setText("Quitter");
 	cancelButton.setEnabled(true);
 	updateMessage();
-        loginPanelAccueil2.setVisible(false);
-	addPersonneTPanel2.setVisible(false);        
-        recapPersonneTPanel1.setVisible(false);
-        empreinteAccueilPanel1.setVisible(false);
-        menuPanel.setVisible(true);
-        supprEmpreinteAccueilPanel1.setVisible(false);
-    }
-      private void activateSuppressionEmpreinte() {
-        titreLabel.setText("Suppression d'une Empreinte");
+	loginPanelAccueil2.setVisible(false);
+	addPersonneTPanel2.setVisible(false);
+	recapPersonneTPanel1.setVisible(false);
+	empreinteAccueilPanel1.setVisible(false);
+	menuPanel.setVisible(true);
+	supprEmpreinteAccueilPanel1.setVisible(false);
+  }
+
+  private void activateSuppressionEmpreinte() {
+	titreLabel.setText("Suppression d'une Empreinte");
 	okButton.setText("Supprimer l'empreinte");
 	okButton.setEnabled(true);
 	cancelButton.setText("Annuler");
 	cancelButton.setEnabled(true);
 	updateMessage();
 //        supprEmpreinteAccueilPanel1.initState();
-        loginPanelAccueil2.setVisible(false);
-	addPersonneTPanel2.setVisible(false);        
-        recapPersonneTPanel1.setVisible(false);
-        empreinteAccueilPanel1.setVisible(false);
-        menuPanel.setVisible(false);
-        supprEmpreinteAccueilPanel1.setVisible(true);
-    }
+	loginPanelAccueil2.setVisible(false);
+	addPersonneTPanel2.setVisible(false);
+	recapPersonneTPanel1.setVisible(false);
+	empreinteAccueilPanel1.setVisible(false);
+	menuPanel.setVisible(false);
+	supprEmpreinteAccueilPanel1.setVisible(true);
+  }
 
   private void sessionExpiree() {
 	setMessage(ETATM.ERROR, "Session expirée");
@@ -344,127 +347,124 @@ public class AccueilFrame extends javax.swing.JFrame {
   private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 	switch (etat) {
 
-            case NONCONNECTE:
-            try {
-                accueil.authentifier(loginPanelAccueil2.getMatricule(), loginPanelAccueil2.getMdp());
-                etat = ETAT.MENU;
-                activateMenu();
-            } catch (loginIncorrectException ex) {
-                setMessage(ETATM.ERROR, ex.message);
-                etat = ETAT.NONCONNECTE;
-                activateNonConnecte();
-            } catch (personneInexistanteException ex) {
-                setMessage(ETATM.ERROR, ex.message);
-                etat = ETAT.NONCONNECTE;
-                activateNonConnecte();
-            }
-            break;
+	  case NONCONNECTE:
+		try {
+		  accueil.authentifier(loginPanelAccueil2.getMatricule(), loginPanelAccueil2.getMdp());
+		  etat = ETAT.MENU;
+		  activateMenu();
+		} catch (loginIncorrectException ex) {
+		  setMessage(ETATM.ERROR, ex.message);
+		  etat = ETAT.NONCONNECTE;
+		  activateNonConnecte();
+		} catch (personneInexistanteException ex) {
+		  setMessage(ETATM.ERROR, ex.message);
+		  etat = ETAT.NONCONNECTE;
+		  activateNonConnecte();
+		}
+		break;
 
 	  case AJOUTTEMPORAIRE:
-            String nom = addPersonneTPanel2.getNom();
-            String prenom = addPersonneTPanel2.getPrenom();
-            String photo = addPersonneTPanel2.getPhoto();
-            if(null != nom && null != prenom && null != photo) {
-		if (! nom.equals("") && ! prenom.equals("") && !photo.equals("")) {
-                    try {
-                        accueil.ajouterTemporaire(nom, prenom, photo);
-                        setMessage(ETATM.INFOR, nom+" "+prenom+ " a été ajouté à l'annuaire.");
-			etat = ETAT.RECAPAJOUT;
- 			activateRecapAjout();
-                    } catch (sessionInvalidException ex) {
-                        sessionInvalide();
-                    } catch (sessionExpireeException ex) {
-                        sessionExpiree();
-                    }
-                } else {
+		String nom = addPersonneTPanel2.getNom();
+		String prenom = addPersonneTPanel2.getPrenom();
+		String photo = addPersonneTPanel2.getPhoto();
+		if (null != nom && null != prenom && null != photo) {
+		  if (!nom.equals("") && !prenom.equals("") && !photo.equals("")) {
+			try {
+			  accueil.ajouterTemporaire(nom, prenom, photo);
+			  setMessage(ETATM.INFOR, nom + " " + prenom + " a été ajouté à l'annuaire.");
+			  etat = ETAT.RECAPAJOUT;
+			  activateRecapAjout();
+			} catch (sessionInvalidException ex) {
+			  sessionInvalide();
+			} catch (sessionExpireeException ex) {
+			  sessionExpiree();
+			}
+		  } else {
+			setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
+			etat = ETAT.AJOUTTEMPORAIRE;
+			activateAjoutTemporaire();
+		  }
+		} else {
 		  setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
 		  etat = ETAT.AJOUTTEMPORAIRE;
-                  activateAjoutTemporaire();                          
+		  activateAjoutTemporaire();
 		}
-            }
-            else {
-                setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
-		  etat = ETAT.AJOUTTEMPORAIRE;
-                  activateAjoutTemporaire();
-            }
-            break;
-            
-            case RECAPAJOUT:
-		etat = ETAT.MENU;
-                activateMenu();
 		break;
-           
-          case AJOUTEMPREINTE:
-            String empr = empreinteAccueilPanel1.getEmpreinte();
-            String matriculeA = empreinteAccueilPanel1.getMatricule();
-            if(null != empr && null !=matriculeA) {
-		if (! empr.equals("") && ! matriculeA.equals("")) {
-                    try {
-                        accueil.ajouterEmpreinte(new Empreinte(empr), new Matricule(matriculeA));
-                        setMessage(ETATM.INFOR, "L'empreinte a été ajoutée.");
-			etat = ETAT.MENU;
- 			activateMenu();
-                    } catch (sessionInvalidException ex) {
-                        sessionInvalide();
-                    } catch (sessionExpireeException ex) {
-                        sessionExpiree();
-                    } catch (personneInexistanteException ex) {
-                        setMessage(ETATM.ERROR, "Attention, ce matricule n'existe pas.");
-                        etat = ETAT.AJOUTEMPREINTE;
-                        activateAjoutEmpreinte();
-                    } catch (matriculeErroneException ex) {
-                        setMessage(ETATM.ERROR, "Attention, ce matricule n'est pas celui d'un employé temporaire.");
-                        etat = ETAT.AJOUTEMPREINTE;
-                        activateAjoutEmpreinte();
-                    }
-                } else {
+
+	  case RECAPAJOUT:
+		etat = ETAT.MENU;
+		activateMenu();
+		break;
+
+	  case AJOUTEMPREINTE:
+		String empr = empreinteAccueilPanel1.getEmpreinte();
+		String matriculeA = empreinteAccueilPanel1.getMatricule();
+		if (null != empr && null != matriculeA) {
+		  if (!empr.equals("") && !matriculeA.equals("")) {
+			try {
+			  accueil.ajouterEmpreinte(new Empreinte(empr), new Matricule(matriculeA));
+			  setMessage(ETATM.INFOR, "L'empreinte a été ajoutée.");
+			  etat = ETAT.MENU;
+			  activateMenu();
+			} catch (sessionInvalidException ex) {
+			  sessionInvalide();
+			} catch (sessionExpireeException ex) {
+			  sessionExpiree();
+			} catch (personneInexistanteException ex) {
+			  setMessage(ETATM.ERROR, "Attention, ce matricule n'existe pas.");
+			  etat = ETAT.AJOUTEMPREINTE;
+			  activateAjoutEmpreinte();
+			} catch (matriculeErroneException ex) {
+			  setMessage(ETATM.ERROR, "Attention, ce matricule n'est pas celui d'un employé temporaire.");
+			  etat = ETAT.AJOUTEMPREINTE;
+			  activateAjoutEmpreinte();
+			}
+		  } else {
+			setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
+			etat = ETAT.AJOUTEMPREINTE;
+			activateAjoutEmpreinte();
+		  }
+		} else {
 		  setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
 		  etat = ETAT.AJOUTEMPREINTE;
-                  activateAjoutEmpreinte();
+		  activateAjoutEmpreinte();
 		}
-            }
-            else {
-                setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
-		  etat = ETAT.AJOUTEMPREINTE;
-                  activateAjoutEmpreinte();
-            }
-            break;
-           
-          case SUPPREMPREINTE:
-            String matriculeS = supprEmpreinteAccueilPanel1.getMatricule();
-            if( null !=matriculeS) {
-		if ( ! matriculeS.equals("")) {
-                    try {
-                        accueil.supprimerEmpreinte(new Matricule(matriculeS));
-                        setMessage(ETATM.INFOR, "L'empreinte a été supprimée.");
-			etat = ETAT.MENU;
- 			activateMenu();
-                    } catch (sessionInvalidException ex) {
-                        sessionInvalide();
-                    } catch (sessionExpireeException ex) {
-                        sessionExpiree();
-                    } catch (matriculeInconnuException ex) {
-                        setMessage(ETATM.ERROR, "Attention, aucune empreinte n'est répertoriée pour ce matricule.");
-                        etat = ETAT.SUPPREMPREINTE;
-                        activateSuppressionEmpreinte();
-                    } catch (matriculeErroneException ex) {
-                        setMessage(ETATM.ERROR, "Attention, ce matricule n'est pas celui d'un employé temporaire.");
-                        etat = ETAT.SUPPREMPREINTE;
-                        activateSuppressionEmpreinte();
-                    }
-                } else {
+		break;
+
+	  case SUPPREMPREINTE:
+		String matriculeS = supprEmpreinteAccueilPanel1.getMatricule();
+		if (null != matriculeS) {
+		  if (!matriculeS.equals("")) {
+			try {
+			  accueil.supprimerEmpreinte(new Matricule(matriculeS));
+			  setMessage(ETATM.INFOR, "L'empreinte a été supprimée.");
+			  etat = ETAT.MENU;
+			  activateMenu();
+			} catch (sessionInvalidException ex) {
+			  sessionInvalide();
+			} catch (sessionExpireeException ex) {
+			  sessionExpiree();
+			} catch (matriculeInconnuException ex) {
+			  setMessage(ETATM.ERROR, "Attention, aucune empreinte n'est répertoriée pour ce matricule.");
+			  etat = ETAT.SUPPREMPREINTE;
+			  activateSuppressionEmpreinte();
+			} catch (matriculeErroneException ex) {
+			  setMessage(ETATM.ERROR, "Attention, ce matricule n'est pas celui d'un employé temporaire.");
+			  etat = ETAT.SUPPREMPREINTE;
+			  activateSuppressionEmpreinte();
+			}
+		  } else {
+			setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
+			etat = ETAT.SUPPREMPREINTE;
+			activateSuppressionEmpreinte();
+		  }
+		} else {
 		  setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
 		  etat = ETAT.SUPPREMPREINTE;
 		  activateSuppressionEmpreinte();
 		}
-            }
-            else {
-                setMessage(ETATM.ERROR, "Attention, tous les champs doivent être remplis");
-		  etat = ETAT.SUPPREMPREINTE;
-		  activateSuppressionEmpreinte();
-            }
-            break;
-	  
+		break;
+
 	  default:
 		throw new RuntimeException("Transition d'état impossible");
 	}
@@ -477,40 +477,40 @@ public class AccueilFrame extends javax.swing.JFrame {
 		break;
 	  case AJOUTTEMPORAIRE:
 		setMessage(ETATM.INFOR, "Opération annulée");
-                etat = ETAT.MENU;
-                activateMenu();
-		break;
-          case AJOUTEMPREINTE:
 		etat = ETAT.MENU;
 		activateMenu();
 		break;
-          case SUPPREMPREINTE:
+	  case AJOUTEMPREINTE:
 		etat = ETAT.MENU;
 		activateMenu();
 		break;
-          case MENU:
-              etat=ETAT.NONCONNECTE;
-              accueil.reinitPersonnes();
-              activateNonConnecte();
-              break;
+	  case SUPPREMPREINTE:
+		etat = ETAT.MENU;
+		activateMenu();
+		break;
+	  case MENU:
+		etat = ETAT.NONCONNECTE;
+		accueil.reinitPersonnes();
+		activateNonConnecte();
+		break;
 	  default:
 		throw new RuntimeException("Transition d'état impossible");
 	}
   }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void addPersTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPersTButtonActionPerformed
-        etat=ETAT.AJOUTTEMPORAIRE;                                            
-        activateAjoutTemporaire();
+	  etat = ETAT.AJOUTTEMPORAIRE;
+	  activateAjoutTemporaire();
     }//GEN-LAST:event_addPersTButtonActionPerformed
 
     private void addEmprButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmprButtonActionPerformed
-        etat=ETAT.AJOUTEMPREINTE;
-        activateAjoutEmpreinte();
+	  etat = ETAT.AJOUTEMPREINTE;
+	  activateAjoutEmpreinte();
     }//GEN-LAST:event_addEmprButtonActionPerformed
 
     private void SupprEmprButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprEmprButtonActionPerformed
-        etat=ETAT.SUPPREMPREINTE;
-        activateSuppressionEmpreinte();
+	  etat = ETAT.SUPPREMPREINTE;
+	  activateSuppressionEmpreinte();
     }//GEN-LAST:event_SupprEmprButtonActionPerformed
 
   /**

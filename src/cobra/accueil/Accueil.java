@@ -48,7 +48,14 @@ public class Accueil extends CorbaClient implements Runnable {
 	cle = new Cle(annuaire.authentification(mat, mdp));
 	System.out.println("Authentification réussie " + cle + "  " + mat);
 
-    //personneIdl personneIdl = annuaire.validerIdentite(mat);
+	try {
+	  personneIdl personneIdl = annuaire.validerIdentite(mat);
+	  throw new loginIncorrectException("Seul \"accueil\" peut s'identifier.");
+	  
+	} catch (personneInexistanteException ex) {
+	  // Ok, seul "accueil" peut s'identifier.
+	}
+
 	//accueilConnecte = new PersonnePermanent(personneIdl);
   }
 
