@@ -24,6 +24,10 @@ public class Horaire extends GregorianCalendar {
 	return get(MINUTE);
   }
 
+  public String toStringSimple(){
+	return get(HOUR_OF_DAY) + ":" + get(MINUTE);
+  }
+  
   @Override
   public String toString() {
 	return "Horaire{" + get(HOUR_OF_DAY) + ":" + get(MINUTE) + '}';

@@ -2,9 +2,9 @@ package cobra.autorisateur;
 
 import cobra.Autorisation;
 import cobra.AutorisationRestreinte;
-import cobra.CorbaEntite;
 import cobra.DataExample;
 import cobra.Matricule;
+import cobra.bdd.Bdd;
 import cobra.namingservice.Resolution;
 import controleAcces.autorisateurOperations;
 import controleAcces.autorisateurPackage.autorisationRefuseeException;
@@ -33,6 +33,8 @@ public class AutorisateurImpl implements autorisateurOperations {
    * CorbaEntite : résolution d'entité...
    */
   private Resolution ns;
+  
+  private Bdd bdd;
 
   /**
    * La zone de responsabilité de cet autorisateur (seulement si permanent).
@@ -62,6 +64,7 @@ public class AutorisateurImpl implements autorisateurOperations {
    * @param zone
    */
   public AutorisateurImpl(Resolution ns, String zone) {
+	bdd = new Bdd("autorisation", zone);
 	this.ns = ns;
 	this.zone = zone;
 	if (zone == null) {
@@ -75,8 +78,12 @@ public class AutorisateurImpl implements autorisateurOperations {
 	afficher();
   }
 
-  private void remplirAutorisation() {
+  private void remplirAutorisationOld() {
 	autorisations = DataExample.extractAutorisationsFromFile(zone);
+  }
+  
+  private void remplirAutorisation() {
+	autorisations = bdd.loadAutorisations(zone);
   }
 
   public void afficher() {

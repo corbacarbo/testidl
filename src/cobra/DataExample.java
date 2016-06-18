@@ -1,8 +1,5 @@
 package cobra;
 
-import cobra.Personne;
-import cobra.PersonneTemporaire;
-import cobra.PersonnePermanent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -10,7 +7,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import cobra.Matricule;
 import java.util.ArrayList;
 
 public class DataExample {

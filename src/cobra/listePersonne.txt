@@ -1,4 +1,4 @@
-MATRICULE PRENOM NOM MDP PHOTO CHANGEMDP EMPREINTE RESPONSABILITE
+MATRICULE PRENOM NOM MDP PHOTO CHANGEMDP RESPONSABILITE EMPREINTE
 pjohn;John;Smith;mdp;photoJohn;false;;ejohn;
 pjames;James;James;mdp;photoJames;true;ABCR;ejames;
 tjean;Jean;Dupuis;mdp;photoJean;true;;ejean;

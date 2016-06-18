@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<autorisations>
+  
+  <autorisationRestreinte>
+	<matricule>tjean</matricule>
+	<horaired>9:00</horaired>
+	<horairef>20:00</horairef>
+	<dated>01/05/2016</dated>
+	<datef>31/05/2016</datef>
+	<zone>A</zone>
+  </autorisationRestreinte>
+  
+  <autorisationRestreinte>
+	<matricule>tjean</matricule>
+	<horaired>9:00</horaired>
+	<horairef>20:00</horairef>
+	<dated>01/06/2016</dated>
+	<datef>31/06/2016</datef>
+	<zone>C</zone>
+  </autorisationRestreinte>
+  
+</autorisations>

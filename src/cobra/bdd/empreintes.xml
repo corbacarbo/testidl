@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<empreintes>
+  <empreinte>
+	<matricule>pjohn</matricule>
+	<empreinte>96543472</empreinte>
+  </empreinte>
+  <empreinte>
+	<matricule>pjames</matricule>
+	<empreinte>-1302532097</empreinte>
+  </empreinte>
+  <empreinte>
+	<matricule>tjean</matricule>
+	<empreinte>96533645</empreinte>
+  </empreinte>
+  <empreinte>
+	<matricule>pjane</matricule>
+	<empreinte>96530195</empreinte>
+  </empreinte>
+
+<empreinte>
+    <matricule>t11</matricule>
+    <empreinte>-1630806179</empreinte>
+  </empreinte>
+<empreinte>
+    <matricule>p11</matricule>
+    <empreinte>-1882609125</empreinte>
+  </empreinte>
+</empreintes>

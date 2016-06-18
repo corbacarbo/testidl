@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<autorisations>
+  
+<autorisation>
+    <matricule>pjohn</matricule>
+    <horaired>22:0</horaired>
+    <horairef>23:0</horairef>
+    <zone>D</zone>
+  </autorisation>
+</autorisations>

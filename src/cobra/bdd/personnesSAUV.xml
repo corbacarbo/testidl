@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<personnes>
+  
+  <personnePermanent>
+	<matricule>pjohn</matricule>
+	<nom>Smith</nom>
+	<prenom>John</prenom>
+	<mdp>mdp</mdp>
+	<photo>photoJohn</photo>
+	<changemdp>false</changemdp>
+	<responsabilite></responsabilite>
+  </personnePermanent>
+  
+  <personnePermanent>
+	<matricule>pjames</matricule>
+	<nom>James</nom>
+	<prenom>James</prenom>
+	<mdp>mdp</mdp>
+	<photo>photoJames</photo>
+	<changemdp>true</changemdp>
+	<responsabilite>ABCR</responsabilite>
+  </personnePermanent>
+  
+  <personneTemporaire>
+	<matricule>tjean</matricule>
+	<nom>Dupuis</nom>
+	<prenom>Jean</prenom>
+	<photo>photoJean</photo>
+  </personneTemporaire>
+  
+  <personnePermanent>
+	<matricule>pjane</matricule>
+	<nom>Calamity</nom>
+	<prenom>Jane</prenom>
+	<mdp>mdp</mdp>
+	<photo>photoJane</photo>
+	<changemdp>false</changemdp>
+	<responsabilite>R</responsabilite>
+  </personnePermanent>
+  
+</personnes>
