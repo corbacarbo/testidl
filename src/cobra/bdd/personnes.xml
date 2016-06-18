@@ -39,33 +39,18 @@
   </personnePermanent>
   
 <personnePermanent>
-    <matricule>pAzer</matricule>
+    <matricule>p11</matricule>
     <changemdp>true</changemdp>
     <mdp>mdp</mdp>
-    <photo>photoAzer</photo>
+    <photo>photoDonald</photo>
     <responsabilite/>
-    <nom>Azer</nom>
-    <prenom>Ty</prenom>
+    <nom>Duck</nom>
+    <prenom>Donald</prenom>
   </personnePermanent>
   <personneTemporaire>
-    <matricule>tqwer</matricule>
-    <photo>photoQwer</photo>
-    <nom>Ty</nom>
-    <prenom>Qwer</prenom>
-  </personneTemporaire>
-<personnePermanent>
-    <matricule>pAzer</matricule>
-    <changemdp>true</changemdp>
-    <mdp>mdp</mdp>
-    <photo>photoAzer</photo>
-    <responsabilite/>
-    <nom>Azer</nom>
-    <prenom>Ty</prenom>
-  </personnePermanent>
-  <personneTemporaire>
-    <matricule>tqwer</matricule>
-    <photo>photoQwer</photo>
-    <nom>Ty</nom>
-    <prenom>Qwer</prenom>
+    <matricule>t11</matricule>
+    <photo>photoMickey</photo>
+    <nom>Mouse</nom>
+    <prenom>Mickey</prenom>
   </personneTemporaire>
 </personnes>

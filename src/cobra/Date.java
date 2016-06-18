@@ -33,6 +33,10 @@ public class Date extends GregorianCalendar {
 	return get(YEAR);
   }
 
+  public String toStringSimple(){
+	return get(DAY_OF_MONTH) + "/" + (get(MONTH)+1) + "/" + get(YEAR);
+  }
+  
   @Override
   public String toString() {
 	return "Date{" + get(DAY_OF_MONTH) + "/" + (get(MONTH)+1) + "/" + get(YEAR) + '}';

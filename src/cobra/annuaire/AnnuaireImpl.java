@@ -15,6 +15,7 @@ import controleAcces.sessionInvalidException;
 import java.util.HashMap;
 import cobra.Matricule;
 import cobra.PersonneTemporaire;
+import cobra.bdd.Bdd;
 import cobra.namingservice.Resolution;
 import java.util.ArrayList;
 
@@ -25,6 +26,8 @@ public class AnnuaireImpl implements annuaireOperations {
    * CorbaEntite : résolution d'entité...
    */
   private Resolution ns;
+
+  private Bdd bdd;
 
   /**
    * Ensemble des employés de l'entreprise, permanents et temporaires.
@@ -47,6 +50,7 @@ public class AnnuaireImpl implements annuaireOperations {
    */
   public AnnuaireImpl(Resolution ns) {
 	super();
+	bdd = new Bdd("personne", null);
 	this.ns = ns;
 	remplirAnnuaire();
   }
@@ -60,9 +64,9 @@ public class AnnuaireImpl implements annuaireOperations {
 	loginInfo = new HashMap<>();
 	loginInfo.put("accueil", "accueil");
   }
-  
-    private void remplirAnnuaire() {
-	annuaire = DataExample.extractPersonnesFromFile();
+
+  private void remplirAnnuaire() {
+	annuaire = bdd.loadPersonnes();
 	afficher();
 	loginInfo = new HashMap<>();
 	loginInfo.put("accueil", "accueil");
@@ -231,6 +235,7 @@ public class AnnuaireImpl implements annuaireOperations {
 	p = getPersonnePermanent(matricule);
 	if (!p.isMdp(nouveauMdp)) {
 	  p.setMdp(nouveauMdp);
+	  bdd.modifierMdp(matricule, nouveauMdp);
 	  System.out.println("== Mot de passe changé " + p.getMatricule() + "  Nouveau mdp : " + nouveauMdp);
 	} else {
 	  throw new mdpIdentiqueException("Mot de passe identique, essayez à nouveau.");
@@ -281,7 +286,9 @@ public class AnnuaireImpl implements annuaireOperations {
 	genereMatricule(personne);
 
 	annuaire.put(personne.getMatricule(), personne);
-	System.out.println(personne);
+	bdd.addPersonnePermanente(personne);
+	
+	System.out.println("++ Ajout: " + personne);
 	return personne.toIdl();
   }
 
@@ -308,7 +315,9 @@ public class AnnuaireImpl implements annuaireOperations {
 	genereMatricule(personne);
 
 	annuaire.put(personne.getMatricule(), personne);
-
+	bdd.addPersonneTemporaire(personne);
+	
+	System.out.println("++ Ajout: " + personne);
 	return personne.toIdl();
   }
 
