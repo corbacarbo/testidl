@@ -1,6 +1,7 @@
 package cobra;
 
 import controleAcces.autorisateurPackage.autorisationRestreinteIdl;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class AutorisationRestreinte extends Autorisation {
@@ -8,19 +9,31 @@ public class AutorisationRestreinte extends Autorisation {
   protected Date dateD;
   protected Date dateF;
   private String zone;
-  
+
   public Date getDateD() {
-        return dateD;
-    }
+	return dateD;
+  }
+  
+  public Date getDateDPrint() {
+	Date res = new Date(dateD);
+	res.add(Calendar.MONTH, 1);
+	return res;
+  }
 
-    public Date getDateF() {
-        return dateF;
-    }
+  public Date getDateF() {
+	return dateF;
+  }
+  
+  public Date getDateFPrint() {
+	Date res = new Date(dateF);
+	res.add(Calendar.MONTH, 1);
+	return res;
+  }
 
-    public String getZone() {
-        return zone;
-    }
 
+  public String getZone() {
+	return zone;
+  }
 
   public AutorisationRestreinte(Date dateD, Date dateF, String zone, Matricule matricule, Horaire heureD, Horaire heureF) {
 	super(matricule, heureD, heureF);
@@ -49,7 +62,11 @@ public class AutorisationRestreinte extends Autorisation {
 
   @Override
   public String toString() {
-	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dateD + " " + dateF + " " + zone + '}';
+	Date dd = new Date(dateD);
+	dd.add(Calendar.MONTH, 1);
+	Date df = new Date(dateF);
+	df.add(Calendar.MONTH, 1);
+	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dd + " " + df + " " + zone + '}';
   }
 
   /**
@@ -79,8 +96,8 @@ public class AutorisationRestreinte extends Autorisation {
 	return false;
   }
 
-  public boolean autoriserZone(String z){
+  public boolean autoriserZone(String z) {
 	return zone.equals(z);
   }
-  
+
 }

@@ -43,6 +43,10 @@ public class Responsable extends CorbaClient implements Runnable {
 
 	personneIdl personneIdl = annuaire.validerIdentite(mat);
 	personneConnecte = new PersonnePermanent(personneIdl);
+	
+	if(!personneConnecte.isReponsible(zone)){
+	  throw new loginIncorrectException("Vous n'êtes pas responsable de cette zone.");
+	}
   }
 
   public ArrayList<Personne> rechercher(String mat, String nom, String prenom)

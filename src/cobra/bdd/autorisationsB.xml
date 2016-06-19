@@ -15,4 +15,10 @@
 	<zone>B</zone>
   </autorisation>
 
+<autorisation>
+    <matricule>pjohn</matricule>
+    <horaired>22:22</horaired>
+    <horairef>23:23</horairef>
+    <zone>B</zone>
+  </autorisation>
 </autorisations>

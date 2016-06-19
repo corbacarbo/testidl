@@ -114,6 +114,7 @@ public class AutorisationPanel extends javax.swing.JPanel {
     dateFField = new javax.swing.JTextField();
     dateFLabel = new javax.swing.JLabel();
 
+    personneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     personneLabel.setText("jLabel1");
 
     jLabel1.setText("Horaire d'entrée :");
@@ -149,10 +150,6 @@ public class AutorisationPanel extends javax.swing.JPanel {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(personneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-        .addContainerGap())
-      .addGroup(layout.createSequentialGroup()
         .addGap(32, 32, 32)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addComponent(jLabel1)
@@ -177,7 +174,11 @@ public class AutorisationPanel extends javax.swing.JPanel {
               .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
           .addComponent(dateDField)
           .addComponent(dateFField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(42, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(personneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

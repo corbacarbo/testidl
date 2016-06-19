@@ -12,6 +12,7 @@ import cobra.PersonneTemporaire;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -208,8 +209,10 @@ public class Bdd {
 				  getElementsByTagName("horairef").item(0).getTextContent());
 		  Date dateD = new Date(autoEle.
 				  getElementsByTagName("dated").item(0).getTextContent());
+		  dateD.add(Calendar.MONTH, -1);
 		  Date dateF = new Date(autoEle.
 				  getElementsByTagName("datef").item(0).getTextContent());
+		  dateF.add(Calendar.MONTH, -1);
 		  String zone = autoEle.getElementsByTagName("zone").item(0).
 				  getTextContent();
 		  autoObj = new AutorisationRestreinte(dateD, dateF, zone, mat, horaireD, horaireF);
@@ -447,12 +450,12 @@ public class Bdd {
 	horaireFEle.appendChild(document.createTextNode(horaireF));
 	autoEle.appendChild(horaireFEle);
 
-	String dateD = auto.getDateD().toStringSimple();
+	String dateD = auto.getDateDPrint().toStringSimple();
 	Element dateDEle = document.createElement("dated");
 	dateDEle.appendChild(document.createTextNode(dateD));
 	autoEle.appendChild(dateDEle);
 
-	String dateF = auto.getDateF().toStringSimple();
+	String dateF = auto.getDateFPrint().toStringSimple();
 	Element dateFEle = document.createElement("datef");
 	dateFEle.appendChild(document.createTextNode(dateF));
 	autoEle.appendChild(dateFEle);

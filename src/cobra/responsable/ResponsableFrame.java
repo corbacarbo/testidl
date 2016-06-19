@@ -7,6 +7,7 @@ package cobra.responsable;
 
 import cobra.Autorisation;
 import cobra.AutorisationRestreinte;
+import cobra.Date;
 import cobra.Personne;
 import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.personneInexistanteException;
@@ -15,6 +16,7 @@ import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,8 +58,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 	setTitle("Responsable " + responsable.getZone());
 	aMessage = false;
 
-	setSize(300, 300);
-	
+	setSize(300, 400);
+
 	etat = ETAT.NONCONNECTE;
 	activateNonConnecte();
   }
@@ -94,6 +96,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 	loginPanel.setVisible(true);
 	recherchePanel.setVisible(false);
 	autorisationPanel.setVisible(false);
+	
+	updateMessage();
 
 	loginPanel.initState();
   }
@@ -110,6 +114,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 	recherchePanel.setVisible(true);
 	autorisationPanel.setVisible(false);
 
+	updateMessage();
+	
 	recherchePanel.initState();
   }
 
@@ -122,6 +128,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 	recherchePanel.setVisible(true);
 	autorisationPanel.setVisible(false);
 
+	updateMessage();
+	
 	recherchePanel.initTrouve(personnes);
   }
 
@@ -134,6 +142,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 	recherchePanel.setVisible(false);
 	autorisationPanel.setVisible(true);
 
+	updateMessage();
+	
 	autorisationPanel.initState(p);
   }
 
@@ -187,7 +197,7 @@ public class ResponsableFrame extends javax.swing.JFrame {
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addGap(0, 0, Short.MAX_VALUE)
             .addComponent(cancelButton)
-            .addGap(18, 18, 18)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(okButton))
           .addGroup(layout.createSequentialGroup()
             .addComponent(titreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,7 +227,7 @@ public class ResponsableFrame extends javax.swing.JFrame {
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(okButton)
-          .addComponent(cancelButton))
+          .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addContainerGap())
     );
 
@@ -233,11 +243,15 @@ public class ResponsableFrame extends javax.swing.JFrame {
 		  activateRecherche();
 		} catch (loginIncorrectException ex) {
 		  etat = ETAT.NONCONNECTE;
-		  setMessage(ETATM.ERROR, "Login incorrect.");
+		  setMessage(ETATM.ERROR, ex.message);
 		  activateNonConnecte();
 		} catch (personneInexistanteException ex) {
 		  etat = ETAT.NONCONNECTE;
 		  setMessage(ETATM.ERROR, "Erreur, personne inexistante.");
+		  activateNonConnecte();
+		} catch (ChampManquantException ex) {
+		  etat = ETAT.NONCONNECTE;
+		  setMessage(ETATM.ERROR, ex.message);
 		  activateNonConnecte();
 		}
 	  }
@@ -287,14 +301,21 @@ public class ResponsableFrame extends javax.swing.JFrame {
 			responsable.ajouterAutorisation(auto);
 		  } else if (personneAutorise.isTemporaire()) {
 			AutorisationRestreinte auto;
-			auto = new AutorisationRestreinte(autorisationPanel.getDateD(),
-					autorisationPanel.getDateF(),
+			Date dd = autorisationPanel.getDateD();
+			dd.add(Calendar.MONTH, -1);
+			Date df = autorisationPanel.getDateF();
+			df.add(Calendar.MONTH, -1);
+			auto = new AutorisationRestreinte(dd,
+					df,
 					responsable.getZone(),
 					personneAutorise.getMatricule(),
 					autorisationPanel.getHoraireD(),
 					autorisationPanel.getHoraireF());
 			responsable.ajouterAutorisationRestreinte(auto);
 		  }
+		  etat = ETAT.RECHERCHE;
+		  setMessage(ETATM.INFOR, "Autorisation ajoutée.");
+		  activateRecherche();
 		} catch (ChampManquantException ex) {
 		  etat = ETAT.AUTORISE;
 		  setMessage(ETATM.ERROR, ex.message);

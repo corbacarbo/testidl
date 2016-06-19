@@ -59,6 +59,7 @@ public class AutorisateurImpl implements autorisateurOperations {
    * null. Dans ce deuxième cas, il s'agit alors de l'autorisateur pour les
    * personnes temporaires.
    *
+   * @param ns
    * @param serveur référence vers la classe instanciatrice (ou processus
    * serveur).
    * @param zone
@@ -117,15 +118,16 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  autorisationRestreinteIdl autorisationIdl)
 		  throws conflitAutorisationException, sessionInvalidException,
 		  sessionExpireeException {
-	ns.resolveZoneur(zone).resolveTrousseau().valideSession(cleIdl);
+	
+	ns.resolveTrousseau().valideSession(cleIdl);
 
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
 
 	for (Autorisation uneAuto : autorisations) {
 	  AutorisationRestreinte uneAutoRest = (AutorisationRestreinte) uneAuto;
-	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule())
+	  if (uneAutoRest.getMatricule().equals(autorisationDemandee.getMatricule())
 			  && uneAutoRest.getZone().equals(autorisationDemandee.getZone())
-			  && autorisationDemandee.recouvrement(uneAuto)) {
+			  && autorisationDemandee.recouvrement(uneAutoRest)) {
 		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
 	  }
 	}

@@ -54,7 +54,11 @@ public class EntiteAutorisateur extends CorbaEntite implements Runnable {
 
   @Override
   public void run() {
-	startEntite(zone);
+	if (zone != null) {
+	  startEntite(zone);
+	} else {
+	  startEntite();
+	}
 	startOrb();
   }
 

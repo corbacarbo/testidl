@@ -28,6 +28,10 @@ public class RecherchePanel extends javax.swing.JPanel {
   }
 
   public void initState() {
+	matriculeField.setEnabled(true);
+	nomField.setEnabled(true);
+	prenomField.setEnabled(true);
+	
 	matriculeField.setText("");
 	matriculeField.setFocusable(true);
 	matriculeField.requestFocus();
@@ -41,13 +45,9 @@ public class RecherchePanel extends javax.swing.JPanel {
   }
 
   public void initTrouve(ArrayList<Personne> p){
-	matriculeField.setText("");
-	matriculeField.setFocusable(true);
-	matriculeField.requestFocus();
-	nomField.setText("");
-	nomField.setFocusable(true);
-	prenomField.setText("");
-	prenomField.setFocusable(true);
+	matriculeField.setEnabled(false);
+	nomField.setEnabled(false);
+	prenomField.setEnabled(false);
 	
 	personneList.clearSelection();
 	personnes = Personne.getListModel(p);
@@ -128,7 +128,7 @@ public class RecherchePanel extends javax.swing.JPanel {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jScrollPane2)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
@@ -138,8 +138,9 @@ public class RecherchePanel extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
               .addComponent(nomField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
               .addComponent(matriculeField, javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(prenomField))))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addComponent(prenomField))
+            .addGap(0, 0, Short.MAX_VALUE)))
+        .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

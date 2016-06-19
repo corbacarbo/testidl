@@ -27,11 +27,15 @@ public class LoginPanel extends javax.swing.JPanel {
     mdpField.setText("");
   }
 
-  public String getMatricule(){
+  public String getMatricule() throws ChampManquantException{
+	if(matriculeField.getText().equals(""))
+	  throw new ChampManquantException("Indiquez un matricule.");
     return matriculeField.getText();
   }
   
-  public String getMdp(){
+  public String getMdp() throws ChampManquantException{
+	if(mdpField.getText().equals(""))
+	  throw new ChampManquantException("Indiquez un mot de passe.");
     return mdpField.getText();
   }
   
