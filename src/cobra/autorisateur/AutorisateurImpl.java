@@ -3,6 +3,7 @@ package cobra.autorisateur;
 import cobra.Autorisation;
 import cobra.AutorisationRestreinte;
 import cobra.DataExample;
+import cobra.Date;
 import cobra.Matricule;
 import cobra.bdd.Bdd;
 import cobra.namingservice.Resolution;
@@ -59,6 +60,7 @@ public class AutorisateurImpl implements autorisateurOperations {
    * null. Dans ce deuxième cas, il s'agit alors de l'autorisateur pour les
    * personnes temporaires.
    *
+   * @param ns
    * @param serveur référence vers la classe instanciatrice (ou processus
    * serveur).
    * @param zone
@@ -117,15 +119,16 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  autorisationRestreinteIdl autorisationIdl)
 		  throws conflitAutorisationException, sessionInvalidException,
 		  sessionExpireeException {
-	ns.resolveZoneur(zone).resolveTrousseau().valideSession(cleIdl);
+	
+	ns.resolveTrousseau().valideSession(cleIdl);
 
 	AutorisationRestreinte autorisationDemandee = new AutorisationRestreinte(autorisationIdl);
 
 	for (Autorisation uneAuto : autorisations) {
 	  AutorisationRestreinte uneAutoRest = (AutorisationRestreinte) uneAuto;
-	  if (uneAuto.getMatricule().equals(autorisationDemandee.getMatricule())
+	  if (uneAutoRest.getMatricule().equals(autorisationDemandee.getMatricule())
 			  && uneAutoRest.getZone().equals(autorisationDemandee.getZone())
-			  && autorisationDemandee.recouvrement(uneAuto)) {
+			  && autorisationDemandee.recouvrement(uneAutoRest)) {
 		throw new conflitAutorisationException("Conflit : " + autorisationDemandee + " avec " + uneAuto);
 	  }
 	}
@@ -139,6 +142,8 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  throws autorisationRefuseeException {
 	Matricule matricule = new Matricule(matriculeIdl);
 	GregorianCalendar maintenant = new GregorianCalendar();
+	
+	Date d = new Date(maintenant);
 
 	for (Autorisation uneAuto : autorisations) {
 	  if (uneAuto.autoriserMatricule(matricule)) {
@@ -148,7 +153,7 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  if (!permanent) {
 			AutorisationRestreinte ar = (AutorisationRestreinte) uneAuto;
 			if (ar.autoriserZone(zoneIdl)) {
-			  System.out.println("== TEMP: autorisation accordée " + uneAuto);
+			  System.out.println("== TEMP: autorisation accordée " + d + " "+ uneAuto);
 			  return;
 			}
 			// Si autorisateur permanent, pas besoin de vérifier zone.

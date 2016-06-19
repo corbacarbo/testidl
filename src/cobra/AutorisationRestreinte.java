@@ -1,6 +1,7 @@
 package cobra;
 
 import controleAcces.autorisateurPackage.autorisationRestreinteIdl;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class AutorisationRestreinte extends Autorisation {
@@ -8,19 +9,18 @@ public class AutorisationRestreinte extends Autorisation {
   protected Date dateD;
   protected Date dateF;
   private String zone;
-  
+
   public Date getDateD() {
-        return dateD;
-    }
+	return dateD;
+  }
 
-    public Date getDateF() {
-        return dateF;
-    }
+  public Date getDateF() {
+	return dateF;
+  }
 
-    public String getZone() {
-        return zone;
-    }
-
+  public String getZone() {
+	return zone;
+  }
 
   public AutorisationRestreinte(Date dateD, Date dateF, String zone, Matricule matricule, Horaire heureD, Horaire heureF) {
 	super(matricule, heureD, heureF);
@@ -49,6 +49,7 @@ public class AutorisationRestreinte extends Autorisation {
 
   @Override
   public String toString() {
+	
 	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dateD + " " + dateF + " " + zone + '}';
   }
 
@@ -79,8 +80,8 @@ public class AutorisationRestreinte extends Autorisation {
 	return false;
   }
 
-  public boolean autoriserZone(String z){
+  public boolean autoriserZone(String z) {
 	return zone.equals(z);
   }
-  
+
 }
