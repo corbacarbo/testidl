@@ -13,23 +13,10 @@ public class AutorisationRestreinte extends Autorisation {
   public Date getDateD() {
 	return dateD;
   }
-  
-  public Date getDateDPrint() {
-	Date res = new Date(dateD);
-	res.add(Calendar.MONTH, 1);
-	return res;
-  }
 
   public Date getDateF() {
 	return dateF;
   }
-  
-  public Date getDateFPrint() {
-	Date res = new Date(dateF);
-	res.add(Calendar.MONTH, 1);
-	return res;
-  }
-
 
   public String getZone() {
 	return zone;
@@ -62,11 +49,8 @@ public class AutorisationRestreinte extends Autorisation {
 
   @Override
   public String toString() {
-	Date dd = new Date(dateD);
-	dd.add(Calendar.MONTH, 1);
-	Date df = new Date(dateF);
-	df.add(Calendar.MONTH, 1);
-	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dd + " " + df + " " + zone + '}';
+	
+	return "AutorisationTemporaire{" + matricule + " " + horaireD + " " + horaireF + " " + dateD + " " + dateF + " " + zone + '}';
   }
 
   /**

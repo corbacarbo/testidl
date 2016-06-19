@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 public class Date extends GregorianCalendar {
 
   public Date(int a, int m, int j) {
-	super(a, m - 1, j, 0, 0, 0);
+	super(a, m, j, 0, 0, 0);
   }
   
   public Date(String s){
@@ -39,7 +39,7 @@ public class Date extends GregorianCalendar {
   
   @Override
   public String toString() {
-	return "Date{" + get(DAY_OF_MONTH) + "/" + (get(MONTH)+1) + "/" + get(YEAR) + '}';
+	return "Date{" + get(DAY_OF_MONTH) + "/" + (get(MONTH)) + "/" + get(YEAR) + '}';
   }
 
   public static void main(String[] args){

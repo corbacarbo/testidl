@@ -301,12 +301,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 			responsable.ajouterAutorisation(auto);
 		  } else if (personneAutorise.isTemporaire()) {
 			AutorisationRestreinte auto;
-			Date dd = autorisationPanel.getDateD();
-			dd.add(Calendar.MONTH, -1);
-			Date df = autorisationPanel.getDateF();
-			df.add(Calendar.MONTH, -1);
-			auto = new AutorisationRestreinte(dd,
-					df,
+			auto = new AutorisationRestreinte(autorisationPanel.getDateD(),
+					autorisationPanel.getDateF(),
 					responsable.getZone(),
 					personneAutorise.getMatricule(),
 					autorisationPanel.getHoraireD(),

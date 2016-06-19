@@ -3,6 +3,7 @@ package cobra.autorisateur;
 import cobra.Autorisation;
 import cobra.AutorisationRestreinte;
 import cobra.DataExample;
+import cobra.Date;
 import cobra.Matricule;
 import cobra.bdd.Bdd;
 import cobra.namingservice.Resolution;
@@ -141,6 +142,8 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  throws autorisationRefuseeException {
 	Matricule matricule = new Matricule(matriculeIdl);
 	GregorianCalendar maintenant = new GregorianCalendar();
+	
+	Date d = new Date(maintenant);
 
 	for (Autorisation uneAuto : autorisations) {
 	  if (uneAuto.autoriserMatricule(matricule)) {
@@ -150,7 +153,7 @@ public class AutorisateurImpl implements autorisateurOperations {
 		  if (!permanent) {
 			AutorisationRestreinte ar = (AutorisationRestreinte) uneAuto;
 			if (ar.autoriserZone(zoneIdl)) {
-			  System.out.println("== TEMP: autorisation accordée " + uneAuto);
+			  System.out.println("== TEMP: autorisation accordée " + d + " "+ uneAuto);
 			  return;
 			}
 			// Si autorisateur permanent, pas besoin de vérifier zone.

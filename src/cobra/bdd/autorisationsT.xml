@@ -51,4 +51,28 @@
     <datef>1/8/2016</datef>
     <zone>B</zone>
   </autorisationRestreinte>
+<autorisationRestreinte>
+    <matricule>tjean</matricule>
+    <horaired>8:8</horaired>
+    <horairef>9:9</horairef>
+    <dated>1/12/2015</dated>
+    <datef>1/12/2015</datef>
+    <zone>B</zone>
+  </autorisationRestreinte>
+<autorisationRestreinte>
+    <matricule>tjean</matricule>
+    <horaired>1:1</horaired>
+    <horairef>2:2</horairef>
+    <dated>1/2/2017</dated>
+    <datef>1/3/2017</datef>
+    <zone>B</zone>
+  </autorisationRestreinte>
+  <autorisationRestreinte>
+    <matricule>tjean</matricule>
+    <horaired>17:0</horaired>
+    <horairef>19:0</horairef>
+    <dated>18/7/2016</dated>
+    <datef>20/7/2016</datef>
+    <zone>A</zone>
+  </autorisationRestreinte>
 </autorisations>
