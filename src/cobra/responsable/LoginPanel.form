@@ -3,7 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[350, 100]"/>
+      <Dimension value="[261, 73]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -29,7 +29,7 @@
                       <Component id="mdpLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="matriculeField" pref="152" max="32767" attributes="0"/>
+                          <Component id="matriculeField" pref="132" max="32767" attributes="0"/>
                           <Component id="mdpField" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -51,7 +51,7 @@
                   <Component id="mdpField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="mdpLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

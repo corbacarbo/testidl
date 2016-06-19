@@ -5,6 +5,8 @@
  */
 package cobra.responsable;
 
+import cobra.Date;
+import cobra.Horaire;
 import cobra.Personne;
 
 /**
@@ -20,21 +22,22 @@ public class AutorisationPanel extends javax.swing.JPanel {
    */
   public AutorisationPanel() {
 	initComponents();
-	initState();
   }
 
-  public void initState() {
-	personneLabel.setText("");
-	heureDField.setText("");
-	heureFField.setText("");
-	minuteDField.setText("");
-	minuteFField.setText("");
+  public void initState(Personne personne) {
+	if(personne.isPermanent()){
+	  activatePermanent(personne);
+	}
+	else if(personne.isTemporaire()){
+	  activateTemporaire(personne);
+	}
   }
 
   public void activatePermanent(Personne p) {
 	personne = p;
 	personneLabel.setText(p.getPrenom() + " " + p.getNom() + " - " + p.getMatricule().toIdl());
 	heureDField.setText("");
+	heureDField.requestFocus();
 	heureFField.setText("");
 	minuteDField.setText("");
 	minuteFField.setText("");
@@ -48,6 +51,7 @@ public class AutorisationPanel extends javax.swing.JPanel {
 	personne = p;
 	personneLabel.setText(p.getPrenom() + " " + p.getNom() + " - " + p.getMatricule().toIdl());
 	heureDField.setText("");
+	heureDField.requestFocus();
 	heureFField.setText("");
 	minuteDField.setText("");
 	minuteFField.setText("");
@@ -59,10 +63,34 @@ public class AutorisationPanel extends javax.swing.JPanel {
 	dateFField.setText("");
   }
 
-  public void setPersonne(Personne personne) {
-	this.personne = personne;
+  public Horaire getHoraireD() throws ChampManquantException{
+	if(heureDField.getText().equals("") || minuteDField.getText().equals(""))
+	  throw new ChampManquantException("Indiquez une heure de début.");
+	Horaire h = new Horaire(heureDField.getText() + ":" + minuteDField.getText());
+	return h;
   }
-
+  
+  public Horaire getHoraireF() throws ChampManquantException{
+	if(heureFField.getText().equals("") || minuteFField.getText().equals(""))
+	  throw new ChampManquantException("Indiquez une heure de fin.");
+	Horaire h = new Horaire(heureFField.getText() + ":" + minuteFField.getText());
+	return h;
+  }
+  
+  public Date getDateD() throws ChampManquantException{
+	if(dateDField.getText().equals(""))
+	  throw new ChampManquantException("Indiquez une date de début.");
+	return new Date(dateDField.getText());
+  }
+  
+  public Date getDateF() throws ChampManquantException{
+	if(dateFField.getText().equals(""))
+	  throw new ChampManquantException("Indiquez une date de fin.");
+	return new Date(dateFField.getText());
+  }
+  
+  
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,7 +149,11 @@ public class AutorisationPanel extends javax.swing.JPanel {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(48, 48, 48)
+        .addContainerGap()
+        .addComponent(personneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+        .addContainerGap())
+      .addGroup(layout.createSequentialGroup()
+        .addGap(32, 32, 32)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addComponent(jLabel1)
           .addComponent(jLabel2)
@@ -145,11 +177,7 @@ public class AutorisationPanel extends javax.swing.JPanel {
               .addComponent(minuteDField, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
           .addComponent(dateDField)
           .addComponent(dateFField, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(55, Short.MAX_VALUE))
-      .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(personneLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addContainerGap())
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

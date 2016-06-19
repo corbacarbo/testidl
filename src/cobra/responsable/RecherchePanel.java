@@ -5,13 +5,19 @@
  */
 package cobra.responsable;
 
+import cobra.Personne;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 
 /**
  *
  * @author matt
  */
 public class RecherchePanel extends javax.swing.JPanel {
+  
+  private ListModel<PersonneListModel> personnes;
 
   /**
    * Creates new form RecherchePanel
@@ -29,8 +35,25 @@ public class RecherchePanel extends javax.swing.JPanel {
 	nomField.setFocusable(true);
 	prenomField.setText("");
 	prenomField.setFocusable(true);
+	
+	personnes = new DefaultListModel<>();
+	personneList.setModel(personnes);
   }
 
+  public void initTrouve(ArrayList<Personne> p){
+	matriculeField.setText("");
+	matriculeField.setFocusable(true);
+	matriculeField.requestFocus();
+	nomField.setText("");
+	nomField.setFocusable(true);
+	prenomField.setText("");
+	prenomField.setFocusable(true);
+	
+	personneList.clearSelection();
+	personnes = Personne.getListModel(p);
+	personneList.setModel(personnes);
+  }
+  
   public String getMatricule() {
 	return matriculeField.getText();
   }
@@ -43,7 +66,12 @@ public class RecherchePanel extends javax.swing.JPanel {
 	return prenomField.getText();
   }
   
-  
+  public Personne getSelectedPersonne() throws AucuneSelectionException{
+	PersonneListModel pSelect = (PersonneListModel) personneList.getSelectedValue();
+	if(pSelect == null)
+	  throw new AucuneSelectionException("Aucune personne selectionnée.");
+	return pSelect.getPersonne();
+  }
 
   /**
    * This method is called from within the constructor to initialize the form.
@@ -72,7 +100,7 @@ public class RecherchePanel extends javax.swing.JPanel {
     });
     jScrollPane1.setViewportView(jList1);
 
-    setPreferredSize(new java.awt.Dimension(350, 100));
+    setPreferredSize(new java.awt.Dimension(258, 171));
 
     jLabel1.setText("Matricule :");
 
@@ -99,8 +127,8 @@ public class RecherchePanel extends javax.swing.JPanel {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(jScrollPane2)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)

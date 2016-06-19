@@ -17,6 +17,7 @@ public class LoginPanel extends javax.swing.JPanel {
   public LoginPanel() {
     initComponents();
     initState();
+	setSize(261, 73);
   }
 
   public void initState() {
@@ -48,7 +49,7 @@ public class LoginPanel extends javax.swing.JPanel {
     matriculeField = new javax.swing.JTextField();
     mdpField = new javax.swing.JTextField();
 
-    setPreferredSize(new java.awt.Dimension(350, 100));
+    setPreferredSize(new java.awt.Dimension(261, 73));
 
     matriculeLabel.setText("Matricule :");
 
@@ -71,7 +72,7 @@ public class LoginPanel extends javax.swing.JPanel {
             .addComponent(mdpLabel)
             .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(matriculeField, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+              .addComponent(matriculeField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
               .addComponent(mdpField))))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
@@ -86,7 +87,7 @@ public class LoginPanel extends javax.swing.JPanel {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(mdpLabel))
-        .addContainerGap(38, Short.MAX_VALUE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
 

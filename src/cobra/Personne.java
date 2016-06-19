@@ -1,8 +1,11 @@
 package cobra;
 
+import cobra.responsable.PersonneListModel;
 import controleAcces.personneIdl;
 import java.util.HashMap;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 public class Personne {
 
@@ -55,6 +58,18 @@ public class Personne {
     return matricule.isTemporaire();
   }
 
+  public PersonneListModel getListModel(){
+	return new PersonneListModel(this);
+  }
+  
+  public static ListModel<PersonneListModel> getListModel(ArrayList<Personne> personnes){
+	DefaultListModel<PersonneListModel> res = new DefaultListModel<>();
+	for(Personne personne : personnes){
+	  res.addElement(personne.getListModel());
+	}
+	return res;
+  }
+  
   public personneIdl toIdl(){
 	return new personneIdl(matricule.toIdl(), nom, prenom, photo, "", false, "");
   }
