@@ -1,9 +1,7 @@
 package controleAcces;
 
 /**
- * Interface definition : journal
- * 
- * @author OpenORB Compiler
+ * Enregistre les tentatives d'entrée et de sortie, en cas de succès ou d'échec.
  */
 public abstract class journalPOA extends org.omg.PortableServer.Servant
         implements journalOperations, org.omg.CORBA.portable.InvokeHandler

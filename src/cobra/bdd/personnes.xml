@@ -37,20 +37,5 @@
 	<changemdp>false</changemdp>
 	<responsabilite>R</responsabilite>
   </personnePermanent>
-  
-<personnePermanent>
-    <matricule>p11</matricule>
-    <changemdp>true</changemdp>
-    <mdp>mdp</mdp>
-    <photo>photoDonald</photo>
-    <responsabilite/>
-    <nom>Duck</nom>
-    <prenom>Donald</prenom>
-  </personnePermanent>
-  <personneTemporaire>
-    <matricule>t11</matricule>
-    <photo>photoMickey</photo>
-    <nom>Mouse</nom>
-    <prenom>Mickey</prenom>
-  </personneTemporaire>
+ 
 </personnes>

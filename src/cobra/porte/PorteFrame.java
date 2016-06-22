@@ -54,7 +54,7 @@ public class PorteFrame extends javax.swing.JFrame {
 	this.porte = porte;
 	init();
 	this.setSize(300, 350);
-	this.setTitle("Porte " + porte.getZone());
+	this.setTitle("Porte " + porte.getZone() + " - Id " + porte.getId());
   }
 
   private void init() {

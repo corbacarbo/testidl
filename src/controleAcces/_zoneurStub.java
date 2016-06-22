@@ -1,9 +1,12 @@
 package controleAcces;
 
 /**
- * Interface definition : zoneur
- * 
- * @author OpenORB Compiler
+ * Un zoneur est responsable :
+ * - maintenir une liste des personnes actuellement présentes dans sa zone
+ * (afin d'éviter les usurpations)
+ * - servir de relais pour décharger le naming service : les entités et 
+ * clients spécifiques à une zone passent par lui pour obtenir des IOR.
+ * - de gérer les id des portes présentes dans sa zone.
  */
 public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
         implements zoneur
@@ -526,7 +529,7 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("entre",true);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("entre",false);
                     _output.write_string(matriculeIdl);
                     _input = this._invoke(_output);
                     return;
@@ -576,7 +579,7 @@ public class _zoneurStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("sort",true);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("sort",false);
                     _output.write_string(matriculeIdl);
                     _input = this._invoke(_output);
                     return;

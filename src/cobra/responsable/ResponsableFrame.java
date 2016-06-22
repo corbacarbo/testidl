@@ -7,7 +7,6 @@ package cobra.responsable;
 
 import cobra.Autorisation;
 import cobra.AutorisationRestreinte;
-import cobra.Date;
 import cobra.Personne;
 import controleAcces.annuairePackage.loginIncorrectException;
 import controleAcces.annuairePackage.personneInexistanteException;
@@ -16,9 +15,6 @@ import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

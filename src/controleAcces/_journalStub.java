@@ -1,9 +1,7 @@
 package controleAcces;
 
 /**
- * Interface definition : journal
- * 
- * @author OpenORB Compiler
+ * Enregistre les tentatives d'entrée et de sortie, en cas de succès ou d'échec.
  */
 public class _journalStub extends org.omg.CORBA.portable.ObjectImpl
         implements journal

@@ -57,7 +57,7 @@ public class EntiteZoneur extends CorbaEntite implements Runnable {
   }
 
   public static void main(String[] args) throws InterruptedException {
-	String zones = "B";
+	String zones = "C";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  String zo = zones.substring(i, i + 1);
