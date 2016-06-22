@@ -78,20 +78,4 @@ public class journalPOATie extends journalPOA
         _tie.loguerInconnu( demandeIdl);
     }
 
-    /**
-     * Operation consulterByMatricule
-     */
-    public controleAcces.journalPackage.demandeIdl[] consulterByMatricule(String matriculeIdl)
-    {
-        return _tie.consulterByMatricule( matriculeIdl);
-    }
-
-    /**
-     * Operation consulterByDate
-     */
-    public controleAcces.journalPackage.demandeIdl[] consulterByDate(long date)
-    {
-        return _tie.consulterByDate( date);
-    }
-
 }

@@ -106,12 +106,13 @@ public class Porte extends CorbaClient implements Runnable {
 	  throw new PhotoErroneeException("Photos différentes: " + photo + "<>" + personne.getPhoto());
 	}
 
+	// 4-Le demandeur est-il déjà dans une zone ?
 	zoneur zo = ns.resolveZoneur(zone);
 	if (!zo.isNotInsideAllZoneEntree(matricule.toIdl())) {
 	  throw new DejaDansZoneException("Déjà dans une zone " + "  " + matricule, matricule);
 	}
 	
-	// 4-Vérification de l'autorisation
+	// 5-Vérification de l'autorisation auprès de l’autorisateur
 	if (matricule.isPermanent()) {
 	  autorisateur au = ns.resolveAutorisateur(zone);
 	  au.autoriser(matricule.toIdl(), zone);
@@ -120,7 +121,7 @@ public class Porte extends CorbaClient implements Runnable {
 	  at.autoriser(matricule.toIdl(), zone);
 	}
 
-
+	// 6-Enregistrement de l'entrée dans le zoneur
 	zo.entre(matricule.toIdl());
 	
 	return personne;

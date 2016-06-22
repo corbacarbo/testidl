@@ -1,7 +1,6 @@
 package cobra.coffrefort;
 
 import cobra.Cle;
-import cobra.DataExample;
 import cobra.Empreinte;
 import cobra.Matricule;
 import cobra.bdd.Bdd;
@@ -26,12 +25,6 @@ public class CoffreFortImpl implements coffreFortOperations {
 	this.ns = ns;
 	bdd = new Bdd("empreinte", null);
 	remplirCoffreFort();
-  }
-
-  private void remplirCoffreFortOld() {
-	String chemin = "src\\cobra\\coffrefort\\listePersonne.txt";
-	empreintes = DataExample.extractEmpreintesFromFile();
-	afficher();
   }
 
   private void remplirCoffreFort() {

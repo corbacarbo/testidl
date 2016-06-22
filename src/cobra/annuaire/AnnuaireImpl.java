@@ -1,6 +1,5 @@
 package cobra.annuaire;
 
-import cobra.DataExample;
 import cobra.Cle;
 import cobra.Personne;
 import cobra.PersonnePermanent;
@@ -53,16 +52,6 @@ public class AnnuaireImpl implements annuaireOperations {
 	bdd = new Bdd("personne", null);
 	this.ns = ns;
 	remplirAnnuaire();
-  }
-
-  /**
-   * Remplit l'annuaire avec des données d'exemple.
-   */
-  private void remplirAnnuaireOld() {
-	annuaire = DataExample.extractPersonnesFromFile();
-	afficher();
-	loginInfo = new HashMap<>();
-	loginInfo.put("accueil", "accueil");
   }
 
   private void remplirAnnuaire() {

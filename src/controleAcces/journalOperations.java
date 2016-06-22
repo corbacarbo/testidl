@@ -17,14 +17,4 @@ public interface journalOperations
      */
     public void loguerInconnu(controleAcces.journalPackage.demandeIdl demandeIdl);
 
-    /**
-     * Operation consulterByMatricule
-     */
-    public controleAcces.journalPackage.demandeIdl[] consulterByMatricule(String matriculeIdl);
-
-    /**
-     * Operation consulterByDate
-     */
-    public controleAcces.journalPackage.demandeIdl[] consulterByDate(long date);
-
 }

@@ -270,16 +270,6 @@ interface journal{
    */
   oneway void loguerInconnu(in demandeStruct demandeIdl);
 
-  /*
-   * Consultation des demandes à partir d'un matricule.
-   */
-  listeDemande consulterByMatricule(in Matricule matriculeIdl);
-
- /*
-   * Consultation des demandes à partir d'une date.
-   */
-  listeDemande consulterByDate(in long long date);
-
 };
 
 /******************** ZONEUR ********************/

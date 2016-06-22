@@ -2,7 +2,6 @@ package cobra.autorisateur;
 
 import cobra.Autorisation;
 import cobra.AutorisationRestreinte;
-import cobra.DataExample;
 import cobra.Date;
 import cobra.Matricule;
 import cobra.bdd.Bdd;
@@ -78,10 +77,6 @@ public class AutorisateurImpl implements autorisateurOperations {
 	}
 	remplirAutorisation();
 	afficher();
-  }
-
-  private void remplirAutorisationOld() {
-	autorisations = DataExample.extractAutorisationsFromFile(zone);
   }
 
   private void remplirAutorisation() {

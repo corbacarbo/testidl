@@ -59,6 +59,8 @@ public class ResponsableFrame extends javax.swing.JFrame {
 	aMessage = false;
 
 	setSize(300, 400);
+	
+	infoPane.setEditable(false);
 
 	etat = ETAT.NONCONNECTE;
 	activateNonConnecte();
