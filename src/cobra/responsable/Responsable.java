@@ -96,7 +96,7 @@ public class Responsable extends CorbaClient implements Runnable {
   }
 
   public static void main(String[] args) {
-	String zones = "A";
+	String zones = "ABC";
 
 	for (int i = 0; i < zones.length(); i++) {
 	  Thread tResponsable = new Thread(new Responsable(zones.substring(i, i + 1)));
