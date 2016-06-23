@@ -7,12 +7,14 @@ import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextPackage.AlreadyBound;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
-import org.omg.PortableServer.LifespanPolicyValue;
 import org.omg.PortableServer.POAHelper;
 import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 
 /**
- * Regroupement des méthodes de gestion corba spécifiques aux entités.
+ * Regroupement des méthodes de gestion corba spécifiques aux entités. Les
+ * processus serveurs faisant tourner une implementation d'un objet corba
+ * héritent de cette classe. Ils peuvent ainsi utiliser les méthodes
+ * d'enregistrement dans le service de noms, de démarrage de l'entité...
  *
  * @author
  */
@@ -56,17 +58,17 @@ public abstract class CorbaEntite extends CorbaUtil {
 	ns.getNamingService().rebind(nomTab, o);
 	System.out.println("Servant enregistré : " + nom);
   }
-  
-    protected void rebind(String contexte, String nom, org.omg.CORBA.Object o)
+
+  protected void rebind(String contexte, String nom, org.omg.CORBA.Object o)
 		  throws NotFound, CannotProceed,
 		  org.omg.CosNaming.NamingContextPackage.InvalidName, AlreadyBound {
 
 	NameComponent[] nomTab = new NameComponent[2];
 	nomTab[0] = new NameComponent(contexte, "");
 	nomTab[1] = new NameComponent(nom, "");
-	
+
 	ns.getNamingService().rebind(nomTab, o);
-	System.out.println("Servant enregistré : " + contexte + " / "+ nom);
+	System.out.println("Servant enregistré : " + contexte + " / " + nom);
   }
 
   /**
@@ -76,7 +78,7 @@ public abstract class CorbaEntite extends CorbaUtil {
 	try {
 	  rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 	  rootPOA.the_POAManager().activate();
-	  
+
 	} catch (InvalidName | AdapterInactive ex) {
 	  Logger.getLogger(CorbaEntite.class.getName()).log(Level.SEVERE, null, ex);
 	}
@@ -95,11 +97,12 @@ public abstract class CorbaEntite extends CorbaUtil {
 	createServant();
   }
 
-    /**
+  /**
    * Réalise les 6 étapes (sur 7) du processus serveur : - initialisation de
    * l'orb ; - récupération du service de noms ; - récupération du POA racine ;
    * - activation du POA racine ; - création du servant ; - activation du
    * servant.
+   *
    * @param zone
    */
   public void startEntite(String zone) {
@@ -108,7 +111,7 @@ public abstract class CorbaEntite extends CorbaUtil {
 	chercheActivePOA();
 	createServant();
   }
-  
+
   /**
    * Réalise la 7ème étape du processus serveur : - lancement de l'orb.
    */

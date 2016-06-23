@@ -1,8 +1,0 @@
-LANCER NAMING SERVICE
-C:\matt\OneDrive\MIAGE_M2\corba\TestIdl\lib>
-java -cp openorb-1.3.1.jar;openorb_tools-1.3.1.jar;avalon-framework.jar;logkit.jar -Dorg.omg.CORBA.ORBClass=org.openorb.CORBA.ORB org.openorb.util.MapNamingContext -ORBPort=2001 -print
-
-COMPILATION IDL (dans dossier src/)
-java -cp ..\lib\openorb-1.3.1.jar;..\lib\openorb_tools-1.3.1.jar -Dorg.omg.CORBA.ORBClass=org.openorb.CORBA.ORB org.openorb.compiler.IdlCompiler testidl\idl.idl -verbose -d .
-
-

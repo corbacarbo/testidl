@@ -15,27 +15,27 @@ public class Personne {
   protected String photo;
 
   public Personne(Matricule matricule, String nom, String prenom, String photo) {
-    this.matricule = matricule;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.photo = photo;
+	this.matricule = matricule;
+	this.nom = nom;
+	this.prenom = prenom;
+	this.photo = photo;
   }
 
   public Personne(personneIdl p) {
-    if (p.matricule != null && !p.matricule.isEmpty()) {
-      this.matricule = new Matricule(p.matricule);
-    }
-    this.nom = p.nom;
-    this.prenom = p.prenom;
-    this.photo = p.photo;
+	if (p.matricule != null && !p.matricule.isEmpty()) {
+	  this.matricule = new Matricule(p.matricule);
+	}
+	this.nom = p.nom;
+	this.prenom = p.prenom;
+	this.photo = p.photo;
   }
 
   public Matricule getMatricule() {
-    return matricule;
+	return matricule;
   }
 
   public String getPrenom() {
-    return prenom;
+	return prenom;
   }
 
   public String getPhoto() {
@@ -46,64 +46,77 @@ public class Personne {
 	return nom;
   }
 
-  public void genereMatricule(){
+  public void genereMatricule() {
 	this.matricule = new Matricule(prenom);
   }
 
   public boolean isPermanent() {
-    return matricule.isPermanent();
+	return matricule.isPermanent();
   }
 
   public boolean isTemporaire() {
-    return matricule.isTemporaire();
+	return matricule.isTemporaire();
   }
 
-  public PersonneListModel getListModel(){
+  /**
+   * Construit et renvoie une liste de personne utilisable dans une JList.
+   *
+   * @return
+   */
+  public PersonneListModel getListModel() {
 	return new PersonneListModel(this);
   }
-  
-  public static ListModel<PersonneListModel> getListModel(ArrayList<Personne> personnes){
+
+  /**
+   * Transforme une ArrayList de Personne en ListModel des même Personne.
+   * ListModel est utilisable comme contenu d'une JList.
+   *
+   * @param personnes
+   * @return
+   */
+  public static ListModel<PersonneListModel> getListModel(ArrayList<Personne> personnes) {
 	DefaultListModel<PersonneListModel> res = new DefaultListModel<>();
-	for(Personne personne : personnes){
+	for (Personne personne : personnes) {
 	  res.addElement(personne.getListModel());
 	}
 	return res;
   }
-  
-  public personneIdl toIdl(){
+
+  public personneIdl toIdl() {
 	return new personneIdl(matricule.toIdl(), nom, prenom, photo, "", false, "");
   }
+
   /**
-   * 
+   *
    * @param personnes
-   * @return le hashmap des personnes en entrée, avec en clé
-   * la concaténation du matricule, du nom et du prénom, et en valeur, la personne associée
+   * @return le hashmap des personnes en entrée, avec en clé la concaténation du
+   * matricule, du nom et du prénom, et en valeur, la personne associée
    */
-  public static HashMap<String,Personne> tableToHashMap (personneIdl[] personnes){
-     HashMap<String,Personne> personnesTrouvees = new HashMap<String,Personne>();
-    for (personneIdl p : personnes){
-          Personne pers = new Personne(p);
-          personnesTrouvees.put(p.matricule+" - "+p.nom+" - "+p.prenom, pers);
-      }
-    return personnesTrouvees;
+  public static HashMap<String, Personne> tableToHashMap(personneIdl[] personnes) {
+	HashMap<String, Personne> personnesTrouvees = new HashMap<String, Personne>();
+	for (personneIdl p : personnes) {
+	  Personne pers = new Personne(p);
+	  personnesTrouvees.put(p.matricule + " - " + p.nom + " - " + p.prenom, pers);
+	}
+	return personnesTrouvees;
   }
-  
+
   @Override
   public String toString() {
-    return "Personne{" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", photo=" + photo + '}';
+	return "Personne{" + matricule + ", nom=" + nom + ", prenom=" + prenom + ", photo=" + photo + '}';
   }
 
   public String getPrenomNom() {
 	return prenom + " " + nom.toUpperCase();
   }
 
-  public static personneIdl[] listToTabidl(ArrayList<Personne> personnes){
+  public static personneIdl[] listToTabidl(ArrayList<Personne> personnes) {
 	personneIdl[] res = new personneIdl[personnes.size()];
 	int i = 0;
-	for(Personne p : personnes){
+	for (Personne p : personnes) {
 	  res[i++] = p.toIdl();
 	}
 	return res;
   }
-  
+
 }

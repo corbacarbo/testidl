@@ -1,13 +1,23 @@
 package cobra;
 
 import controleAcces.autorisateurPackage.autorisationRestreinteIdl;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class AutorisationRestreinte extends Autorisation {
 
+  /**
+   * Date de début de l'autorisation.
+   */
   protected Date dateD;
+  
+  /**
+   * Date de fin de l'autorisation.
+   */
   protected Date dateF;
+  
+  /**
+   * Zone pour laquelle cette autorisation s'applique.
+   */
   private String zone;
 
   public Date getDateD() {

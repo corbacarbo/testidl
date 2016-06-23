@@ -2,12 +2,23 @@ package cobra;
 
 public class Empreinte implements Comparable<Empreinte>{
 
+  /**
+   * Hash d'une empreinte.
+   */
   private long empreinte;
 
+  /**
+   * Constructeur du hash à partir d'un string représentant une empreinte.
+   * @param s 
+   */
   public Empreinte(String s) {
     empreinte = s.hashCode();
   }
   
+  /**
+   * Contructeur à partir d'un hash.
+   * @param l 
+   */
   public Empreinte(long l){
     empreinte = l;
   }

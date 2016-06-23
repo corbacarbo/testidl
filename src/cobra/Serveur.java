@@ -12,6 +12,15 @@ import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 import org.omg.PortableServer.Servant;
 
+/**
+ * Non utilisé.
+ * Tentative d'amélioration de la méthode CreateServant.
+ * Processus serveur faisant tourner un objet corba.
+ * Son intérêt est d'utiliser la réflexion dans la méthode abstraite
+ * CreateServant de la classe CorbaEntite pour éviter de devoir la 
+ * ré-implémenter dans chaque classe processus.
+ * @author matt
+ */
 public class Serveur extends CorbaEntite{
 
   public Serveur(String resolutionType) {

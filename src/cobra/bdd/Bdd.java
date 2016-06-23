@@ -31,21 +31,38 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
 public class Bdd {
 
+  /**
+   * Pour parser une document.
+   */
   private DocumentBuilderFactory factory;
   private DocumentBuilder builder;
   private Document document;
   private Element root;
 
+  /**
+   * Pour écrire dans un document.
+   */
   private TransformerFactory transformerFactory;
   private Transformer transformer;
   private DOMSource source;
   private StreamResult sortie;
 
+  /**
+   * Fichier physique sous-jacent.
+   */
   private File file;
 
+  /**
+   * Pour convertir une personne permanente depuis et vers un fichier.
+   */
   private HashMap<String, String> pps;
+  
+  /**
+   * Pour convertir une personne temporaire depuis et vers un fichier.
+   */
   private HashMap<String, String> pts;
 
   public Bdd(String type, String zone) {
@@ -130,6 +147,10 @@ public class Bdd {
 	pps.put("photo", pers.getPhoto());
   }
 
+  /**
+   * Chargement des personnes depuis le fichier physique.
+   * @return 
+   */
   public HashMap<Matricule, Personne> loadPersonnes() {
 	HashMap<Matricule, Personne> personnesMap = new HashMap<>();
 	NodeList personnesList = root.getChildNodes();
