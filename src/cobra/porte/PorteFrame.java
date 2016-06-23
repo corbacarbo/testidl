@@ -18,8 +18,6 @@ import controleAcces.sessionExpireeException;
 import controleAcces.sessionInvalidException;
 import java.awt.Color;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -55,6 +53,8 @@ public class PorteFrame extends javax.swing.JFrame {
 	init();
 	this.setSize(300, 350);
 	this.setTitle("Porte " + porte.getZone() + " - Id " + porte.getId());
+	
+	infoPane.setEditable(false);
   }
 
   private void init() {
