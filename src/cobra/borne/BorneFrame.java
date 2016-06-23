@@ -369,6 +369,7 @@ public class BorneFrame extends javax.swing.JFrame {
 		this.dispose();
 		break;
 	  case CHANGEMDP:
+		etat = ETAT.NONCONNECTE;
 		setMessage(ETATM.INFOR, "Opération annulée");
 		activateNonConnecte();
 		break;
