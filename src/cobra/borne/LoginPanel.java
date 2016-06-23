@@ -46,7 +46,7 @@ public class LoginPanel extends javax.swing.JPanel {
     matriculeLabel = new javax.swing.JLabel();
     mdpLabel = new javax.swing.JLabel();
     matriculeField = new javax.swing.JTextField();
-    mdpField = new javax.swing.JTextField();
+    mdpField = new javax.swing.JPasswordField();
 
     setPreferredSize(new java.awt.Dimension(350, 100));
 
@@ -57,7 +57,7 @@ public class LoginPanel extends javax.swing.JPanel {
     matriculeField.setText("jTextField1");
     matriculeField.setNextFocusableComponent(mdpField);
 
-    mdpField.setText("jTextField2");
+    mdpField.setText("jPasswordField1");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
@@ -70,9 +70,9 @@ public class LoginPanel extends javax.swing.JPanel {
           .addGroup(layout.createSequentialGroup()
             .addComponent(mdpLabel)
             .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(matriculeField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(matriculeField, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+              .addComponent(mdpField))))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -84,9 +84,9 @@ public class LoginPanel extends javax.swing.JPanel {
           .addComponent(matriculeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(mdpLabel))
-        .addContainerGap(37, Short.MAX_VALUE))
+          .addComponent(mdpLabel)
+          .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(38, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
 
@@ -94,7 +94,7 @@ public class LoginPanel extends javax.swing.JPanel {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextField matriculeField;
   private javax.swing.JLabel matriculeLabel;
-  private javax.swing.JTextField mdpField;
+  private javax.swing.JPasswordField mdpField;
   private javax.swing.JLabel mdpLabel;
   // End of variables declaration//GEN-END:variables
 }

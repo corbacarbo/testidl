@@ -11,7 +11,6 @@ import controleAcces.zoneurHelper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.CORBA.ORB;
-import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
@@ -57,7 +56,7 @@ public class ResolutionContexte implements Resolution {
 //	}
 
 	namingService = org.omg.CosNaming.NamingContextHelper.narrow(
-			orb.string_to_object("corbaloc:iiop:1.2@192.168.43.158:2001/NameService"));
+			orb.string_to_object("corbaloc:iiop:1.2@192.168.1.13:2001/NameService"));
   }
 
   /**

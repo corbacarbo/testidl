@@ -12,7 +12,6 @@ import cobra.PersonneTemporaire;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -326,6 +325,7 @@ public class Bdd {
 		if (matricule.equals(matCourant)) {
 		  personneElement.getElementsByTagName("mdp").item(0)
 				  .setTextContent(nouveauMdp);
+		  personneElement.getElementsByTagName("changemdp").item(0).setTextContent("false");
 		  write();
 		  return;
 		}
